@@ -15,6 +15,10 @@ public class FriendsterAPIException extends RuntimeException {
 	public FriendsterAPIException(Exception e) {
 		this.originalException = e;
 	}
+	
+	public FriendsterAPIException() {
+		
+	}
 
 	public Exception getOriginalException() {
 		return this.originalException;

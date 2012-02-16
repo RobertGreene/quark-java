@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoints>
+	<endpoint>
+		<name>user</name>
+		<uri>http://api.friendster.com/v1/user/</uri>
+		<method>GET</method>
+		<description>Get User Information</description>
+	</endpoint>
+</endpoints>

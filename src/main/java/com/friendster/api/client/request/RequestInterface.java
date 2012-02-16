@@ -1,6 +1,5 @@
-package com.friendster.api.client;
+package com.friendster.api.client.request;
 
-import com.friendster.api.client.throwable.FriendsterAPIException;
 
 /**
  * Base Request Interface for Friendster API Client Friendster Inc.
@@ -12,6 +11,5 @@ import com.friendster.api.client.throwable.FriendsterAPIException;
 
 public interface RequestInterface {
 
-	public byte[] generateSignature() throws FriendsterAPIException;
 
 }
