@@ -2,6 +2,7 @@ package com.friendster.api.client.request;
 
 import java.util.Map;
 
+import com.friendster.api.client.builders.EndpointIndexBuilder;
 import com.friendster.api.client.enums.RequestTypesEnum;
 
 /**
@@ -13,62 +14,44 @@ import com.friendster.api.client.enums.RequestTypesEnum;
  */
 
 public class Request implements RequestInterface {
-	private RequestTypesEnum requestType;
-	private String apiKey;
-	private String apiSecret;
-	private String sessionKey;
-	private String nOnce;
-	private String signature;
-
+	private final RequestTypesEnum requestType;
+	private final AppDetails appDetails;
 	private Map<String, String> otherParams;
 
-	public Request(RequestTypesEnum requestType, final String apiKey,
-			final String apiSecret, final String sessionKey,
-			final Map<String, String> requestParams) {
-		this.requestType = (requestType);
-		this.apiKey = apiKey;
-		this.apiSecret = apiSecret;
-		this.sessionKey = sessionKey;
-		this.otherParams = requestParams;
+	
+	public Request(final RequestTypesEnum requestType, final AppDetails appDetails) {
+		this.requestType = requestType;
+		this.appDetails = appDetails;
 	}
-
-	public String getApiKey() {
-		return this.apiKey;
-	}
-
-	public String getApiSecret() {
-		return apiSecret;
-	}
-
-	public String getSessionKey() {
-		return this.sessionKey;
-	}
-
-	public String getnOnce() {
-		return nOnce;
-	}
-
-	public String getSignature() {
-		return signature;
-	}
-
-	public Map<String, String> getOtherParams() {
-		return otherParams;
-	}
-
-	public void addParams(String key, String value) {
-		this.otherParams.put(key, value);
-	}
-
-	public void setNOnce(String nOnce) {
-		this.nOnce = nOnce;
-	}
-
-	public void setSignature(String signature) {
-		this.signature = signature;
-	}
-
+	
 	public RequestTypesEnum getRequestType() {
-		return requestType;
+		return this.requestType;
+	}
+	
+	public AppDetails getAppDetails() {
+		return this.appDetails;
+	}
+	
+	public String getRequestParameter(String parameterKey) {
+		return this.otherParams.get(parameterKey);
+	}
+	
+	public Map<String, String> getRequestParameters() {
+		return this.otherParams;
+	}
+
+	@SuppressWarnings("unchecked")
+	public void setRequestParameters(Object... args) {
+		if (args[0] instanceof Map) {
+			otherParams = (Map<String, String>) args[0];
+		}
+	}
+	
+	public String getURLEndpoint() {
+		return EndpointIndexBuilder.getEndpoint(requestType);
+	}
+	
+	public String getMethod() {
+		return EndpointIndexBuilder.getMethod(requestType);
 	}
 }

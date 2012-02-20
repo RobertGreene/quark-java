@@ -6,17 +6,18 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URIUtils;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.friendster.api.client.builders.EndpointIndexBuilder;
 import com.friendster.api.client.request.Request;
 import com.friendster.api.client.throwable.FriendsterAPIException;
 
-public class FriendsterAPIRequestParser implements FriendsterAPIRequestParserInterface {
+public class FriendsterAPIRequestParser implements
+		FriendsterAPIRequestParserInterface {
 	private Request targetRequest;
 
 	public FriendsterAPIRequestParser(Request sourceRequest) {
@@ -25,20 +26,21 @@ public class FriendsterAPIRequestParser implements FriendsterAPIRequestParserInt
 
 	public URI parseRequest() {
 		try {
-			URL requestURL = new URL(
-					EndpointIndexBuilder.getEndpoint(targetRequest
-							.getRequestType()));
+			URL requestURL = new URL(targetRequest.getURLEndpoint());
 			List<NameValuePair> requestParams = new ArrayList<NameValuePair>();
-			requestParams.add(new BasicNameValuePair("uids", targetRequest
-					.getOtherParams().get("uids")));
 			requestParams.add(new BasicNameValuePair("api_key", targetRequest
-					.getApiKey()));
+					.getAppDetails().getApiKey()));
 			requestParams.add(new BasicNameValuePair("session_key",
-					targetRequest.getSessionKey()));
+					targetRequest.getAppDetails().getSessionKey()));
 			requestParams.add(new BasicNameValuePair("nonce", targetRequest
-					.getnOnce()));
+					.getAppDetails().getnOnce()));
 			requestParams.add(new BasicNameValuePair("sig", targetRequest
-					.getSignature()));
+					.getAppDetails().getSignature()));
+			
+			for (Entry<String, String> entry: targetRequest.getRequestParameters().entrySet()) {
+				requestParams.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+			}
+			
 			return URIUtils.createURI(requestURL.getProtocol(),
 					requestURL.getHost(), -1, requestURL.getPath(),
 					URLEncodedUtils.format(requestParams, "UTF-8"), null);

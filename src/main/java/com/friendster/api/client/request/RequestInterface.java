@@ -1,6 +1,5 @@
 package com.friendster.api.client.request;
 
-
 /**
  * Base Request Interface for Friendster API Client Friendster Inc.
  * 
@@ -11,5 +10,5 @@ package com.friendster.api.client.request;
 
 public interface RequestInterface {
 
-
+	public void setRequestParameters(Object... args);
 }

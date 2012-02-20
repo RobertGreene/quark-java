@@ -1,8 +1,5 @@
 package com.friendster.api.client;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
@@ -14,14 +11,16 @@ import org.apache.http.HttpEntity;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 
-import com.friendster.api.client.builders.EvaluatingRequestBuilder;
+import com.friendster.api.client.builders.RequestBuilder;
 import com.friendster.api.client.builders.XMLResponseBuilder;
 import com.friendster.api.client.digest.ApacheMD5DigestWrapper;
+import com.friendster.api.client.enums.RequestTypesEnum;
 import com.friendster.api.client.http.FlexibleHTTPClient;
 import com.friendster.api.client.parser.FriendsterAPIRequestParser;
 import com.friendster.api.client.parser.FriendsterAPIRequestParserInterface;
 import com.friendster.api.client.parser.FriendsterAPIResponseParserInterface;
 import com.friendster.api.client.parser.XMLResponseParser;
+import com.friendster.api.client.request.AppDetails;
 import com.friendster.api.client.request.Request;
 import com.friendster.api.client.response.Response;
 import com.friendster.api.client.throwable.FriendsterAPIException;
@@ -33,8 +32,10 @@ public class RequestContext {
 	private Response response;
 
 	private static Logger logger = Logger.getLogger(RequestContext.class);
-	
-	public RequestContext(Map<String, String> requestParameters) {
+
+	public RequestContext(RequestTypesEnum requestType, AppDetails appDetails,
+			Map<String, String> requestParameters) {
+		this.request = RequestBuilder.buildRequest(requestType, appDetails);
 		this.handleRequestInternal(requestParameters);
 	}
 
@@ -42,13 +43,18 @@ public class RequestContext {
 		this.performValidations();
 		FlexibleHTTPClient httpClient = new FlexibleHTTPClient();
 		URI httpEndpointURI = this.performRequestParsing();
-		
+
 		logger.info("httpEndpointURI-----------" + httpEndpointURI);
-		
+
 		HttpEntity httpEntity = httpClient.performHTTPRequest(httpEndpointURI);
 		this.response = this.createResponse(httpEntity);
-		
+
 		return this.response;
+	}
+
+	private void handleRequestInternal(Object... args) {
+		this.request.setRequestParameters(args[0]);
+		this.requestValidators = this.initializeValidators();
 	}
 	
 	private Response createResponse(HttpEntity httpEntity) {
@@ -57,22 +63,16 @@ public class RequestContext {
 		return XMLResponseBuilder.buildResponse(xmlDocument);
 	}
 
-	@SuppressWarnings("unchecked")
-	private void handleRequestInternal(Object... args) {
-		this.request = this.initializeRequest((Map<String, String>) args[0]);
-		this.requestValidators = this.initializeValidators();
-	}
-
+	@SuppressWarnings("rawtypes")
 	private List<RequestValidatorInterface> initializeValidators() {
-
 		requestValidators = new ArrayList<RequestValidatorInterface>();
 
 		try {
-			Class targetClass = Class.forName("com.friendster.api.client.validators.RequestValidator");
+			Class targetClass = Class
+					.forName("com.friendster.api.client.validators.RequestValidator");
 			Constructor targetConstructor = targetClass.getConstructors()[0];
 			requestValidators.add((RequestValidatorInterface) targetConstructor
 					.newInstance(new ApacheMD5DigestWrapper(), request));
-
 		} catch (ClassNotFoundException e) {
 			throw new FriendsterAPIException(e);
 		} catch (InstantiationException e) {
@@ -82,15 +82,12 @@ public class RequestContext {
 		} catch (IllegalArgumentException e) {
 			throw new FriendsterAPIException(e);
 		} catch (InvocationTargetException e) {
-			throw new FriendsterAPIException(e);
+			throw new FriendsterAPIException(e.getTargetException());
 		}
+		
 		return requestValidators;
 	}
 
-	private Request initializeRequest(Map<String, String> requestParams) {
-		return EvaluatingRequestBuilder.createRequest(requestParams);
-	}
-	
 	private URI performRequestParsing() {
 		// TODO Make this a parameterized thing
 		FriendsterAPIRequestParserInterface requestParser = new FriendsterAPIRequestParser(

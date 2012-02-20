@@ -58,18 +58,19 @@ public class RequestValidator<H, Q> implements RequestValidatorInterface {
 		}
 
 		Map<String, String> requestParams = new HashMap<String, String>(
-				request.getOtherParams());
-		requestParams.put("api_key", request.getApiKey());
+				request.getRequestParameters());
+		
+		requestParams.put("api_key", request.getAppDetails().getApiKey());
 		requestParams.put("nonce", this.createSerialNOnce().toString());
-		requestParams.put("session_key", request.getSessionKey());
+		requestParams.put("session_key", request.getAppDetails().getSessionKey());
 
 		for (java.util.Map.Entry<String, String> entry : requestParams.entrySet()) {
 			paramsDigest.append(entry.getKey() + "=" + entry.getValue());
 		}
 
-		paramsDigest.append(request.getApiSecret());
-		request.setNOnce(requestParams.get("nonce"));
-		request.setSignature(this.createSignature(paramsDigest.toString()));
+		paramsDigest.append(request.getAppDetails().getApiSecret());
+		request.getAppDetails().setnOnce(requestParams.get("nonce"));
+		request.getAppDetails().setSignature(this.createSignature(paramsDigest.toString()));
 	}
 
 	private String createSignature(String paramsDigest) {
@@ -80,5 +81,4 @@ public class RequestValidator<H, Q> implements RequestValidatorInterface {
 	private UUID createSerialNOnce() {
 		return UUID.randomUUID();
 	}
-
 }
