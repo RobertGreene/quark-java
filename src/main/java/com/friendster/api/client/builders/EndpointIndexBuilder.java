@@ -9,7 +9,7 @@ import com.friendster.api.client.throwable.FriendsterAPIException;
 public class EndpointIndexBuilder {
 	private static Map<RequestTypesEnum, String> endpointIndex;
 	private static Map<RequestTypesEnum, String> methodIndex;
-	private static final String BASE_URL = "http://api.friendster.com/v1/";
+	private static final String BASE_URL = "http://staging.fneutron.com/v1/";
 
 	// TODO Change this to an external configuration file later
 	static {

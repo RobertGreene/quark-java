@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.log4j.Logger;
+
 import com.friendster.api.client.builders.EndpointIndexBuilder;
 import com.friendster.api.client.digest.FriendsterAPIDigestInterface;
 import com.friendster.api.client.request.Request;
@@ -13,8 +15,9 @@ import com.friendster.api.client.throwable.FriendsterAPIException;
 
 public class RequestValidator<H, Q> implements RequestValidatorInterface {
 
-	FriendsterAPIDigestInterface hashCreator;
-	Request request;
+	private FriendsterAPIDigestInterface hashCreator;
+	private Request request;
+	private static Logger logger = Logger.getLogger(RequestValidator.class);
 
 	public RequestValidator(H hashCreator, Q request) {
 		if (hashCreator instanceof FriendsterAPIDigestInterface) {
@@ -60,8 +63,7 @@ public class RequestValidator<H, Q> implements RequestValidatorInterface {
 		requestParams.put("nonce", this.createSerialNOnce().toString());
 		requestParams.put("session_key", request.getSessionKey());
 
-		for (java.util.Map.Entry<String, String> entry : requestParams
-				.entrySet()) {
+		for (java.util.Map.Entry<String, String> entry : requestParams.entrySet()) {
 			paramsDigest.append(entry.getKey() + "=" + entry.getValue());
 		}
 
@@ -71,7 +73,7 @@ public class RequestValidator<H, Q> implements RequestValidatorInterface {
 	}
 
 	private String createSignature(String paramsDigest) {
-		System.out.println(paramsDigest);
+		logger.debug("Creating signature against: \n\t" + paramsDigest.replaceAll("\n", "\n\t"));
 		return this.hashCreator.getHexDigest(paramsDigest);
 	}
 
