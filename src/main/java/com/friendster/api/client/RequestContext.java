@@ -34,8 +34,17 @@ public class RequestContext {
 	private static Logger logger = Logger.getLogger(RequestContext.class);
 
 	public RequestContext(RequestTypesEnum requestType, AppDetails appDetails,
-			Map<String, String> requestParameters) {
-		this.request = RequestBuilder.buildRequest(requestType, appDetails);
+			Map<String, String> requestParameters, Object... args) {
+		
+		if (args[0] instanceof List) {
+			logger.debug("Received Request with Multiple UIDS");
+			this.request = RequestBuilder.buildRequest(requestType, appDetails, args[0]);
+		} else if (args[0] instanceof Integer) {
+			this.request = RequestBuilder.buildRequest(requestType, appDetails, args[0]);
+		} else {
+			this.request = RequestBuilder.buildRequest(requestType, appDetails);	
+		}
+		
 		this.handleRequestInternal(requestParameters);
 	}
 

@@ -1,5 +1,6 @@
 package com.friendster.api.client.request;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.friendster.api.client.builders.EndpointIndexBuilder;
@@ -14,14 +15,15 @@ import com.friendster.api.client.enums.RequestTypesEnum;
  */
 
 public class Request implements RequestInterface {
-	private final RequestTypesEnum requestType;
+	protected final RequestTypesEnum requestType;
 	private final AppDetails appDetails;
-	private Map<String, String> otherParams;
+	protected Map<String, String> otherParams;
 
 	
 	public Request(final RequestTypesEnum requestType, final AppDetails appDetails) {
 		this.requestType = requestType;
 		this.appDetails = appDetails;
+		this.otherParams = new HashMap<String, String>();
 	}
 	
 	public RequestTypesEnum getRequestType() {

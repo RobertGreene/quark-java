@@ -6,13 +6,13 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URIUtils;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.friendster.api.client.request.MultipleUIDRequest;
 import com.friendster.api.client.request.Request;
 import com.friendster.api.client.throwable.FriendsterAPIException;
 
@@ -37,10 +37,10 @@ public class FriendsterAPIRequestParser implements
 			requestParams.add(new BasicNameValuePair("sig", targetRequest
 					.getAppDetails().getSignature()));
 			
-			for (Entry<String, String> entry: targetRequest.getRequestParameters().entrySet()) {
-				requestParams.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
-			}
-			
+			if (targetRequest instanceof MultipleUIDRequest) {
+				requestParams.add(new BasicNameValuePair("uids", ((MultipleUIDRequest) targetRequest).getUIDs()));
+			} 
+
 			return URIUtils.createURI(requestURL.getProtocol(),
 					requestURL.getHost(), -1, requestURL.getPath(),
 					URLEncodedUtils.format(requestParams, "UTF-8"), null);
