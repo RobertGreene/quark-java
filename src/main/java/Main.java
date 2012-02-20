@@ -11,6 +11,7 @@ import com.friendster.api.client.response.Response;
 public class Main {
 	public static void main(String[] args) {
 		Map<String, String> map = new HashMap<String, String>();
+		map.put("content", "Hello Ako!");
 		AppDetails app = new AppDetails();
 		app.setApiKey("6d014cc55fec6f7fc106bdbda12e7ec0");
 		app.setApiSecret("74dbc7249074d3f54690461278c4939f");

@@ -1,5 +1,6 @@
 package com.friendster.api.client.request;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -13,7 +14,8 @@ public class MultipleUIDRequest extends Request {
 	public MultipleUIDRequest(RequestTypesEnum requestType,
 			AppDetails appDetails, List<Integer> args) {
 		super(requestType, appDetails);
-		this.uids = this.marshalUIDs(args);
+		this.otherParams = new HashMap<String, String>();
+		this.otherParams.put("uids", this.marshalUIDs(args));
 		logger.debug("Request UIDs : " + this.uids);
 	}
 
@@ -24,7 +26,7 @@ public class MultipleUIDRequest extends Request {
 		}
 		return uids.substring(0, uids.lastIndexOf(",")).toString();
 	}
-	
+
 	public String getUIDs() {
 		return this.uids;
 	}
