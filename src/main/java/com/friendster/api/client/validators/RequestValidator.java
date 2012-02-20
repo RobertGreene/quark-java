@@ -2,9 +2,10 @@ package com.friendster.api.client.validators;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
+import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 
@@ -57,7 +58,7 @@ public class RequestValidator<H, Q> implements RequestValidatorInterface {
 			throw new FriendsterAPIException(e);
 		}
 
-		Map<String, String> requestParams = new HashMap<String, String>(
+		Map<String, String> requestParams = new TreeMap<String, String>(
 				request.getRequestParameters());
 		
 		requestParams.put("api_key", request.getAppDetails().getApiKey());
@@ -78,7 +79,7 @@ public class RequestValidator<H, Q> implements RequestValidatorInterface {
 		return this.hashCreator.getHexDigest(paramsDigest);
 	}
 
-	private UUID createSerialNOnce() {
-		return UUID.randomUUID();
+	private String createSerialNOnce() {
+		return String.valueOf(new GregorianCalendar().getTimeInMillis());
 	}
 }

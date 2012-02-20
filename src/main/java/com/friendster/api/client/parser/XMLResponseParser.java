@@ -64,9 +64,8 @@ public class XMLResponseParser implements FriendsterAPIResponseParserInterface {
 			Transformer transformer = tf.newTransformer();
 			transformer.transform(domSource, result);
 			return writer.toString();
-		} catch (TransformerException ex) {
-			ex.printStackTrace();
-			return null;
+		} catch (TransformerException e) {
+			throw new FriendsterAPIException(e);
 		}
 	}
 
