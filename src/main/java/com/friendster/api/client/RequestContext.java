@@ -14,9 +14,11 @@ import org.w3c.dom.Document;
 import com.friendster.api.client.builders.RequestBuilder;
 import com.friendster.api.client.builders.XMLResponseBuilder;
 import com.friendster.api.client.digest.ApacheMD5DigestWrapper;
+import com.friendster.api.client.enums.RequestMethod;
 import com.friendster.api.client.enums.RequestTypesEnum;
 import com.friendster.api.client.http.FlexibleHTTPClient;
-import com.friendster.api.client.parser.FriendsterAPIRequestParser;
+import com.friendster.api.client.parser.FriendsterAPIGetRequestParser;
+import com.friendster.api.client.parser.FriendsterAPIPostRequestParser;
 import com.friendster.api.client.parser.FriendsterAPIRequestParserInterface;
 import com.friendster.api.client.parser.FriendsterAPIResponseParserInterface;
 import com.friendster.api.client.parser.XMLResponseParser;
@@ -41,13 +43,23 @@ public class RequestContext {
 	public Response handleRequest() {
 		this.performValidations();
 		FlexibleHTTPClient httpClient = new FlexibleHTTPClient();
-		URI httpEndpointURI = this.performRequestParsing();
+		URI httpEndpointURI = this.performRequestParsing(this.request
+				.getMethod());
+		logger.info("HTTP Request To : \n\t" + httpEndpointURI);
+		HttpEntity httpEntity = null;
 
-		logger.info("httpEndpointURI-----------" + httpEndpointURI);
+		switch (this.request.getMethod()) {
+		case GET:
+			httpEntity = httpClient.performGETRequest(httpEndpointURI);
+			break;
+		case POST:
+			httpEntity = httpClient.performPOSTRequest(httpEndpointURI,
+					this.request.getRequestParameters());
+		default:
+			break;
+		}
 
-		HttpEntity httpEntity = httpClient.performHTTPRequest(httpEndpointURI);
 		this.response = this.createResponse(httpEntity);
-
 		return this.response;
 	}
 
@@ -113,11 +125,20 @@ public class RequestContext {
 		return requestValidators;
 	}
 
-	private URI performRequestParsing() {
+	private URI performRequestParsing(RequestMethod requestMethod) {
 		// TODO Make this a parameterized thing
-		FriendsterAPIRequestParserInterface requestParser = new FriendsterAPIRequestParser(
-				this.request);
-		return requestParser.parseRequest();
+		FriendsterAPIRequestParserInterface requestParser;
+		switch (requestMethod) {
+		case GET:
+			requestParser = new FriendsterAPIGetRequestParser(this.request);
+			return requestParser.parseRequest();
+		case POST:
+			requestParser = new FriendsterAPIPostRequestParser(this.request);
+			return requestParser.parseRequest();
+		default:
+			throw new FriendsterAPIException();
+		}
+
 	}
 
 	private void performValidations() {
