@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.friendster.api.client.enums.RequestTypesEnum;
-import com.friendster.api.client.throwable.FriendsterAPIException;
 
 public class MultipleUIDRequest extends Request {
 	private static Logger logger = Logger.getLogger(MultipleUIDRequest.class);
@@ -22,15 +21,14 @@ public class MultipleUIDRequest extends Request {
 	}
 
 	private String marshalUIDs(List<Integer> args) {
-		if (args.size() == 0) {
-			logger.error("At least one UID is needed to complete request.");
-			throw new FriendsterAPIException();
-		}
 		StringBuffer uids = new StringBuffer();
 		for (Integer i : args) {
 			uids.append(String.valueOf(i) + ", ");
 		}
-		return uids.substring(0, uids.lastIndexOf(",")).toString();
+		if (uids.lastIndexOf(",") != -1)
+			return uids.substring(0, uids.lastIndexOf(",")).toString();
+		else
+			return uids.toString();
 	}
 
 	public String getUIDs() {
