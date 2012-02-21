@@ -75,29 +75,14 @@ public class RequestContext {
 	private void handleRequestInternal(RequestTypesEnum requestType,
 			AppDetails appDetails, Object... args) {
 		Map<String, String> requestParameters = null;
-		List<Integer> userIds = null;
-		Integer userId = null;
 
 		for (Object obj : args) {
-			if (obj instanceof List) {
-				userIds = ((List<Integer>) obj);
-			} else if (obj instanceof Integer) {
-				userId = (Integer) obj;
-			} else if (obj instanceof Map) {
+			if (obj instanceof Map) {
 				requestParameters = ((Map<String, String>) obj);
 			}
 		}
 
-		if (userId != null && userIds == null) {
-			this.request = RequestBuilder.buildRequest(requestType, appDetails,
-					userId);
-		} else if (userIds != null && userId == null) {
-			this.request = RequestBuilder.buildRequest(requestType, appDetails,
-					userIds);
-		} else if (userIds == null && userId == null) {
-			this.request = RequestBuilder.buildRequest(requestType, appDetails);
-		}
-
+		this.request = RequestBuilder.buildRequest(requestType, appDetails, args);
 		this.request.setRequestParameters(requestParameters);
 		this.requestValidators = this.initializeValidators();
 	}

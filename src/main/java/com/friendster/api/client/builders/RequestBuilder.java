@@ -21,16 +21,15 @@ public class RequestBuilder {
 			if (obj instanceof List) {
 				applUID.addAll((List<Integer>) obj);
 			} else if (obj instanceof Integer) {
+				System.out.println("added" + obj);
 				applUID.add((Integer) obj);
 			}
 		}
 		switch (requestType) {
 		case USER:
-			return new MultipleUIDRequest(requestType, appDetails,
-					applUID);
+			return new MultipleUIDRequest(requestType, appDetails, applUID);
 		case SHOUTOUT:
-			return new MultipleUIDRequest(requestType, appDetails,
-					(List<Integer>) applUID);
+			return new MultipleUIDRequest(requestType, appDetails, applUID);
 		case APP_FRIENDS:
 			return new Request(requestType, appDetails);
 		case FRIENDS:
