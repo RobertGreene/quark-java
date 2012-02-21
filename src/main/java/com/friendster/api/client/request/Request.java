@@ -1,6 +1,5 @@
 package com.friendster.api.client.request;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import com.friendster.api.client.builders.EndpointIndexBuilder;
