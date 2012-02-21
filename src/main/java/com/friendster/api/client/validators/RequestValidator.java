@@ -3,13 +3,11 @@ package com.friendster.api.client.validators;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 
-import com.friendster.api.client.builders.EndpointIndexBuilder;
 import com.friendster.api.client.digest.FriendsterAPIDigestInterface;
 import com.friendster.api.client.request.Request;
 import com.friendster.api.client.throwable.FriendsterAPIException;
