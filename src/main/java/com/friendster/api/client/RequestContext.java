@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -74,16 +75,10 @@ public class RequestContext {
 	@SuppressWarnings("unchecked")
 	private void handleRequestInternal(RequestTypesEnum requestType,
 			AppDetails appDetails, Object... args) {
-		Map<String, String> requestParameters = null;
 
-		for (Object obj : args) {
-			if (obj instanceof Map) {
-				requestParameters = ((Map<String, String>) obj);
-			}
-		}
+
 
 		this.request = RequestBuilder.buildRequest(requestType, appDetails, args);
-		this.request.setRequestParameters(requestParameters);
 		this.requestValidators = this.initializeValidators();
 	}
 
