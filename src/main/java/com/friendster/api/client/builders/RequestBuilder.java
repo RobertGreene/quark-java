@@ -57,6 +57,9 @@ public class RequestBuilder {
 		case TOP_SCORES:
 			request = new Request(requestType, appDetails);
 			break;
+		case SCORE:
+			request = new SingleUIDRequest(requestType, appDetails, (Integer) args[0]);
+			break;
 		default:
 			break;
 		}

@@ -30,7 +30,6 @@ public class FlexibleHTTPClient {
 	
 		try {
 			HttpResponse response = httpclient.execute(httpget);
-			logger.info("response>." + response.toString());
 			return response.getEntity();
 		} catch (ClientProtocolException e) {
 			throw new FriendsterAPIException(e);
@@ -52,13 +51,6 @@ public class FlexibleHTTPClient {
 				formParams.setParameter(entry.getKey(), entry.getValue());
 			}
 			httppost.setParams(formParams);
-			
-			logger.debug("API Key: \n\t" + httppost.getParams().getParameter("api_key"));
-			logger.debug("Session Key: \n\t" + httppost.getParams().getParameter("session_key"));
-			logger.debug("N-Once: \n\t" + httppost.getParams().getParameter("nonce"));
-			logger.debug("Signature: \n\t" + httppost.getParams().getParameter("sig"));
-			logger.debug("Content: \n\t" + httppost.getParams().getParameter("content"));
-			
 		}
 		
 		try {

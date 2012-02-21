@@ -1,5 +1,8 @@
 package com.friendster.api.client;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.friendster.api.client.enums.RequestTypesEnum;
 import com.friendster.api.client.request.AppDetails;
 import com.friendster.api.client.response.ResponseFormat;
@@ -59,6 +62,23 @@ public class FriendsterAPIClient {
 	public Object getMessage(ResponseFormat responseFormat, Integer cid) {
 		RequestContext requestContext = new RequestContext(
 				RequestTypesEnum.MESSAGE, this.appDetails, cid);
+		return requestContext.handleRequest(responseFormat);
+	}
+
+	public Object postScore(ResponseFormat responseFormat, int avatarId,
+			int score) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("score", String.valueOf(score));
+		RequestContext requestContext = new RequestContext(
+				RequestTypesEnum.SCORE, this.appDetails, avatarId, paramMap);
+		return requestContext.handleRequest(responseFormat);
+	}
+	
+	public Object postShoutout(ResponseFormat responseFormat, String shoutOut, Object... uids) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("content", shoutOut);
+		RequestContext requestContext = new RequestContext(
+				RequestTypesEnum.SHOUTOUT_P, this.appDetails, paramMap);
 		return requestContext.handleRequest(responseFormat);
 	}
 

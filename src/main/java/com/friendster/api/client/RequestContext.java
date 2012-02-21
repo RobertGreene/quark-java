@@ -124,7 +124,8 @@ public class RequestContext {
 			requestParser = new FriendsterAPIGetRequestParser(this.request);
 			return requestParser.parseRequest();
 		case POST:
-			requestParser = new FriendsterAPIPostRequestParser(this.request);
+			requestParser = new FriendsterAPIGetRequestParser(this.request);
+//			requestParser = new FriendsterAPIPostRequestParser(this.request);
 			return requestParser.parseRequest();
 		default:
 			throw new FriendsterAPIException();
