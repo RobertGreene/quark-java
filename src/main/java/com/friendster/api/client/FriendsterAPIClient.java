@@ -34,7 +34,6 @@ public class FriendsterAPIClient {
 		return requestContext.handleRequest(responseFormat);
 	}
 	
-	
 	private AppDetails createAppDetails(String sessionKey) {
 		this.appDetails = new AppDetails();
 		this.appDetails.setApiKey("6d014cc55fec6f7fc106bdbda12e7ec0");
