@@ -50,6 +50,10 @@ public class RequestBuilder {
 		case SHOUTOUT_P:
 			request = new Request(requestType, appDetails);
 			break;
+		case MESSAGES:
+			request = new Request(requestType, appDetails);
+			break;
+			
 		default:
 			break;
 		}

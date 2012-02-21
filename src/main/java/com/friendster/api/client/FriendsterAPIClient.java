@@ -29,6 +29,11 @@ public class FriendsterAPIClient {
 		return requestContext.handleRequest(responseFormat);
 	}
 	
+	public Object getMessages(ResponseFormat responseFormat) {
+		RequestContext requestContext = new RequestContext(RequestTypesEnum.MESSAGES, this.appDetails);
+		return requestContext.handleRequest(responseFormat);
+	}
+	
 	
 	private AppDetails createAppDetails(String sessionKey) {
 		this.appDetails = new AppDetails();
