@@ -53,7 +53,7 @@ public class RequestValidator<H, Q> implements RequestValidatorInterface {
 	public void validateParams() {
 		StringBuffer paramsDigest;
 		try {
-			paramsDigest = new StringBuffer(new URL(EndpointIndexBuilder.getEndpoint(request.getRequestType())).getPath());
+			paramsDigest = new StringBuffer(new URL(this.request.getURLEndpoint()).getPath());
 		} catch (MalformedURLException e) {
 			throw new FriendsterAPIException(e);
 		}

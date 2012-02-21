@@ -22,6 +22,7 @@ public class RequestBuilder {
 			return new Request(requestType, appDetails);
 		case FRIENDS:
 			return new SingleUIDRequest(requestType, appDetails, (Integer) args[0]);
+			//return new MultipleUIDRequest(requestType, appDetails, (List<Integer>) args[0]);
 		default:
 			throw new FriendsterAPIException();
 		}		

@@ -18,9 +18,10 @@ public class Main {
 		
 		List<Integer> uids = new ArrayList<Integer>();
 		uids.add(200000230);
+		//uids.add(200000233);
 
-		RequestContext ctx = new RequestContext(RequestTypesEnum.USER, app,
-				map, uids);
+		RequestContext ctx = new RequestContext(RequestTypesEnum.FRIENDS, app,
+				map, 200000230);
 		Response r = ctx.handleRequest();
 		System.out.println(r.getXmlResponse());
 	}
