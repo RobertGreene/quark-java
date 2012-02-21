@@ -15,13 +15,14 @@ public class Main {
 		app.setApiKey("6d014cc55fec6f7fc106bdbda12e7ec0");
 		app.setApiSecret("74dbc7249074d3f54690461278c4939f");
 		app.setSessionKey("8bf7b1b9-fe9b-7b4d-15b1-945150964f7e");
-		
+
 		List<Integer> uids = new ArrayList<Integer>();
 		uids.add(200000230);
-		//uids.add(200000233);
+		// uids.add(200000233);
+		map.put("content", "Hello World!");
 
-		RequestContext ctx = new RequestContext(RequestTypesEnum.FRIENDS, app,
-				map, 200000230);
+		RequestContext ctx = new RequestContext(RequestTypesEnum.SHOUTOUT_P,
+				app, map);
 		Response r = ctx.handleRequest();
 		System.out.println(r.getXmlResponse());
 	}

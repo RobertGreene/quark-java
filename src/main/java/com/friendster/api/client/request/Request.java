@@ -3,6 +3,7 @@ package com.friendster.api.client.request;
 import java.util.Map;
 
 import com.friendster.api.client.builders.EndpointIndexBuilder;
+import com.friendster.api.client.enums.RequestMethod;
 import com.friendster.api.client.enums.RequestTypesEnum;
 
 /**
@@ -52,7 +53,7 @@ public class Request implements RequestInterface {
 		return EndpointIndexBuilder.getEndpoint(requestType);
 	}
 	
-	public String getMethod() {
+	public RequestMethod getMethod() {
 		return EndpointIndexBuilder.getMethod(requestType);
 	}
 }
