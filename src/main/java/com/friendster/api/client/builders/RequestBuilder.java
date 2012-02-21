@@ -24,18 +24,15 @@ public class RequestBuilder {
 			if (obj instanceof List) {
 				applUID.addAll((List<Integer>) obj);
 			} else if (obj instanceof Integer) {
-				System.out.println("added" + obj);
 				applUID.add((Integer) obj);
 			} else if (obj instanceof Map) {
 				requestParameters.putAll((Map<String, String>) obj);
 			}
 		}
-
 		Request request = null;
 		switch (requestType) {
 		case USER:
 			request = new MultipleUIDRequest(requestType, appDetails, applUID);
-
 			break;
 		case SHOUTOUT:
 			request = new MultipleUIDRequest(requestType, appDetails, applUID);
@@ -53,7 +50,13 @@ public class RequestBuilder {
 		case MESSAGES:
 			request = new Request(requestType, appDetails);
 			break;
-			
+		case MESSAGE:
+			request = new SingleUIDRequest(requestType, appDetails,
+					(Integer) args[0]);
+			break;
+		case TOP_SCORES:
+			request = new Request(requestType, appDetails);
+			break;
 		default:
 			break;
 		}

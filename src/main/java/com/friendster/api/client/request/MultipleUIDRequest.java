@@ -23,7 +23,7 @@ public class MultipleUIDRequest extends Request {
 	private String marshalUIDs(List<Integer> args) {
 		StringBuffer uids = new StringBuffer();
 		for (Integer i : args) {
-			uids.append(String.valueOf(i) + ", ");
+			uids.append(String.valueOf(i) + ",");
 		}
 		if (uids.lastIndexOf(",") != -1)
 			return uids.substring(0, uids.lastIndexOf(",")).toString();

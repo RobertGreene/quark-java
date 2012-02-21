@@ -11,9 +11,10 @@ public class SingleUIDRequest extends Request {
 		super(requestType, appDetails);
 		this.uid = uid;
 	}
-
+	
 	@Override
 	public String getURLEndpoint() {
 		return EndpointIndexBuilder.getEndpoint(requestType) + this.uid;
 	}
+	
 }

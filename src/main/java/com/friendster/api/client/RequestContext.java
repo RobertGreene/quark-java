@@ -70,12 +70,8 @@ public class RequestContext {
 		return this.response;
 	}
 
-	@SuppressWarnings("unchecked")
 	private void handleRequestInternal(RequestTypesEnum requestType,
 			AppDetails appDetails, Object... args) {
-
-
-
 		this.request = RequestBuilder.buildRequest(requestType, appDetails, args);
 		this.requestValidators = this.initializeValidators();
 	}
