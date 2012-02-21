@@ -1,5 +1,6 @@
 package com.friendster.api.client.request;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.friendster.api.client.builders.EndpointIndexBuilder;
@@ -18,24 +19,25 @@ public class Request implements RequestInterface {
 	protected final RequestTypesEnum requestType;
 	private final AppDetails appDetails;
 	protected Map<String, String> otherParams;
-	
-	public Request(final RequestTypesEnum requestType, final AppDetails appDetails) {
+
+	public Request(final RequestTypesEnum requestType,
+			final AppDetails appDetails) {
 		this.requestType = requestType;
 		this.appDetails = appDetails;
 	}
-	
+
 	public RequestTypesEnum getRequestType() {
 		return this.requestType;
 	}
-	
+
 	public AppDetails getAppDetails() {
 		return this.appDetails;
 	}
-	
+
 	public String getRequestParameter(String parameterKey) {
 		return this.otherParams.get(parameterKey);
 	}
-	
+
 	public Map<String, String> getRequestParameters() {
 		return this.otherParams;
 	}
@@ -48,11 +50,11 @@ public class Request implements RequestInterface {
 			this.otherParams.putAll((Map<String, String>) args[0]);
 		}
 	}
-	
+
 	public String getURLEndpoint() {
 		return EndpointIndexBuilder.getEndpoint(requestType);
 	}
-	
+
 	public RequestMethod getMethod() {
 		return EndpointIndexBuilder.getMethod(requestType);
 	}

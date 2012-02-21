@@ -1,7 +1,9 @@
 package com.friendster.api.client.builders;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.friendster.api.client.enums.RequestTypesEnum;
 import com.friendster.api.client.request.AppDetails;
@@ -17,28 +19,47 @@ public class RequestBuilder {
 			AppDetails appDetails, Object... args)
 			throws FriendsterAPIException {
 		List<Integer> applUID = new ArrayList<Integer>();
+		Map<String, String> requestParameters = new HashMap<String, String>();
 		for (Object obj : args) {
 			if (obj instanceof List) {
 				applUID.addAll((List<Integer>) obj);
 			} else if (obj instanceof Integer) {
 				System.out.println("added" + obj);
 				applUID.add((Integer) obj);
+			} else if (obj instanceof Map) {
+				requestParameters.putAll((Map<String, String>) obj);
 			}
 		}
+
+		Request request = null;
 		switch (requestType) {
 		case USER:
-			return new MultipleUIDRequest(requestType, appDetails, applUID);
+			request = new MultipleUIDRequest(requestType, appDetails, applUID);
+
+			break;
 		case SHOUTOUT:
-			return new MultipleUIDRequest(requestType, appDetails, applUID);
+			request = new MultipleUIDRequest(requestType, appDetails, applUID);
+			break;
 		case APP_FRIENDS:
-			return new Request(requestType, appDetails);
+			request = new Request(requestType, appDetails);
+			break;
 		case FRIENDS:
-			return new SingleUIDRequest(requestType, appDetails,
+			request = new SingleUIDRequest(requestType, appDetails,
 					(Integer) args[0]);
+			break;
 		case SHOUTOUT_P:
-			return new Request(requestType, appDetails);
+			request = new Request(requestType, appDetails);
+			break;
 		default:
+			break;
+		}
+
+		if (request != null) {
+			request.setRequestParameters(requestParameters);
+		} else {
 			throw new FriendsterAPIException();
 		}
+
+		return request;
 	}
 }

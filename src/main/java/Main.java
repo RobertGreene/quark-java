@@ -23,7 +23,9 @@ public class Main {
 	
 	public static void main(String[] args) {
 		FriendsterAPIClient client = new FriendsterAPIClient("8bf7b1b9-fe9b-7b4d-15b1-945150964f7e");
-		System.out.println(client.getUserInformation(ResponseFormat.XML, 200000230, 200000233));
+//		System.out.println(client.getUserInformation(ResponseFormat.XML, 200000230, 200000233));
+		System.out.println(client.getAppFriends(ResponseFormat.XML));
+		
 	}
 }
 
