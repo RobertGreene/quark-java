@@ -25,6 +25,7 @@ import com.friendster.api.client.parser.XMLResponseParser;
 import com.friendster.api.client.request.AppDetails;
 import com.friendster.api.client.request.Request;
 import com.friendster.api.client.response.Response;
+import com.friendster.api.client.response.ResponseFormat;
 import com.friendster.api.client.throwable.FriendsterAPIException;
 import com.friendster.api.client.validators.RequestValidatorInterface;
 
@@ -40,13 +41,14 @@ public class RequestContext {
 		this.handleRequestInternal(requestType, appDetails, args);
 	}
 
-	public Response handleRequest() {
+	public Response handleRequest(Object... args) {
 		this.performValidations();
 		FlexibleHTTPClient httpClient = new FlexibleHTTPClient();
 		URI httpEndpointURI = this.performRequestParsing(this.request
 				.getMethod());
-		logger.info("HTTP Request To : \n\t" + httpEndpointURI);
 		HttpEntity httpEntity = null;
+
+		logger.info("HTTP Request To : \n\t" + httpEndpointURI);
 
 		switch (this.request.getMethod()) {
 		case GET:
@@ -58,8 +60,14 @@ public class RequestContext {
 		default:
 			break;
 		}
-
-		this.response = this.createResponse(httpEntity);
+		
+		ResponseFormat responseFormat = ResponseFormat.XML;
+		for (Object obj : args) {
+			if (obj instanceof ResponseFormat) 
+				responseFormat = (ResponseFormat) obj;
+		}
+		
+		this.response = this.createResponse(httpEntity, responseFormat);
 		return this.response;
 	}
 
@@ -94,10 +102,19 @@ public class RequestContext {
 		this.requestValidators = this.initializeValidators();
 	}
 
-	private Response createResponse(HttpEntity httpEntity) {
-		FriendsterAPIResponseParserInterface responseParser = new XMLResponseParser();
-		Document xmlDocument = responseParser.parseResponse(httpEntity);
-		return XMLResponseBuilder.buildResponse(xmlDocument);
+	private Response createResponse(HttpEntity httpEntity, ResponseFormat responseFormat) {
+		switch (responseFormat) {
+		case XML:
+			FriendsterAPIResponseParserInterface responseParser = new XMLResponseParser();
+			Document xmlDocument = responseParser.parseResponse(httpEntity);
+			return XMLResponseBuilder.buildResponse(xmlDocument);	
+		case TEXT:
+			logger.error("Unsupported output type: TXT");
+			throw new FriendsterAPIException();
+		default:
+			logger.error("No Output Type Provided");
+			throw new FriendsterAPIException();
+		}
 	}
 
 	@SuppressWarnings("rawtypes")
