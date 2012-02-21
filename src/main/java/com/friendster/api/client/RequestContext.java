@@ -34,18 +34,8 @@ public class RequestContext {
 	private static Logger logger = Logger.getLogger(RequestContext.class);
 
 	public RequestContext(RequestTypesEnum requestType, AppDetails appDetails,
-			Map<String, String> requestParameters, Object... args) {
-		
-		if (args[0] instanceof List) {
-			logger.debug("Received Request with Multiple UIDS");
-			this.request = RequestBuilder.buildRequest(requestType, appDetails, args[0]);
-		} else if (args[0] instanceof Integer) {
-			this.request = RequestBuilder.buildRequest(requestType, appDetails, args[0]);
-		} else {
-			this.request = RequestBuilder.buildRequest(requestType, appDetails);	
-		}
-		
-		this.handleRequestInternal(requestParameters);
+			Object... args) {
+		this.handleRequestInternal(requestType, appDetails, args);
 	}
 
 	public Response handleRequest() {
@@ -61,11 +51,37 @@ public class RequestContext {
 		return this.response;
 	}
 
-	private void handleRequestInternal(Object... args) {
-		this.request.setRequestParameters(args[0]);
+	@SuppressWarnings("unchecked")
+	private void handleRequestInternal(RequestTypesEnum requestType,
+			AppDetails appDetails, Object... args) {
+		Map<String, String> requestParameters = null;
+		List<Integer> userIds = null;
+		Integer userId = null;
+
+		for (Object obj : args) {
+			if (obj instanceof List) {
+				userIds = ((List<Integer>) obj);
+			} else if (obj instanceof Integer) {
+				userId = (Integer) obj;
+			} else if (obj instanceof Map) {
+				requestParameters = ((Map<String, String>) obj);
+			}
+		}
+
+		if (userId != null && userIds == null) {
+			this.request = RequestBuilder.buildRequest(requestType, appDetails,
+					userId);
+		} else if (userIds != null && userId == null) {
+			this.request = RequestBuilder.buildRequest(requestType, appDetails,
+					userIds);
+		} else if (userIds == null && userId == null) {
+			this.request = RequestBuilder.buildRequest(requestType, appDetails);
+		}
+
+		this.request.setRequestParameters(requestParameters);
 		this.requestValidators = this.initializeValidators();
 	}
-	
+
 	private Response createResponse(HttpEntity httpEntity) {
 		FriendsterAPIResponseParserInterface responseParser = new XMLResponseParser();
 		Document xmlDocument = responseParser.parseResponse(httpEntity);
@@ -93,7 +109,7 @@ public class RequestContext {
 		} catch (InvocationTargetException e) {
 			throw new FriendsterAPIException(e.getTargetException());
 		}
-		
+
 		return requestValidators;
 	}
 
