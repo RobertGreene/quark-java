@@ -1,5 +1,6 @@
 package com.friendster.api.client.request;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import com.friendster.api.client.builders.EndpointIndexBuilder;
@@ -14,7 +15,11 @@ import com.friendster.api.client.enums.RequestTypesEnum;
  * 
  */
 
-public class Request implements RequestInterface {
+public class Request implements RequestInterface, Serializable {
+	/**
+	 * Implements Serializable for Failover Support
+	 */
+	private static final long serialVersionUID = -6127125517259593640L;
 	protected final RequestTypesEnum requestType;
 	private final AppDetails appDetails;
 	protected Map<String, String> otherParams;

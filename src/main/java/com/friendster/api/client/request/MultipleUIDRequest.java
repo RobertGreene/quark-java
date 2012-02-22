@@ -8,6 +8,10 @@ import org.apache.log4j.Logger;
 import com.friendster.api.client.enums.RequestTypesEnum;
 
 public class MultipleUIDRequest extends Request {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7539689645174946732L;
 	private static Logger logger = Logger.getLogger(MultipleUIDRequest.class);
 	private String uids;
 

@@ -6,6 +6,7 @@ import java.util.Map;
 import com.friendster.api.client.enums.RequestTypesEnum;
 import com.friendster.api.client.request.AppDetails;
 import com.friendster.api.client.response.ResponseFormat;
+import com.friendster.api.v1.UserResponseType;
 
 /* Facade for Friendster API Client
  * Friendster Inc.
@@ -22,47 +23,46 @@ public class FriendsterAPIClient {
 		this.appDetails = this.createAppDetails(sessionKey);
 	}
 
-	public Object getUserInformation(ResponseFormat responseFormat,
-			Object... uids) {
+	public UserResponseType getUserInformation(Object... uids) {
 		RequestContext requestContext = new RequestContext(
 				RequestTypesEnum.USER, this.appDetails, uids);
-		return requestContext.handleRequest(responseFormat);
+		return (UserResponseType) requestContext.handleRequest();
 	}
 
 	public Object getAppFriends(ResponseFormat responseFormat) {
 		RequestContext requestContext = new RequestContext(
 				RequestTypesEnum.APP_FRIENDS, this.appDetails);
-		return requestContext.handleRequest(responseFormat);
+		return requestContext.handleRequest();
 	}
 
 	public Object getFriends(ResponseFormat responseFormat, Object... uids) {
 		RequestContext requestContext = new RequestContext(
 				RequestTypesEnum.FRIENDS, this.appDetails, uids);
-		return requestContext.handleRequest(responseFormat);
+		return requestContext.handleRequest();
 	}
 
 	public Object getShoutout(ResponseFormat responseFormat, Object... uids) {
 		RequestContext requestContext = new RequestContext(
 				RequestTypesEnum.SHOUTOUT, this.appDetails, uids);
-		return requestContext.handleRequest(responseFormat);
+		return requestContext.handleRequest();
 	}
 
 	public Object getTopScores(ResponseFormat responseFormat) {
 		RequestContext requestContext = new RequestContext(
 				RequestTypesEnum.TOP_SCORES, this.appDetails);
-		return requestContext.handleRequest(responseFormat);
+		return requestContext.handleRequest();
 	}
 
 	public Object getMessages(ResponseFormat responseFormat) {
 		RequestContext requestContext = new RequestContext(
 				RequestTypesEnum.MESSAGES, this.appDetails);
-		return requestContext.handleRequest(responseFormat);
+		return requestContext.handleRequest();
 	}
 
 	public Object getMessage(ResponseFormat responseFormat, Integer cid) {
 		RequestContext requestContext = new RequestContext(
 				RequestTypesEnum.MESSAGE, this.appDetails, cid);
-		return requestContext.handleRequest(responseFormat);
+		return requestContext.handleRequest();
 	}
 
 	public Object postScore(ResponseFormat responseFormat, int avatarId,
@@ -71,15 +71,15 @@ public class FriendsterAPIClient {
 		paramMap.put("score", String.valueOf(score));
 		RequestContext requestContext = new RequestContext(
 				RequestTypesEnum.SCORE, this.appDetails, avatarId, paramMap);
-		return requestContext.handleRequest(responseFormat);
+		return requestContext.handleRequest();
 	}
 	
-	public Object postShoutout(ResponseFormat responseFormat, String shoutOut, Object... uids) {
+	public Object postShoutout(String shoutOut) {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("content", shoutOut);
 		RequestContext requestContext = new RequestContext(
 				RequestTypesEnum.SHOUTOUT_P, this.appDetails, paramMap);
-		return requestContext.handleRequest(responseFormat);
+		return requestContext.handleRequest();
 	}
 
 	private AppDetails createAppDetails(String sessionKey) {

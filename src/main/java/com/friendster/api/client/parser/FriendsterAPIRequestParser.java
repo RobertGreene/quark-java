@@ -16,11 +16,11 @@ import org.apache.http.message.BasicNameValuePair;
 import com.friendster.api.client.request.Request;
 import com.friendster.api.client.throwable.FriendsterAPIException;
 
-public class FriendsterAPIGetRequestParser implements
+public class FriendsterAPIRequestParser implements
 		FriendsterAPIRequestParserInterface {
 	private Request targetRequest;
 
-	public FriendsterAPIGetRequestParser(Request sourceRequest) {
+	public FriendsterAPIRequestParser(Request sourceRequest) {
 		this.targetRequest = sourceRequest;
 	}
 
