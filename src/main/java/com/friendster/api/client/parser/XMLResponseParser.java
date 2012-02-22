@@ -37,6 +37,7 @@ public class XMLResponseParser implements FriendsterAPIResponseParserInterface {
 
 			InputSource iSrc = new InputSource();
 			iSrc.setCharacterStream(new StringReader(responseHtml));
+			System.out.println(responseHtml);
 
 			Document doc = db.parse(iSrc);
 

@@ -1,4 +1,5 @@
 import com.friendster.api.client.FriendsterAPIClient;
+import com.friendster.api.client.response.Response;
 import com.friendster.api.client.response.ResponseFormat;
 
 public class Main {
@@ -23,8 +24,9 @@ public class Main {
 	public static void main(String[] args) {
 		FriendsterAPIClient client = new FriendsterAPIClient(
 				"311f184e-e844-a52b-edd4-3aa32a8ea060");
-		// System.out.println(client.getUserInformation(ResponseFormat.XML,
-		// 200000230, 200000233));
+		Response r = (Response) client.getUserInformation(ResponseFormat.XML, 200000230,
+				200000233);
+		System.out.println(r.getXmlResponse().toString());
 		// System.out.println(client.getAppFriends(ResponseFormat.XML));
 		// System.out.println(client.getMessages(ResponseFormat.XML));
 		// System.out.println(client.getFriends(ResponseFormat.XML, 200000230,
@@ -34,8 +36,10 @@ public class Main {
 		// System.out.println(client.getTopScores(ResponseFormat.XML));
 
 		// System.out.println(client.getMessage(ResponseFormat.XML, 120));
-//		System.out.println(client.postScore(ResponseFormat.XML, 200000233, 1));
-		System.out.println(client.postShoutout(ResponseFormat.XML, "Hello World!"));
+		// System.out.println(client.postScore(ResponseFormat.XML, 200000233,
+		// 1));
+		// System.out.println(client.postShoutout(ResponseFormat.XML,
+		// "Hello World!"));
 	}
 
 }
