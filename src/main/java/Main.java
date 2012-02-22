@@ -1,27 +1,41 @@
 import java.io.FileNotFoundException;
 
 import com.friendster.api.client.FriendsterAPIClient;
-import com.friendster.api.client.response.ResponseFormat;
-import com.friendster.api.v1.UserResponseType;
-import com.friendster.api.v1.UserType;
+import com.friendster.api.v1.ShoutoutResponse;
+import com.friendster.api.v1.User;
+import com.friendster.api.v1.UserResponse;
+import com.friendster.api.v1.friends.Friends;
+import com.friendster.api.v1.friends.FriendsResponse;
 
 public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		FriendsterAPIClient client = new FriendsterAPIClient(
-				"311f184e-e844-a52b-edd4-3aa32a8ea060");
-		
-//		Object obj = client.postShoutout("Hello World!");
-		
-		Object o = client.getUserInformation(ResponseFormat.XML, 200000230,
-				200000233);
+				"4bcc082d-6709-bd9d-7830-a4a6fee15797");
 
-		if (o instanceof UserResponseType) {
+//		Object o = client.postShoutout("Hello Paulo!");
+
+//		Object o = client.getUserInformation(200000230, 200000233);
+		Object o = client.getFriends(200000230, 200000233);
+
+		if (o instanceof UserResponse) {
 			System.out.println("Successful");
-			UserResponseType response = (UserResponseType) o;
-			for (UserType u : response.getUser()) {
+			UserResponse response = (UserResponse) o;
+			for (User u : response.getUser()) {
 				System.out.println("User: " + u.getFirstName().trim());
 			}
+		} else if (o instanceof ShoutoutResponse) {
+			System.out.println("Successful: SHOUTOUT_P");
+			ShoutoutResponse response = (ShoutoutResponse) o;
+			System.out.println("Status: " + response.getStatus());
+		} else if (o instanceof FriendsResponse) {
+			System.out.println("Successful: FRIENDS");
+			FriendsResponse response = (FriendsResponse) o;
+			Friends f = ((FriendsResponse) o).getFriends();
+			for (String uid : f.getUid()) {
+				System.out.println("Friend : " + uid);
+			}
+			
 		}
 	}
 }

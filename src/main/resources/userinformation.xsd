@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://api.friendster.com/v1/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="college_list">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute type="xs:string" name="list" use="optional"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="location">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v1:name" xmlns:v1="http://api.friendster.com/v1/"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="birthday" type="xs:string"/>
+  <xs:element name="uid">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="relationship_status" type="xs:string"/>
+  <xs:element name="school_other" type="xs:string"/>
+  <xs:element name="fan_profile_type" type="xs:string"/>
+  <xs:element name="name">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="hobbies_and_interests" type="xs:string"/>
+  <xs:element name="about_me" type="xs:string"/>
+  <xs:element name="level">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="member_since">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v1:year" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:month" xmlns:v1="http://api.friendster.com/v1/"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="first_name">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="primary_photo_url">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+       </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="year" type="xs:string"/>
+  <xs:element name="interested_in">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute type="xs:string" name="list" use="optional"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="user_response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v1:user" maxOccurs="unbounded" minOccurs="0" xmlns:v1="http://api.friendster.com/v1/"/>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="list"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="fan_profile_category" type="xs:string"/>
+  <xs:element name="gender">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="Female"/>
+        <xs:enumeration value="Male"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="user_type" type="xs:string"/>
+  <xs:element name="hometown" type="xs:string"/>
+  <xs:element name="occupation" type="xs:string"/>
+  <xs:element name="fb_id" type="xs:string"/>
+  <xs:element name="affiliations" type="xs:string"/>
+  <xs:element name="url">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="favorites" type="xs:string"/>
+  <xs:element name="companies" type="xs:string"/>
+  <xs:element name="admin" type="xs:string"/>
+  <xs:element name="school_list">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute type="xs:string" name="list" use="optional"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="want_to_meet" type="xs:string"/>
+  <xs:element name="user">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v1:uid" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:first_name" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:last_name" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:url" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:primary_photo_url" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:level" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:location" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:hometown" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:user_type" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:fan_profile_type" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:fan_profile_category" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:relationship_status" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:gender" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:member_since" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:interested_in" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:occupation" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:companies" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:hobbies_and_interests" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:affiliations" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:college_list" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:school_list" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:school_other" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:favorites" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:about_me" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:want_to_meet" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:birthday" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:fb_id" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:admin" xmlns:v1="http://api.friendster.com/v1/"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="last_name" type="xs:string"/>
+  <xs:element name="month" type="xs:string"/>
+</xs:schema>

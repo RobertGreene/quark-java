@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://api.friendster.com/v1/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="status" type="xs:string"/>
+  <xs:element name="shoutout_response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v1:status" xmlns:v1="http://api.friendster.com/v1/"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

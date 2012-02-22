@@ -6,7 +6,8 @@ import java.util.Map;
 import com.friendster.api.client.enums.RequestTypesEnum;
 import com.friendster.api.client.request.AppDetails;
 import com.friendster.api.client.response.ResponseFormat;
-import com.friendster.api.v1.UserResponseType;
+import com.friendster.api.v1.ShoutoutResponse;
+import com.friendster.api.v1.UserResponse;
 
 /* Facade for Friendster API Client
  * Friendster Inc.
@@ -23,10 +24,11 @@ public class FriendsterAPIClient {
 		this.appDetails = this.createAppDetails(sessionKey);
 	}
 
-	public UserResponseType getUserInformation(Object... uids) {
+	// DONE
+	public UserResponse getUserInformation(Object... uids) {
 		RequestContext requestContext = new RequestContext(
 				RequestTypesEnum.USER, this.appDetails, uids);
-		return (UserResponseType) requestContext.handleRequest();
+		return (UserResponse) requestContext.handleRequest();
 	}
 
 	public Object getAppFriends(ResponseFormat responseFormat) {
@@ -35,7 +37,7 @@ public class FriendsterAPIClient {
 		return requestContext.handleRequest();
 	}
 
-	public Object getFriends(ResponseFormat responseFormat, Object... uids) {
+	public Object getFriends(Object... uids) {
 		RequestContext requestContext = new RequestContext(
 				RequestTypesEnum.FRIENDS, this.appDetails, uids);
 		return requestContext.handleRequest();
@@ -74,12 +76,13 @@ public class FriendsterAPIClient {
 		return requestContext.handleRequest();
 	}
 	
-	public Object postShoutout(String shoutOut) {
+	// DONE
+	public ShoutoutResponse postShoutout(String shoutOut) {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("content", shoutOut);
 		RequestContext requestContext = new RequestContext(
 				RequestTypesEnum.SHOUTOUT_P, this.appDetails, paramMap);
-		return requestContext.handleRequest();
+		return (ShoutoutResponse) requestContext.handleRequest();
 	}
 
 	private AppDetails createAppDetails(String sessionKey) {
