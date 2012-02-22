@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:v1="http://api.friendster.com/v1/">
-    <xs:import namespace="http://api.friendster.com/v1/" schemaLocation="userinformation.xsd"/>
-    <xs:attribute name="schemaLocation" type="xs:anyURI"/>
-</xs:schema>

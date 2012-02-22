@@ -1,139 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://api.friendster.com/v1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:v1="http://api.friendster.com/v1/">
-    <xs:import namespace="http://www.w3.org/2001/XMLSchema-instance" schemaLocation="friendster.xsd"/>
-    <xs:element name="user_response">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element maxOccurs="unbounded" ref="v1:user"/>
-            </xs:sequence>
-            <xs:attribute name="list" use="required" type="xs:boolean"/>
-            <xs:attribute ref="xsi:schemaLocation" use="required"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="user">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="v1:uid"/>
-                <xs:element ref="v1:first_name"/>
-                <xs:element ref="v1:last_name"/>
-                <xs:element ref="v1:url"/>
-                <xs:element ref="v1:primary_photo_url"/>
-                <xs:element ref="v1:level"/>
-                <xs:element ref="v1:location"/>
-                <xs:element ref="v1:hometown"/>
-                <xs:element ref="v1:user_type"/>
-                <xs:element ref="v1:fan_profile_type"/>
-                <xs:element ref="v1:fan_profile_category"/>
-                <xs:element ref="v1:relationship_status"/>
-                <xs:element ref="v1:gender"/>
-                <xs:element ref="v1:member_since"/>
-                <xs:element ref="v1:interested_in"/>
-                <xs:element ref="v1:occupation"/>
-                <xs:element ref="v1:companies"/>
-                <xs:element ref="v1:hobbies_and_interests"/>
-                <xs:element ref="v1:affiliations"/>
-                <xs:element ref="v1:college_list"/>
-                <xs:element ref="v1:school_list"/>
-                <xs:element ref="v1:school_other"/>
-                <xs:element ref="v1:favorites"/>
-                <xs:element ref="v1:about_me"/>
-                <xs:element ref="v1:want_to_meet"/>
-                <xs:element ref="v1:birthday"/>
-                <xs:element ref="v1:fb_id"/>
-                <xs:element ref="v1:admin"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="uid" type="xs:integer"/>
-    <xs:element name="first_name" type="xs:string"/>
-    <xs:element name="last_name">
-        <xs:complexType/>
-    </xs:element>
-    <xs:element name="url" type="xs:anyURI"/>
-    <xs:element name="primary_photo_url" type="xs:anyURI"/>
-    <xs:element name="level" type="xs:integer"/>
-    <xs:element name="location">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="v1:name"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="name" type="xs:string"/>
-    <xs:element name="hometown">
-        <xs:complexType/>
-    </xs:element>
-    <xs:element name="user_type">
-        <xs:complexType/>
-    </xs:element>
-    <xs:element name="fan_profile_type">
-        <xs:complexType/>
-    </xs:element>
-    <xs:element name="fan_profile_category">
-        <xs:complexType/>
-    </xs:element>
-    <xs:element name="relationship_status">
-        <xs:complexType/>
-    </xs:element>
-    <xs:element name="gender" type="xs:NCName"/>
-    <xs:element name="member_since">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="v1:year"/>
-                <xs:element ref="v1:month"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="year">
-        <xs:complexType/>
-    </xs:element>
-    <xs:element name="month">
-        <xs:complexType/>
-    </xs:element>
-    <xs:element name="interested_in">
-        <xs:complexType>
-            <xs:attribute name="list" use="required" type="xs:boolean"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="occupation">
-        <xs:complexType/>
-    </xs:element>
-    <xs:element name="companies">
-        <xs:complexType/>
-    </xs:element>
-    <xs:element name="hobbies_and_interests">
-        <xs:complexType/>
-    </xs:element>
-    <xs:element name="affiliations">
-        <xs:complexType/>
-    </xs:element>
-    <xs:element name="college_list">
-        <xs:complexType>
-            <xs:attribute name="list" use="required" type="xs:boolean"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="school_list">
-        <xs:complexType>
-            <xs:attribute name="list" use="required" type="xs:boolean"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="school_other">
-        <xs:complexType/>
-    </xs:element>
-    <xs:element name="favorites">
-        <xs:complexType/>
-    </xs:element>
-    <xs:element name="about_me">
-        <xs:complexType/>
-    </xs:element>
-    <xs:element name="want_to_meet">
-        <xs:complexType/>
-    </xs:element>
-    <xs:element name="birthday">
-        <xs:complexType/>
-    </xs:element>
-    <xs:element name="fb_id">
-        <xs:complexType/>
-    </xs:element>
-    <xs:element name="admin" type="xs:boolean"/>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://api.friendster.com/v1/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="user_response" type="v1:user_responseType" xmlns:v1="http://api.friendster.com/v1/"/>
+  <xs:complexType name="locationType">
+    <xs:sequence>
+      <xs:element name="name">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="member_sinceType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="year"/>
+      <xs:element type="xs:string" name="month"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="school_listType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="list" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="college_listType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="list" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="user_responseType">
+    <xs:sequence>
+      <xs:element type="v1:userType" name="user" maxOccurs="unbounded" minOccurs="0" xmlns:v1="http://api.friendster.com/v1/"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="list"/>
+  </xs:complexType>
+  <xs:complexType name="userType">
+    <xs:sequence>
+      <xs:element name="uid">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="first_name">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:string" name="last_name"/>
+      <xs:element name="url">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="primary_photo_url">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="level">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="v1:locationType" name="location" xmlns:v1="http://api.friendster.com/v1/"/>
+      <xs:element type="xs:string" name="hometown"/>
+      <xs:element type="xs:string" name="user_type"/>
+      <xs:element type="xs:string" name="fan_profile_type"/>
+      <xs:element type="xs:string" name="fan_profile_category"/>
+      <xs:element type="xs:string" name="relationship_status"/>
+      <xs:element name="gender">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Female"/>
+            <xs:enumeration value="Male"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="v1:member_sinceType" name="member_since" xmlns:v1="http://api.friendster.com/v1/"/>
+      <xs:element type="v1:interested_inType" name="interested_in" xmlns:v1="http://api.friendster.com/v1/"/>
+      <xs:element type="xs:string" name="occupation"/>
+      <xs:element type="xs:string" name="companies"/>
+      <xs:element type="xs:string" name="hobbies_and_interests"/>
+      <xs:element type="xs:string" name="affiliations"/>
+      <xs:element type="v1:college_listType" name="college_list" xmlns:v1="http://api.friendster.com/v1/"/>
+      <xs:element type="v1:school_listType" name="school_list" xmlns:v1="http://api.friendster.com/v1/"/>
+      <xs:element type="xs:string" name="school_other"/>
+      <xs:element type="xs:string" name="favorites"/>
+      <xs:element type="xs:string" name="about_me"/>
+      <xs:element type="xs:string" name="want_to_meet"/>
+      <xs:element type="xs:string" name="birthday"/>
+      <xs:element type="xs:string" name="fb_id"/>
+      <xs:element type="xs:string" name="admin"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="interested_inType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="list" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
 </xs:schema>
