@@ -24,6 +24,8 @@ import com.friendster.api.v1.message.MessageResponse;
 import com.friendster.api.v1.notification.NotificationsResponse;
 import com.friendster.api.v1.ShoutoutResponse;
 import com.friendster.api.v1.UserResponse;
+import com.friendster.api.v1.app.ApplicationFriends;
+import com.friendster.api.v1.app.ApplicationFriendsResponse;
 import com.friendster.api.v1.friends.FriendsResponse;
 
 @SuppressWarnings("restriction")
@@ -88,6 +90,8 @@ public class FriendsterAPIXMLResponseParser implements
 			return (com.friendster.api.v1.messages_get.MessageResponse) tempObject;
 		case NOTIFICATION_P:
 			return (NotificationsResponse) tempObject;
+		case APP_FRIENDS:
+			return (ApplicationFriendsResponse) tempObject;
 		default:
 			throw new FriendsterAPIException();
 		}
@@ -96,6 +100,8 @@ public class FriendsterAPIXMLResponseParser implements
 	private JAXBContext getJAXBContext(RequestTypesEnum requestType)
 			throws JAXBException {
 		switch (requestType) {
+		case APP_FRIENDS:
+			return JAXBContext.newInstance("com.friendster.api.v1.app");
 		case FRIENDS:
 			return JAXBContext.newInstance("com.friendster.api.v1.friends");
 		case SCORE:
@@ -119,6 +125,9 @@ public class FriendsterAPIXMLResponseParser implements
 	
 	private NamespaceFilter getNamespaceFilter(RequestTypesEnum requestType) {
 		switch (requestType) {
+		case APP_FRIENDS:
+			return new NamespaceFilter(
+					"http://api.friendster.com/v1/app", true);
 		case FRIENDS:
 			return new NamespaceFilter(
 					"http://api.friendster.com/v1/friends", true);

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://api.friendster.com/v1/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="error_message" type="xs:string"/>
+  <xs:element name="error_response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v1:error_code" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:error_message" xmlns:v1="http://api.friendster.com/v1/"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="error_code" type="xs:string"/>
+</xs:schema>

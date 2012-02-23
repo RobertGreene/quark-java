@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://api.friendster.com/v1/app" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="application_friends">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="app:uid" maxOccurs="unbounded" minOccurs="0" xmlns:app="http://api.friendster.com/v1/app"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="application_friends_response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="app:application_friends" xmlns:app="http://api.friendster.com/v1/app"/>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="list"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="uid">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+</xs:schema>

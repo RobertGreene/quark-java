@@ -12,6 +12,7 @@ import com.friendster.api.client.special.MessageRequest;
 import com.friendster.api.client.special.NotificationRequest;
 import com.friendster.api.v1.ShoutoutResponse;
 import com.friendster.api.v1.UserResponse;
+import com.friendster.api.v1.app.ApplicationFriendsResponse;
 import com.friendster.api.v1.friends.FriendsResponse;
 import com.friendster.api.v1.message.MessageResponse;
 import com.friendster.api.v1.notification.NotificationsResponse;
@@ -38,10 +39,10 @@ public class FriendsterAPIClient {
 		return (UserResponse) requestContext.handleRequest();
 	}
 
-	public Object getAppFriends() {
+	public ApplicationFriendsResponse getAppFriends() {
 		RequestContext requestContext = new RequestContext(
 				RequestTypesEnum.APP_FRIENDS, this.appDetails);
-		return requestContext.handleRequest();
+		return (ApplicationFriendsResponse) requestContext.handleRequest();
 	}
 
 	public FriendsResponse getFriends(Integer uid) {
