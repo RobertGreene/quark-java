@@ -28,6 +28,7 @@ public class RequestContext {
 
 	public RequestContext(RequestTypesEnum requestType, AppDetails appDetails,
 			Object... args) {
+		
 		this.handleRequestInternal(requestType, appDetails, args);
 	}
 
@@ -42,6 +43,7 @@ public class RequestContext {
 
 	private void handleRequestInternal(RequestTypesEnum requestType,
 			AppDetails appDetails, Object... args) {
+
 		this.request = RequestBuilder.buildRequest(requestType, appDetails,
 				args);
 		this.requestValidators = this.initializeValidators();

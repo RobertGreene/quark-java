@@ -2,6 +2,7 @@ package com.friendster.api.client.request;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -15,11 +16,33 @@ public class MultipleUIDRequest extends Request {
 	private static Logger logger = Logger.getLogger(MultipleUIDRequest.class);
 	private String uids;
 
+//	public MultipleUIDRequest(RequestTypesEnum requestType,
+//			AppDetails appDetails, List<Integer> args) {
+//		super(requestType, appDetails);
+//		this.otherParams = new HashMap<String, String>();
+//		this.uids = this.marshalUIDs(args);
+//		this.otherParams.put("uids", this.uids);
+//		logger.debug("Request UIDs : " + this.getUIDs());
+//	}
+	
 	public MultipleUIDRequest(RequestTypesEnum requestType,
-			AppDetails appDetails, List<Integer> args) {
+			AppDetails appDetails, Object... args) {
 		super(requestType, appDetails);
-		this.otherParams = new HashMap<String, String>();
-		this.uids = this.marshalUIDs(args);
+		
+		for (Object o : args) {
+			if (o instanceof Map) {
+				this.otherParams = new HashMap<String, String>((Map) o);
+			} else {
+				this.otherParams = new HashMap<String, String>();					
+			}
+		}
+		for (Object o : args) {
+			if (o instanceof List) {
+				this.uids = this.marshalUIDs((List<Integer>) o);
+			} else {
+
+			}
+		}
 		this.otherParams.put("uids", this.uids);
 		logger.debug("Request UIDs : " + this.getUIDs());
 	}

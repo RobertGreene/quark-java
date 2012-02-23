@@ -14,9 +14,14 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
+import com.friendster.api.client.builders.AvatarScoreBuilder;
 import com.friendster.api.client.enums.RequestTypesEnum;
 import com.friendster.api.client.parser.xml.NamespaceFilter;
+import com.friendster.api.client.special.AvatarScoreResponse;
 import com.friendster.api.client.throwable.FriendsterAPIException;
+import com.friendster.api.v1.GameScoreResponse;
+import com.friendster.api.v1.message.MessageResponse;
+import com.friendster.api.v1.notification.NotificationsResponse;
 import com.friendster.api.v1.ShoutoutResponse;
 import com.friendster.api.v1.UserResponse;
 import com.friendster.api.v1.friends.FriendsResponse;
@@ -71,6 +76,16 @@ public class FriendsterAPIXMLResponseParser implements
 			return (ShoutoutResponse) tempObject;
 		case FRIENDS:
 			return (FriendsResponse) tempObject;
+		case TOP_SCORES:
+			return (AvatarScoreResponse) AvatarScoreBuilder.buildAvatarScore((GameScoreResponse) tempObject);
+		case SCORE:
+			return (com.friendster.api.v1.score.GameScoreResponse) tempObject;
+		case MESSAGE:
+			return (MessageResponse) tempObject;
+		case MESSAGE_P:
+			return (MessageResponse) tempObject;
+		case NOTIFICATION_P:
+			return (NotificationsResponse) tempObject;
 		default:
 			throw new FriendsterAPIException();
 		}
@@ -81,9 +96,17 @@ public class FriendsterAPIXMLResponseParser implements
 		switch (requestType) {
 		case FRIENDS:
 			return JAXBContext.newInstance("com.friendster.api.v1.friends");
+		case SCORE:
+			return JAXBContext.newInstance("com.friendster.api.v1.score");
+		case MESSAGE:
+		case MESSAGE_P:
+			return JAXBContext.newInstance("com.friendster.api.v1.message");
 		case USER:
 		case SHOUTOUT_P:
+		case TOP_SCORES:
 			return JAXBContext.newInstance("com.friendster.api.v1");
+		case NOTIFICATION_P:
+			return JAXBContext.newInstance("com.friendster.api.v1.notification");
 		default:
 			throw new FriendsterAPIException();
 		}
@@ -94,10 +117,18 @@ public class FriendsterAPIXMLResponseParser implements
 		case FRIENDS:
 			return new NamespaceFilter(
 					"http://api.friendster.com/v1/friends", true);
+		case SCORE:
+			return new NamespaceFilter("http://api.friendster.com/v1/score", true);
+		case MESSAGE:
+		case MESSAGE_P:
+			return new NamespaceFilter(
+					"http://api.friendster.com/v1/message", true);
 		case USER:
 		case SHOUTOUT_P:
-			return new NamespaceFilter(
-					"http://api.friendster.com/v1/", true);
+		case TOP_SCORES:
+			return new NamespaceFilter("http://api.friendster.com/v1/", true);
+		case NOTIFICATION_P:
+			return new NamespaceFilter("http://api.friendster.com/v1/notification", true);
 		default:
 			throw new FriendsterAPIException();
 		}

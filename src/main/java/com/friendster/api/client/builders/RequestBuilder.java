@@ -18,6 +18,7 @@ public class RequestBuilder {
 	public static Request buildRequest(RequestTypesEnum requestType,
 			AppDetails appDetails, Object... args)
 			throws FriendsterAPIException {
+
 		List<Integer> applUID = new ArrayList<Integer>();
 		Map<String, String> requestParameters = new HashMap<String, String>();
 		for (Object obj : args) {
@@ -54,12 +55,16 @@ public class RequestBuilder {
 			request = new SingleUIDRequest(requestType, appDetails,
 					(Integer) args[0]);
 			break;
+		case MESSAGE_P:
+			request = new SingleUIDRequest(requestType, appDetails, (Integer) args[0]);
 		case TOP_SCORES:
 			request = new Request(requestType, appDetails);
 			break;
 		case SCORE:
 			request = new SingleUIDRequest(requestType, appDetails, (Integer) args[0]);
 			break;
+		case NOTIFICATION_P:
+			request = new MultipleUIDRequest(requestType, appDetails, applUID, requestParameters);
 		default:
 			break;
 		}

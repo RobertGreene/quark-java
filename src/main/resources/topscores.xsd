@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://api.friendster.com/v1/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="high_scores">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v1:score" maxOccurs="unbounded" minOccurs="0" xmlns:v1="http://api.friendster.com/v1/"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="avatar_id">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="game_score_response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v1:high_scores" xmlns:v1="http://api.friendster.com/v1/"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="posted_at">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="score">
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element ref="v1:avatar_id" minOccurs="0" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:score" minOccurs="0" xmlns:v1="http://api.friendster.com/v1/"/>
+        <xs:element ref="v1:posted_at" minOccurs="0" xmlns:v1="http://api.friendster.com/v1/"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

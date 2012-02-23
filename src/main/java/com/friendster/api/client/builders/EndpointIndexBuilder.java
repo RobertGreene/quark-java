@@ -30,7 +30,8 @@ public class EndpointIndexBuilder {
 		endpointIndex.put(RequestTypesEnum.TOP_SCORES, BASE_URL + "score");
 		endpointIndex.put(RequestTypesEnum.SHOUTOUT_P, BASE_URL + "shoutout");
 		endpointIndex.put(RequestTypesEnum.MESSAGES, BASE_URL + "messages");
-
+		endpointIndex.put(RequestTypesEnum.MESSAGE_P, BASE_URL + "messages");
+		endpointIndex.put(RequestTypesEnum.NOTIFICATION_P, BASE_URL + "notification");
 	}
 
 	private static void buildMethodIndex() {
@@ -44,6 +45,9 @@ public class EndpointIndexBuilder {
 		methodIndex.put(RequestTypesEnum.TOP_SCORES, RequestMethod.GET);
 		methodIndex.put(RequestTypesEnum.SHOUTOUT_P, RequestMethod.POST);
 		methodIndex.put(RequestTypesEnum.MESSAGES, RequestMethod.GET);
+		methodIndex.put(RequestTypesEnum.MESSAGE_P, RequestMethod.POST);
+		methodIndex.put(RequestTypesEnum.NOTIFICATION_P, RequestMethod.POST);
+
 	}
 
 	public static String getEndpoint(RequestTypesEnum requestType) {

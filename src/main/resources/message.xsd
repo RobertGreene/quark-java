@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://api.friendster.com/v1/message" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="page" type="xs:string"/>
+  <xs:element name="message_response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v1:messages" xmlns:v1="http://api.friendster.com/v1/message"/>
+        <xs:element ref="v1:status" xmlns:v1="http://api.friendster.com/v1/message"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="message">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v1:mid" xmlns:v1="http://api.friendster.com/v1/message"/>
+        <xs:element ref="v1:message_body" xmlns:v1="http://api.friendster.com/v1/message"/>
+        <xs:element ref="v1:message_sender_id" xmlns:v1="http://api.friendster.com/v1/message"/>
+        <xs:element ref="v1:message_sender_name" xmlns:v1="http://api.friendster.com/v1/message"/>
+        <xs:element ref="v1:message_recipient_id" xmlns:v1="http://api.friendster.com/v1/message"/>
+        <xs:element ref="v1:message_recipient_name" xmlns:v1="http://api.friendster.com/v1/message"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="message_body" type="xs:string"/>
+  <xs:element name="messages">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v1:message" maxOccurs="unbounded" minOccurs="0" xmlns:v1="http://api.friendster.com/v1/message"/>
+        <xs:element ref="v1:page" xmlns:v1="http://api.friendster.com/v1/message"/>
+        <xs:element ref="v1:next_page" xmlns:v1="http://api.friendster.com/v1/message"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="message_recipient_name" type="xs:string"/>
+  <xs:element name="message_recipient_id" type="xs:string"/>
+  <xs:element name="message_sender_id" type="xs:string"/>
+  <xs:element name="mid" type="xs:string"/>
+  <xs:element name="next_page" type="xs:string"/>
+  <xs:element name="message_sender_name" type="xs:string"/>
+  <xs:element name="status" type="xs:string" default="Undefined"/>
+</xs:schema>
