@@ -8,7 +8,6 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.sax.SAXSource;
 
 import org.apache.http.HttpEntity;
-import org.apache.log4j.Logger;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -20,46 +19,29 @@ import com.friendster.api.client.parser.xml.NamespaceFilter;
 import com.friendster.api.client.special.AvatarScoreResponse;
 import com.friendster.api.client.throwable.FriendsterAPIException;
 import com.friendster.api.v1.GameScoreResponse;
-import com.friendster.api.v1.message.MessageResponse;
-import com.friendster.api.v1.notification.NotificationsResponse;
 import com.friendster.api.v1.ShoutoutResponse;
 import com.friendster.api.v1.UserResponse;
-import com.friendster.api.v1.app.ApplicationFriends;
 import com.friendster.api.v1.app.ApplicationFriendsResponse;
 import com.friendster.api.v1.friends.FriendsResponse;
+import com.friendster.api.v1.message.MessageResponse;
+import com.friendster.api.v1.notification.NotificationsResponse;
 
 @SuppressWarnings("restriction")
 public class FriendsterAPIXMLResponseParser implements
 		FriendsterAPIResponseParserInterface {
-	private static Logger logger = Logger
-			.getLogger(FriendsterAPIXMLResponseParser.class);
-
 	public Object parseResponse(RequestTypesEnum requestType,
 			HttpEntity httpInput) {
 		Object tempObject = null;
 
 		try {
-			// Prepare JAXB objects
 			JAXBContext jc = this.getJAXBContext(requestType);
 			Unmarshaller u = jc.createUnmarshaller();
-
-			// Create an XMLReader to use with our filter
 			XMLReader reader = XMLReaderFactory.createXMLReader();
-
-			// Create the filter (to add namespace) and set the xmlReader as its
-			// parent.
 			NamespaceFilter inFilter = this.getNamespaceFilter(requestType);
 			inFilter.setParent(reader);
-
-			// Prepare the input, in this case a java.io.File (output)
 			InputSource is = new InputSource(httpInput.getContent());
-
-			// Create a SAXSource specifying the filter
 			SAXSource source = new SAXSource(inFilter, is);
-
-			// Do unmarshalling
 			tempObject = u.unmarshal(source);
-
 		} catch (JAXBException e) {
 			e.printStackTrace();
 			throw new FriendsterAPIException(e);

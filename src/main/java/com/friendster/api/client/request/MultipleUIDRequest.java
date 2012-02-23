@@ -15,23 +15,15 @@ public class MultipleUIDRequest extends Request {
 	private static final long serialVersionUID = -7539689645174946732L;
 	private static Logger logger = Logger.getLogger(MultipleUIDRequest.class);
 	private String uids;
-
-//	public MultipleUIDRequest(RequestTypesEnum requestType,
-//			AppDetails appDetails, List<Integer> args) {
-//		super(requestType, appDetails);
-//		this.otherParams = new HashMap<String, String>();
-//		this.uids = this.marshalUIDs(args);
-//		this.otherParams.put("uids", this.uids);
-//		logger.debug("Request UIDs : " + this.getUIDs());
-//	}
 	
+	@SuppressWarnings("unchecked")
 	public MultipleUIDRequest(RequestTypesEnum requestType,
 			AppDetails appDetails, Object... args) {
 		super(requestType, appDetails);
 		
 		for (Object o : args) {
 			if (o instanceof Map) {
-				this.otherParams = new HashMap<String, String>((Map) o);
+				this.otherParams = new HashMap<String, String>((Map<String, String>) o);
 			} else {
 				this.otherParams = new HashMap<String, String>();					
 			}

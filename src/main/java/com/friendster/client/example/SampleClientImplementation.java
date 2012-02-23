@@ -24,7 +24,7 @@ public class SampleClientImplementation {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		FriendsterAPIClient client = new FriendsterAPIClient(
-				"4bcc082d-6709-bd9d-7830-a4a6fee15797");
+				"4bcc082d-6709-bd9d-7830-a4a6fee15797", "src/main/resources/FriendsterAPIConfig.xml");
 		for (Object responseObject : getRequestList(client)) {
 			displayResponse(responseObject);
 		}
@@ -98,6 +98,7 @@ public class SampleClientImplementation {
 			}
 		} else if (o instanceof com.friendster.api.v1.messages_get.MessageResponse) {
 			System.out.println("SUCCESSFUL : MESSAGES");
+			@SuppressWarnings("unused")
 			com.friendster.api.v1.messages_get.MessageResponse response = (com.friendster.api.v1.messages_get.MessageResponse) o;
 		}
 
