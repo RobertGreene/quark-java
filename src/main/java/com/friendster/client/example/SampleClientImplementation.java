@@ -9,6 +9,7 @@ import com.friendster.api.client.special.AvatarScore;
 import com.friendster.api.client.special.AvatarScoreResponse;
 import com.friendster.api.client.special.MessageRequest;
 import com.friendster.api.client.special.NotificationRequest;
+import com.friendster.api.client.throwable.FriendsterAPIServiceException;
 import com.friendster.api.v1.ShoutoutResponse;
 import com.friendster.api.v1.User;
 import com.friendster.api.v1.UserResponse;
@@ -24,29 +25,34 @@ public class SampleClientImplementation {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		FriendsterAPIClient client = new FriendsterAPIClient(
-				"4bcc082d-6709-bd9d-7830-a4a6fee15797", "src/main/resources/FriendsterAPIConfig.xml");
+				"4bcc082d-6709-bd9d-7830-a4a6fee15797",
+				"src/main/resources/FriendsterAPIConfig.xml");
 		for (Object responseObject : getRequestList(client)) {
 			displayResponse(responseObject);
 		}
 	}
-	
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static List getRequestList(FriendsterAPIClient client) {
 		List requestList = new ArrayList();
-		requestList.add(client.postShoutout("Hello Paulo!"));
-		requestList.add(client.postShoutout("Hello Paulo!"));
-		requestList.add(client.getMessages());
-		requestList.add(client.getUserInformation(200000230, 200000233));
-		requestList.add(client.getFriends(200000230));
-		requestList.add(client.getTopScores());
-		requestList.add(client.postScore(200000233, 1000000));
-		requestList.add(client.getMessage(1));
-		requestList.add(client.postMessage(200000233,
-				new MessageRequest(20, 20)));
-		requestList.add(client.postNotification(new NotificationRequest(
-				"Hello", "Hello", "Hello", "Hello"), 200000233, 200000230));
-		requestList.add(client.getAppFriends());
-		requestList.add(client.getShoutout(200000230, 200000233));
+		try {
+			requestList.add(client.postShoutout("Hello Paulo!"));
+			requestList.add(client.getMessages());
+			requestList.add(client.getUserInformation(200000230, 200000233));
+			requestList.add(client.getFriends(200000230));
+			requestList.add(client.getTopScores());
+			requestList.add(client.postScore(200000233, 1000000));
+			requestList.add(client.getMessage(1));
+			requestList.add(client.postMessage(200000233, new MessageRequest(
+					20, 20)));
+			requestList.add(client.postNotification(new NotificationRequest(
+					"Hello", "Hello", "Hello", "Hello"), 200000233, 200000230));
+			requestList.add(client.getAppFriends());
+			requestList.add(client.getShoutout(200000230, 200000233));
+		} catch (FriendsterAPIServiceException e) {
+			System.out.println("Error Code : " + e.getErrorCode());
+			System.out.println("Error Msg  : " + e.getErrorMessage());
+		}
 		return requestList;
 	}
 

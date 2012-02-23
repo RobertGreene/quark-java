@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import com.friendster.api.client.enums.RequestTypesEnum;
-import com.friendster.api.client.request.AppDetails;
+import com.friendster.api.client.enums.RequestType;
+import com.friendster.api.client.request.FriendsterPCPAppInfo;
 import com.friendster.api.client.special.AvatarScoreResponse;
 import com.friendster.api.client.special.MessageRequest;
 import com.friendster.api.client.special.NotificationRequest;
@@ -34,7 +34,7 @@ import com.friendster.api.v1.score.GameScoreResponse;
  * scope. Multiple requests can be invoked.
  * */
 public class FriendsterAPIClient {
-	private AppDetails appDetails;
+	private FriendsterPCPAppInfo appDetails;
 	private Properties configProperties;
 
 	public FriendsterAPIClient(String sessionKey, String configFile) {
@@ -54,48 +54,48 @@ public class FriendsterAPIClient {
 
 	public UserResponse getUserInformation(Object... uids) {
 		RequestContext requestContext = new RequestContext(
-				RequestTypesEnum.USER, this.appDetails, uids);
+				RequestType.USER, this.appDetails, uids);
 		return (UserResponse) requestContext.handleRequest();
 	}
 
 	public ApplicationFriendsResponse getAppFriends() {
 		RequestContext requestContext = new RequestContext(
-				RequestTypesEnum.APP_FRIENDS, this.appDetails);
+				RequestType.APP_FRIENDS, this.appDetails);
 		return (ApplicationFriendsResponse) requestContext.handleRequest();
 	}
 
 	public FriendsResponse getFriends(Integer uid) {
 		RequestContext requestContext = new RequestContext(
-				RequestTypesEnum.FRIENDS, this.appDetails, uid);
+				RequestType.FRIENDS, this.appDetails, uid);
 		return (FriendsResponse) requestContext.handleRequest();
 	}
 
 	public Object getShoutout(Object... uids) {
 		RequestContext requestContext = new RequestContext(
-				RequestTypesEnum.SHOUTOUT, this.appDetails, uids);
+				RequestType.SHOUTOUT, this.appDetails, uids);
 		return requestContext.handleRequest();
 	}
 
 	public AvatarScoreResponse getTopScores() {
 		RequestContext requestContext = new RequestContext(
-				RequestTypesEnum.TOP_SCORES, this.appDetails);
+				RequestType.TOP_SCORES, this.appDetails);
 		return (AvatarScoreResponse) requestContext.handleRequest();
 	}
 
 	public com.friendster.api.v1.messages_get.MessageResponse getMessages() {
 		RequestContext requestContext = new RequestContext(
-				RequestTypesEnum.MESSAGES, this.appDetails);
+				RequestType.MESSAGES, this.appDetails);
 		return (com.friendster.api.v1.messages_get.MessageResponse) requestContext.handleRequest();
 	}
 	
 	public MessageResponse postMessage(Integer uid, MessageRequest message) {
-		RequestContext requestContext = new RequestContext(RequestTypesEnum.MESSAGE_P, this.appDetails, uid, message.getRequestMap());
+		RequestContext requestContext = new RequestContext(RequestType.MESSAGE_P, this.appDetails, uid, message.getRequestMap());
 		return (MessageResponse) requestContext.handleRequest();
 	}
 
 	public MessageResponse getMessage(Integer cid) {
 		RequestContext requestContext = new RequestContext(
-				RequestTypesEnum.MESSAGE, this.appDetails, cid);
+				RequestType.MESSAGE, this.appDetails, cid);
 		return (MessageResponse) requestContext.handleRequest();
 	}
 
@@ -104,7 +104,7 @@ public class FriendsterAPIClient {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("score", String.valueOf(score));
 		RequestContext requestContext = new RequestContext(
-				RequestTypesEnum.SCORE, this.appDetails, avatarId, paramMap);
+				RequestType.SCORE, this.appDetails, avatarId, paramMap);
 		return (GameScoreResponse) requestContext.handleRequest();
 	}
 	
@@ -112,7 +112,7 @@ public class FriendsterAPIClient {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("content", shoutOut);
 		RequestContext requestContext = new RequestContext(
-				RequestTypesEnum.SHOUTOUT_P, this.appDetails, paramMap);
+				RequestType.SHOUTOUT_P, this.appDetails, paramMap);
 		return (ShoutoutResponse) requestContext.handleRequest();
 	}
 	
@@ -123,7 +123,7 @@ public class FriendsterAPIClient {
 				uidList.add((Integer) o);
 			}
 		}
-		RequestContext requestContext = new RequestContext(RequestTypesEnum.NOTIFICATION_P, this.appDetails, request.getNotificationParams(), uidList);
+		RequestContext requestContext = new RequestContext(RequestType.NOTIFICATION_P, this.appDetails, request.getNotificationParams(), uidList);
 		return (NotificationsResponse) requestContext.handleRequest();
 	}
 	
@@ -131,8 +131,8 @@ public class FriendsterAPIClient {
 		return this.configProperties.getProperty(propertyKey);
 	}
 
-	private AppDetails createAppDetails(String sessionKey) {
-		this.appDetails = new AppDetails();
+	private FriendsterPCPAppInfo createAppDetails(String sessionKey) {
+		this.appDetails = new FriendsterPCPAppInfo();
 		
 		this.appDetails.setApiKey(this.getConfigProperty("api_key"));
 		this.appDetails.setApiSecret(this.getConfigProperty("api_secret"));

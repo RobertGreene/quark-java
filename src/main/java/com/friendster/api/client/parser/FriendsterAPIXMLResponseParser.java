@@ -13,12 +13,11 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-import com.friendster.api.client.builders.AvatarScoreBuilder;
-import com.friendster.api.client.enums.RequestTypesEnum;
+import com.friendster.api.client.enums.RequestType;
 import com.friendster.api.client.parser.xml.NamespaceFilter;
+import com.friendster.api.client.special.AvatarScoreBuilder;
 import com.friendster.api.client.special.AvatarScoreResponse;
 import com.friendster.api.client.throwable.FriendsterAPIException;
-import com.friendster.api.client.throwable.FriendsterAPIServiceException;
 import com.friendster.api.v1.GameScoreResponse;
 import com.friendster.api.v1.ShoutoutResponse;
 import com.friendster.api.v1.UserResponse;
@@ -31,7 +30,7 @@ import com.friendster.api.v1.notification.NotificationsResponse;
 @SuppressWarnings("restriction")
 public class FriendsterAPIXMLResponseParser implements
 		FriendsterAPIResponseParserInterface {
-	public Object parseResponse(RequestTypesEnum requestType,
+	public Object parseResponse(RequestType requestType,
 			HttpEntity httpInput) {
 		Object tempObject = null;
 
@@ -45,12 +44,7 @@ public class FriendsterAPIXMLResponseParser implements
 			SAXSource source = new SAXSource(inFilter, is);
 			tempObject = u.unmarshal(source);
 		} catch (JAXBException e) {
-			try {
-				ErrorResponse errorResponse = this.parsePossibleError(httpInput);
-				throw new FriendsterAPIServiceException(errorResponse.getErrorCode(), errorResponse.getErrorMessage());
-			} catch (Exception e1) {
-				throw new FriendsterAPIException(e);
-			}
+			throw new FriendsterAPIException(e);
 		} catch (SAXException e) {
 			throw new FriendsterAPIException(e);
 		} catch (IllegalStateException e) {
@@ -86,25 +80,32 @@ public class FriendsterAPIXMLResponseParser implements
 		}
 	}
 
-	private ErrorResponse parsePossibleError(HttpEntity httpInput) throws Exception {
+	public ErrorResponse parsePossibleError(HttpEntity httpInput) throws FriendsterAPIException {
 		try {
 			JAXBContext jc = JAXBContext
 					.newInstance("com.friendster.api.v1.error");
 			Unmarshaller u = jc.createUnmarshaller();
 			XMLReader reader = XMLReaderFactory.createXMLReader();
 			NamespaceFilter inFilter = new NamespaceFilter(
-					"http://api.friendster.com/v1/messages_get", true);
+					"http://api.friendster.com/v1/error", true);
 			inFilter.setParent(reader);
 			InputSource is = new InputSource(httpInput.getContent());
 			SAXSource source = new SAXSource(inFilter, is);
 			return (ErrorResponse) u.unmarshal(source);
-		} catch (Exception e) {
-			throw new Exception();
+		} catch (JAXBException e) {
+			e.printStackTrace();
+			throw new FriendsterAPIException();
+		} catch (SAXException e) {
+			throw new FriendsterAPIException();
+		} catch (IllegalStateException e) {
+			throw new FriendsterAPIException();
+		} catch (IOException e) {
+			throw new FriendsterAPIException();
 		}
 
 	}
 
-	private JAXBContext getJAXBContext(RequestTypesEnum requestType)
+	private JAXBContext getJAXBContext(RequestType requestType)
 			throws JAXBException {
 		switch (requestType) {
 		case APP_FRIENDS:
@@ -132,7 +133,7 @@ public class FriendsterAPIXMLResponseParser implements
 		}
 	}
 
-	private NamespaceFilter getNamespaceFilter(RequestTypesEnum requestType) {
+	private NamespaceFilter getNamespaceFilter(RequestType requestType) {
 		switch (requestType) {
 		case APP_FRIENDS:
 			return new NamespaceFilter("http://api.friendster.com/v1/app", true);

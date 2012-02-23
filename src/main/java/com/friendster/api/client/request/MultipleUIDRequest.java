@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.friendster.api.client.enums.RequestTypesEnum;
+import com.friendster.api.client.enums.RequestType;
 
 public class MultipleUIDRequest extends Request {
 	/**
@@ -17,28 +17,15 @@ public class MultipleUIDRequest extends Request {
 	private String uids;
 	
 	@SuppressWarnings("unchecked")
-	public MultipleUIDRequest(RequestTypesEnum requestType,
-			AppDetails appDetails, Object... args) {
+	public MultipleUIDRequest(RequestType requestType,
+			FriendsterPCPAppInfo appDetails, List<Integer> args) {
 		super(requestType, appDetails);
-		
-		for (Object o : args) {
-			if (o instanceof Map) {
-				this.otherParams = new HashMap<String, String>((Map<String, String>) o);
-			} else {
-				this.otherParams = new HashMap<String, String>();					
-			}
-		}
-		for (Object o : args) {
-			if (o instanceof List) {
-				this.uids = this.marshalUIDs((List<Integer>) o);
-			} else {
-
-			}
-		}
+		this.otherParams = new HashMap<String, String>();
+		this.uids = this.marshalUIDs(args);
 		this.otherParams.put("uids", this.uids);
 		logger.debug("Request UIDs : " + this.getUIDs());
 	}
-
+	
 	private String marshalUIDs(List<Integer> args) {
 		StringBuffer uids = new StringBuffer();
 		for (Integer i : args) {

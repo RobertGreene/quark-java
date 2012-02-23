@@ -1,6 +1,6 @@
 package com.friendster.api.client.request;
 
-public class AppDetails {
+public class FriendsterPCPAppInfo {
 	private String apiKey;
 	private String apiSecret;
 	private String nOnce;

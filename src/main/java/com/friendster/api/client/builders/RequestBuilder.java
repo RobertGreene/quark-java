@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.friendster.api.client.enums.RequestTypesEnum;
-import com.friendster.api.client.request.AppDetails;
+import com.friendster.api.client.enums.RequestType;
+import com.friendster.api.client.request.FriendsterPCPAppInfo;
 import com.friendster.api.client.request.MultipleUIDRequest;
 import com.friendster.api.client.request.Request;
 import com.friendster.api.client.request.SingleUIDRequest;
@@ -15,8 +15,8 @@ import com.friendster.api.client.throwable.FriendsterAPIException;
 public class RequestBuilder {
 
 	@SuppressWarnings("unchecked")
-	public static Request buildRequest(RequestTypesEnum requestType,
-			AppDetails appDetails, Object... args)
+	public static Request buildRequest(RequestType requestType,
+			FriendsterPCPAppInfo appDetails, Object... args)
 			throws FriendsterAPIException {
 
 		List<Integer> applUID = new ArrayList<Integer>();
@@ -64,7 +64,7 @@ public class RequestBuilder {
 			request = new SingleUIDRequest(requestType, appDetails, (Integer) args[0]);
 			break;
 		case NOTIFICATION_P:
-			request = new MultipleUIDRequest(requestType, appDetails, applUID, requestParameters);
+			request = new MultipleUIDRequest(requestType, appDetails, applUID);
 		default:
 			break;
 		}

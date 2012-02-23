@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.friendster.api.client.builders.EndpointIndexBuilder;
 import com.friendster.api.client.enums.RequestMethod;
-import com.friendster.api.client.enums.RequestTypesEnum;
+import com.friendster.api.client.enums.RequestType;
 
 /**
  * Base Request Class for Friendster API Client Friendster Inc.
@@ -20,21 +20,21 @@ public class Request implements RequestInterface, Serializable {
 	 * Implements Serializable for Failover Support
 	 */
 	private static final long serialVersionUID = -6127125517259593640L;
-	protected final RequestTypesEnum requestType;
-	private final AppDetails appDetails;
+	protected final RequestType requestType;
+	private final FriendsterPCPAppInfo appDetails;
 	protected Map<String, String> otherParams;
 
-	public Request(final RequestTypesEnum requestType,
-			final AppDetails appDetails) {
+	public Request(final RequestType requestType,
+			final FriendsterPCPAppInfo appDetails) {
 		this.requestType = requestType;
 		this.appDetails = appDetails;
 	}
 
-	public RequestTypesEnum getRequestType() {
+	public RequestType getRequestType() {
 		return this.requestType;
 	}
 
-	public AppDetails getAppDetails() {
+	public FriendsterPCPAppInfo getAppDetails() {
 		return this.appDetails;
 	}
 

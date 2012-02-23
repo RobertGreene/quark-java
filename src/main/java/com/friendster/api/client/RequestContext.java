@@ -11,49 +11,80 @@ import org.apache.http.HttpEntity;
 import com.friendster.api.client.builders.RequestBuilder;
 import com.friendster.api.client.digest.ApacheMD5DigestWrapper;
 import com.friendster.api.client.enums.RequestMethod;
-import com.friendster.api.client.enums.RequestTypesEnum;
+import com.friendster.api.client.enums.RequestType;
 import com.friendster.api.client.http.FlexibleHTTPClient;
 import com.friendster.api.client.parser.FriendsterAPIRequestParser;
 import com.friendster.api.client.parser.FriendsterAPIRequestParserInterface;
 import com.friendster.api.client.parser.FriendsterAPIResponseParserInterface;
 import com.friendster.api.client.parser.FriendsterAPIXMLResponseParser;
-import com.friendster.api.client.request.AppDetails;
+import com.friendster.api.client.request.FriendsterPCPAppInfo;
 import com.friendster.api.client.request.Request;
 import com.friendster.api.client.throwable.FriendsterAPIException;
+import com.friendster.api.client.throwable.FriendsterAPIServiceException;
 import com.friendster.api.client.validators.RequestValidatorInterface;
+import com.friendster.api.v1.error.ErrorResponse;
 
 public class RequestContext {
 	private Request request;
 	private List<RequestValidatorInterface> requestValidators;
 
-	public RequestContext(RequestTypesEnum requestType, AppDetails appDetails,
+	public RequestContext(RequestType requestType, FriendsterPCPAppInfo appDetails,
 			Object... args) {
-		
+
 		this.handleRequestInternal(requestType, appDetails, args);
 	}
 
 	public Object handleRequest() {
 		this.performValidations();
 		FlexibleHTTPClient httpClient = new FlexibleHTTPClient();
-		return this.createResponse(httpClient.performRequest(
+		try {
+			Object response = this.createResponse(httpClient.performRequest(
+					this.request.getMethod(),
+					this.performRequestParsing(this.request.getMethod()),
+					this.request.getRequestParameters()));
+			return response;
+		} catch (FriendsterAPIException e) {
+			ErrorResponse errorResponse = this.performErrorParsing();
+			throw new FriendsterAPIServiceException(
+					errorResponse.getErrorCode(),
+					errorResponse.getErrorMsg());
+		}
+	}
+
+	private Object createResponse(HttpEntity httpEntity) {
+		FriendsterAPIResponseParserInterface responseParser = new FriendsterAPIXMLResponseParser();
+		return responseParser.parseResponse(this.request.getRequestType(),
+				httpEntity);
+	}
+	
+	private ErrorResponse performErrorParsing() {
+		FlexibleHTTPClient httpClient = new FlexibleHTTPClient();
+		FriendsterAPIXMLResponseParser responseParser = new FriendsterAPIXMLResponseParser();
+		return responseParser.parsePossibleError(httpClient.performRequest(
 				this.request.getMethod(),
 				this.performRequestParsing(this.request.getMethod()),
 				this.request.getRequestParameters()));
 	}
 
-	private void handleRequestInternal(RequestTypesEnum requestType,
-			AppDetails appDetails, Object... args) {
-
+	private void handleRequestInternal(RequestType requestType,
+			FriendsterPCPAppInfo appDetails, Object... args) {
 		this.request = RequestBuilder.buildRequest(requestType, appDetails,
 				args);
 		this.requestValidators = this.initializeValidators();
 	}
-
-	private Object createResponse(HttpEntity httpEntity) {
-		FriendsterAPIResponseParserInterface responseParser = new FriendsterAPIXMLResponseParser();
-		return responseParser.parseResponse(this.request.getRequestType(), httpEntity);
+	
+	private URI performRequestParsing(RequestMethod requestMethod) {
+		FriendsterAPIRequestParserInterface requestParser = new FriendsterAPIRequestParser(
+				this.request);
+		return requestParser.parseRequest();
 	}
 
+	private void performValidations() {
+		for (RequestValidatorInterface validator : requestValidators) {
+			validator.validateParams();
+		}
+	}
+	
 	@SuppressWarnings("rawtypes")
 	private List<RequestValidatorInterface> initializeValidators() {
 		requestValidators = new ArrayList<RequestValidatorInterface>();
@@ -79,16 +110,5 @@ public class RequestContext {
 		return requestValidators;
 	}
 
-	private URI performRequestParsing(RequestMethod requestMethod) {
-		// TODO Make this a parameterized thing
-		FriendsterAPIRequestParserInterface requestParser = new FriendsterAPIRequestParser(
-				this.request);
-		return requestParser.parseRequest();
-	}
 
-	private void performValidations() {
-		for (RequestValidatorInterface validator : requestValidators) {
-			validator.validateParams();
-		}
-	}
 }

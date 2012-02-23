@@ -1,11 +1,9 @@
-package com.friendster.api.client.builders;
+package com.friendster.api.client.special;
 
 import javax.xml.bind.JAXBElement;
 
 import org.apache.log4j.Logger;
 
-import com.friendster.api.client.special.AvatarScore;
-import com.friendster.api.client.special.AvatarScoreResponse;
 import com.friendster.api.v1.GameScoreResponse;
 import com.friendster.api.v1.HighScores;
 import com.friendster.api.v1.Score;
