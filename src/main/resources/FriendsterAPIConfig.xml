@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>
+This is a sample configuration file for the Friendster API Client
+In order to set the configuration, kindly enter the configuration in the following format:
+
+<!--  <entry key="{config key}">{config value}</entry>  -->
+
+</comment>
+<entry key="api_key">6d014cc55fec6f7fc106bdbda12e7ec0</entry>
+<entry key="api_secret">74dbc7249074d3f54690461278c4939f</entry>
+</properties>

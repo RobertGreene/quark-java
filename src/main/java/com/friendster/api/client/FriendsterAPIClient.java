@@ -117,14 +117,13 @@ public class FriendsterAPIClient {
 	}
 	
 	public NotificationsResponse postNotification(NotificationRequest request, Object... uids) {
-		List<Integer> l = new ArrayList<Integer>();
+		List<Integer> uidList = new ArrayList<Integer>();
 		for (Object o : uids) {
 			if (o instanceof Integer) {
-				l.add((Integer) o);
+				uidList.add((Integer) o);
 			}
 		}
-		
-		RequestContext requestContext = new RequestContext(RequestTypesEnum.NOTIFICATION_P, this.appDetails, request.getNotificationParams(), l);
+		RequestContext requestContext = new RequestContext(RequestTypesEnum.NOTIFICATION_P, this.appDetails, request.getNotificationParams(), uidList);
 		return (NotificationsResponse) requestContext.handleRequest();
 	}
 	
@@ -137,8 +136,6 @@ public class FriendsterAPIClient {
 		
 		this.appDetails.setApiKey(this.getConfigProperty("api_key"));
 		this.appDetails.setApiSecret(this.getConfigProperty("api_secret"));
-//		this.appDetails.setApiKey("6d014cc55fec6f7fc106bdbda12e7ec0");
-//		this.appDetails.setApiSecret("74dbc7249074d3f54690461278c4939f");
 		this.appDetails.setSessionKey(sessionKey);
 		return appDetails;
 	}
