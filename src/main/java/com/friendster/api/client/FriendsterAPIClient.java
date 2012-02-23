@@ -32,7 +32,6 @@ public class FriendsterAPIClient {
 		this.appDetails = this.createAppDetails(sessionKey);
 	}
 
-	// DONE
 	public UserResponse getUserInformation(Object... uids) {
 		RequestContext requestContext = new RequestContext(
 				RequestTypesEnum.USER, this.appDetails, uids);
