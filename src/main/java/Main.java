@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import com.friendster.api.client.FriendsterAPIClient;
 import com.friendster.api.client.special.AvatarScore;
 import com.friendster.api.client.special.AvatarScoreResponse;
+import com.friendster.api.client.special.MessageRequest;
 import com.friendster.api.client.special.NotificationRequest;
 import com.friendster.api.v1.ShoutoutResponse;
 import com.friendster.api.v1.User;
@@ -23,14 +24,16 @@ public class Main {
 
 //		Object o = client.postShoutout("Hello Paulo!");
 
+//		Object o = client.getShoutout(200000230, 200000233);
+//		Object o = client.getMessages();
 //		 Object o = client.getUserInformation(200000230, 200000233);
 //		 Object o = client.getFriends(200000230);
 
 //		Object o = client.getTopScores();
 //		Object o = client.postScore(200000233, 1000000);
-//		Object o = client.getMessage(1);
+		Object o = client.getMessage(1);
 //		Object o = client.postMessage(200000233, new MessageRequest(20, 20));
-		Object o = client.postNotification(new NotificationRequest("Hello", "Hello", "Hello", "Hello"), 200000233, 200000230);
+//		Object o = client.postNotification(new NotificationRequest("Hello", "Hello", "Hello", "Hello"), 200000233, 200000230);
 
 		if (o instanceof UserResponse) {
 			System.out.println("Successful");
@@ -76,6 +79,9 @@ public class Main {
 			for (String uid : response.getUid()) {
 				System.out.println("UID : " + uid);	
 			}
+		} else if (o instanceof com.friendster.api.v1.messages_get.MessageResponse) {
+			System.out.println("SUCCESSFUL : MESSAGES");
+			com.friendster.api.v1.messages_get.MessageResponse response = (com.friendster.api.v1.messages_get.MessageResponse) o;
 		}
 	}
 }

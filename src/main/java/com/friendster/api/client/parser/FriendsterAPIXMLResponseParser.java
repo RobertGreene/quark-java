@@ -84,6 +84,8 @@ public class FriendsterAPIXMLResponseParser implements
 			return (MessageResponse) tempObject;
 		case MESSAGE_P:
 			return (MessageResponse) tempObject;
+		case MESSAGES:
+			return (com.friendster.api.v1.messages_get.MessageResponse) tempObject;
 		case NOTIFICATION_P:
 			return (NotificationsResponse) tempObject;
 		default:
@@ -101,9 +103,12 @@ public class FriendsterAPIXMLResponseParser implements
 		case MESSAGE:
 		case MESSAGE_P:
 			return JAXBContext.newInstance("com.friendster.api.v1.message");
+		case MESSAGES:
+			return JAXBContext.newInstance("com.friendster.api.v1.messages_get");
 		case USER:
 		case SHOUTOUT_P:
 		case TOP_SCORES:
+		case SHOUTOUT:
 			return JAXBContext.newInstance("com.friendster.api.v1");
 		case NOTIFICATION_P:
 			return JAXBContext.newInstance("com.friendster.api.v1.notification");
@@ -123,9 +128,12 @@ public class FriendsterAPIXMLResponseParser implements
 		case MESSAGE_P:
 			return new NamespaceFilter(
 					"http://api.friendster.com/v1/message", true);
+		case MESSAGES:
+			return new NamespaceFilter("http://api.friendster.com/v1/messages_get", true);
 		case USER:
 		case SHOUTOUT_P:
 		case TOP_SCORES:
+		case SHOUTOUT:
 			return new NamespaceFilter("http://api.friendster.com/v1/", true);
 		case NOTIFICATION_P:
 			return new NamespaceFilter("http://api.friendster.com/v1/notification", true);

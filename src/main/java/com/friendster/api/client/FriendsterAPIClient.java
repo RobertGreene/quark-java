@@ -62,15 +62,15 @@ public class FriendsterAPIClient {
 		return (AvatarScoreResponse) requestContext.handleRequest();
 	}
 
-	public Object getMessages() {
+	public com.friendster.api.v1.messages_get.MessageResponse getMessages() {
 		RequestContext requestContext = new RequestContext(
 				RequestTypesEnum.MESSAGES, this.appDetails);
-		return requestContext.handleRequest();
+		return (com.friendster.api.v1.messages_get.MessageResponse) requestContext.handleRequest();
 	}
 	
-	public Object postMessage(Integer uid, MessageRequest message) {
+	public MessageResponse postMessage(Integer uid, MessageRequest message) {
 		RequestContext requestContext = new RequestContext(RequestTypesEnum.MESSAGE_P, this.appDetails, uid, message.getRequestMap());
-		return requestContext.handleRequest();
+		return (MessageResponse) requestContext.handleRequest();
 	}
 
 	public MessageResponse getMessage(Integer cid) {
