@@ -2,7 +2,6 @@ package com.friendster.api.client.request;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -16,7 +15,6 @@ public class MultipleUIDRequest extends Request {
 	private static Logger logger = Logger.getLogger(MultipleUIDRequest.class);
 	private String uids;
 	
-	@SuppressWarnings("unchecked")
 	public MultipleUIDRequest(RequestType requestType,
 			FriendsterPCPAppInfo appDetails, List<Integer> args) {
 		super(requestType, appDetails);

@@ -7,6 +7,8 @@ import java.util.List;
 import com.friendster.api.client.FriendsterAPIClient;
 import com.friendster.api.client.special.AvatarScore;
 import com.friendster.api.client.special.AvatarScoreResponse;
+import com.friendster.api.client.special.MessageRequest;
+import com.friendster.api.client.special.NotificationRequest;
 import com.friendster.api.client.throwable.FriendsterAPIServiceException;
 import com.friendster.api.v1.ShoutoutResponse;
 import com.friendster.api.v1.User;
@@ -35,18 +37,18 @@ public class SampleClientImplementation {
 	public static List getRequestList(FriendsterAPIClient client) {
 		List requestList = new ArrayList();
 		try {
-//			requestList.add(client.postShoutout("Hello Paulo!"));
-//			requestList.add(client.getMessages());
-//			requestList.add(client.getUserInformation(200000230, 200000233));
-//			requestList.add(client.getFriends(200000230));
-//			requestList.add(client.getTopScores());
-//			requestList.add(client.postScore(200000233, 1000000));
-//			requestList.add(client.getMessage(1));
-//			requestList.add(client.postMessage(200000233, new MessageRequest(
-//					20, 20)));
-//			requestList.add(client.postNotification(new NotificationRequest(
-//					"Hello", "Hello", "Hello", "Hello"), 200000233, 200000230));
-//			requestList.add(client.getAppFriends());
+			requestList.add(client.postShoutout("Hello Paulo!"));
+			requestList.add(client.getMessages());
+			requestList.add(client.getUserInformation(200000230, 200000233));
+			requestList.add(client.getFriends(200000230));
+			requestList.add(client.getTopScores());
+			requestList.add(client.postScore(200000233, 1000000));
+			requestList.add(client.getMessage(1));
+			requestList.add(client.postMessage(200000233, new MessageRequest(
+					20, 20)));
+			requestList.add(client.postNotification(new NotificationRequest(
+					"Hello", "Hello", "Hello", "Hello"), 200000233, 200000230));
+			requestList.add(client.getAppFriends());
 			requestList.add(client.getShoutout(15066266, 200000233));
 		} catch (FriendsterAPIServiceException e) {
 			System.out.println("Error Code : " + e.getErrorCode());
