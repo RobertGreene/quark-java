@@ -70,10 +70,10 @@ public class FriendsterAPIClient {
 		return (FriendsResponse) requestContext.handleRequest();
 	}
 
-	public Object getShoutout(Object... uids) {
+	public com.friendster.api.v1.shoutout_list.ShoutoutResponse getShoutout(Object... uids) {
 		RequestContext requestContext = new RequestContext(
 				RequestType.SHOUTOUT, this.appDetails, uids);
-		return requestContext.handleRequest();
+		return (com.friendster.api.v1.shoutout_list.ShoutoutResponse) requestContext.handleRequest();
 	}
 
 	public AvatarScoreResponse getTopScores() {

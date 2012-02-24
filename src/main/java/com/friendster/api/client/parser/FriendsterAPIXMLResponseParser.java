@@ -58,6 +58,8 @@ public class FriendsterAPIXMLResponseParser implements
 			return (UserResponse) tempObject;
 		case SHOUTOUT_P:
 			return (ShoutoutResponse) tempObject;
+		case SHOUTOUT:
+			return (com.friendster.api.v1.shoutout_list.ShoutoutResponse) tempObject;
 		case FRIENDS:
 			return (FriendsResponse) tempObject;
 		case TOP_SCORES:
@@ -93,7 +95,6 @@ public class FriendsterAPIXMLResponseParser implements
 			SAXSource source = new SAXSource(inFilter, is);
 			return (ErrorResponse) u.unmarshal(source);
 		} catch (JAXBException e) {
-			e.printStackTrace();
 			throw new FriendsterAPIException();
 		} catch (SAXException e) {
 			throw new FriendsterAPIException();
@@ -123,8 +124,9 @@ public class FriendsterAPIXMLResponseParser implements
 		case USER:
 		case SHOUTOUT_P:
 		case TOP_SCORES:
-		case SHOUTOUT:
 			return JAXBContext.newInstance("com.friendster.api.v1");
+		case SHOUTOUT:
+			return JAXBContext.newInstance("com.friendster.api.v1.shoutout_list");
 		case NOTIFICATION_P:
 			return JAXBContext
 					.newInstance("com.friendster.api.v1.notification");
@@ -151,10 +153,11 @@ public class FriendsterAPIXMLResponseParser implements
 			return new NamespaceFilter(
 					"http://api.friendster.com/v1/messages_get", true);
 		case USER:
-		case SHOUTOUT_P:
 		case TOP_SCORES:
-		case SHOUTOUT:
+		case SHOUTOUT_P:
 			return new NamespaceFilter("http://api.friendster.com/v1/", true);
+		case SHOUTOUT:
+			return new NamespaceFilter("http://api.friendster.com/v1/shoutout_list", true);
 		case NOTIFICATION_P:
 			return new NamespaceFilter(
 					"http://api.friendster.com/v1/notification", true);

@@ -1,0 +1,18 @@
+<shoutout_response xmlns="http://api.friendster.com/v1/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://api.friendster.com/v1/ http://api.friendster.com/v1/friendster.xsd">
+	<shoutouts>
+		<shoutout>
+			<uid>15066266</uid>
+			<content>spammers!</content>
+			<updated>1329102965</updated>
+		</shoutout>
+	</shoutouts>
+	<shoutouts>
+		<shoutout>
+			<uid>15066266</uid>
+			<content>spammers!</content>
+			<updated>1329102965</updated>
+		</shoutout>
+	</shoutouts>
+</shoutout_response>
