@@ -13,7 +13,10 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
+	<scm>
+		<connection>scm:git:git@github.com:Friendster/quark-java.git</connection>
+		<developerConnection>scm:git:git@github.com:Friendster/quark-java.git</developerConnection>
+	</scm>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
