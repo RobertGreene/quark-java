@@ -12,7 +12,6 @@ public class EndpointIndexBuilder {
 	private static Map<RequestType, RequestMethod> methodIndex;
 	private static final String BASE_URL = "http://api.friendster.com/v1/";
 
-	// TODO Change this to an external configuration file later
 	static {
 		buildEndpointIndex();
 		buildMethodIndex();
@@ -32,6 +31,9 @@ public class EndpointIndexBuilder {
 		endpointIndex.put(RequestType.MESSAGES, BASE_URL + "messages");
 		endpointIndex.put(RequestType.MESSAGE_P, BASE_URL + "messages");
 		endpointIndex.put(RequestType.NOTIFICATION_P, BASE_URL + "notification");
+		endpointIndex.put(RequestType.WALLET_BALANCE, BASE_URL + "wallet/balance");
+		endpointIndex.put(RequestType.WALLET_COMMIT, BASE_URL + "wallet/commit");
+		endpointIndex.put(RequestType.WALLET_GET, BASE_URL + "wallet/payment");
 	}
 
 	private static void buildMethodIndex() {
@@ -47,7 +49,9 @@ public class EndpointIndexBuilder {
 		methodIndex.put(RequestType.MESSAGES, RequestMethod.GET);
 		methodIndex.put(RequestType.MESSAGE_P, RequestMethod.POST);
 		methodIndex.put(RequestType.NOTIFICATION_P, RequestMethod.POST);
-
+		methodIndex.put(RequestType.WALLET_BALANCE, RequestMethod.GET);
+		methodIndex.put(RequestType.WALLET_COMMIT, RequestMethod.POST);
+		methodIndex.put(RequestType.WALLET_GET, RequestMethod.POST);
 	}
 
 	public static String getEndpoint(RequestType requestType) {

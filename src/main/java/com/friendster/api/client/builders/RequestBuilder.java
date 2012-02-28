@@ -65,6 +65,12 @@ public class RequestBuilder {
 			break;
 		case NOTIFICATION_P:
 			request = new MultipleUIDRequest(requestType, appDetails, applUID);
+		case WALLET_BALANCE:
+			request = new Request(requestType, appDetails);
+		case WALLET_COMMIT:
+			request = new Request(requestType, appDetails);
+		case WALLET_GET:
+			request = new Request(requestType, appDetails);
 		default:
 			break;
 		}

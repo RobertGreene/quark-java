@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<xs:schema targetNamespace="http://api.friendster.com/v1/" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+  <xs:element name="wallet_response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="coins" type="xs:string" minOccurs="0" />
+        <xs:element name="timestamp" type="xs:time" minOccurs="0" />
+        <xs:element name="amt" type="xs:string" minOccurs="0" />
+        <xs:element name="transaction_id" type="xs:string" minOccurs="0" />
+        <xs:element name="request_token" type="xs:string" minOccurs="0" />
+        <xs:element name="redirect_url" type="xs:string" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

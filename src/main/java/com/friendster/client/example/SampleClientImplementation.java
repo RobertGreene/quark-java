@@ -9,10 +9,12 @@ import com.friendster.api.client.special.AvatarScore;
 import com.friendster.api.client.special.AvatarScoreResponse;
 import com.friendster.api.client.special.MessageRequest;
 import com.friendster.api.client.special.NotificationRequest;
+import com.friendster.api.client.special.PaymentRequest;
 import com.friendster.api.client.throwable.FriendsterAPIServiceException;
 import com.friendster.api.v1.ShoutoutResponse;
 import com.friendster.api.v1.User;
 import com.friendster.api.v1.UserResponse;
+import com.friendster.api.v1.WalletResponse;
 import com.friendster.api.v1.friends.Friends;
 import com.friendster.api.v1.friends.FriendsResponse;
 import com.friendster.api.v1.message.Message;
@@ -26,7 +28,7 @@ public class SampleClientImplementation {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		FriendsterAPIClient client = new FriendsterAPIClient(
-				"4bcc082d-6709-bd9d-7830-a4a6fee15797",
+				"0010a3bd-bee2-d838-2719-56115c37e907",
 				"src/main/resources/FriendsterAPIConfig.xml");
 		for (Object responseObject : getRequestList(client)) {
 			displayResponse(responseObject);
@@ -49,7 +51,13 @@ public class SampleClientImplementation {
 			requestList.add(client.postNotification(new NotificationRequest(
 					"Hello", "Hello", "Hello", "Hello"), 200000233, 200000230));
 			requestList.add(client.getAppFriends());
-			requestList.add(client.getShoutout(15066266, 200000233));
+			requestList.add(client.getShoutout(200000230));
+			requestList.add(client.getWalletBalance());
+			requestList.add(client.getPaymentRequest(new PaymentRequest("Test",
+					"Test", 1, "")));
+			requestList.add(client
+					.commitPaymentRequest("ea9acc5cc6d607dab18dd92cf9d7c4"));
+
 		} catch (FriendsterAPIServiceException e) {
 			System.out.println("Error Code : " + e.getErrorCode());
 			System.out.println("Error Msg  : " + e.getErrorMessage());
@@ -111,10 +119,17 @@ public class SampleClientImplementation {
 			System.out.println("SUCCESSFUL : SHOUTOUT");
 			com.friendster.api.v1.shoutout_list.ShoutoutResponse response = (com.friendster.api.v1.shoutout_list.ShoutoutResponse) o;
 			for (Shoutout shoutout : response.getShoutouts().getShoutout()) {
-				System.out.println("Shoutout : " + shoutout.getUid() + " : " + shoutout.getContent() + " : " + shoutout.getUpdated());
+				System.out
+						.println("Shoutout : " + shoutout.getUid() + " : "
+								+ shoutout.getContent() + " : "
+								+ shoutout.getUpdated());
 			}
+		} else if (o instanceof WalletResponse) {
+			System.out.println("SUCCESSFUL : WALLET");
+			WalletResponse response = (WalletResponse) o;
+			System.out.println("Wallet Coins: " + response.getCoins());
+			System.out.println("Amount : " + response.getAmt());
+			System.out.println("Redirect URL : " + response.getRedirectUrl());
 		}
-
 	}
-
 }

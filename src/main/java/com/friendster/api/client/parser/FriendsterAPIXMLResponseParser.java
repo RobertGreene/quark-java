@@ -21,6 +21,7 @@ import com.friendster.api.client.throwable.FriendsterAPIException;
 import com.friendster.api.v1.GameScoreResponse;
 import com.friendster.api.v1.ShoutoutResponse;
 import com.friendster.api.v1.UserResponse;
+import com.friendster.api.v1.WalletResponse;
 import com.friendster.api.v1.app.ApplicationFriendsResponse;
 import com.friendster.api.v1.error.ErrorResponse;
 import com.friendster.api.v1.friends.FriendsResponse;
@@ -77,6 +78,10 @@ public class FriendsterAPIXMLResponseParser implements
 			return (NotificationsResponse) tempObject;
 		case APP_FRIENDS:
 			return (ApplicationFriendsResponse) tempObject;
+		case WALLET_BALANCE:
+		case WALLET_COMMIT:
+		case WALLET_GET:
+			return (WalletResponse) tempObject;
 		default:
 			throw new FriendsterAPIException();
 		}
@@ -124,6 +129,9 @@ public class FriendsterAPIXMLResponseParser implements
 		case USER:
 		case SHOUTOUT_P:
 		case TOP_SCORES:
+		case WALLET_BALANCE:
+		case WALLET_COMMIT:
+		case WALLET_GET:
 			return JAXBContext.newInstance("com.friendster.api.v1");
 		case SHOUTOUT:
 			return JAXBContext.newInstance("com.friendster.api.v1.shoutout_list");
@@ -155,6 +163,9 @@ public class FriendsterAPIXMLResponseParser implements
 		case USER:
 		case TOP_SCORES:
 		case SHOUTOUT_P:
+		case WALLET_BALANCE:
+		case WALLET_COMMIT:
+		case WALLET_GET:
 			return new NamespaceFilter("http://api.friendster.com/v1/", true);
 		case SHOUTOUT:
 			return new NamespaceFilter("http://api.friendster.com/v1/shoutout_list", true);

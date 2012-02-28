@@ -16,9 +16,11 @@ import com.friendster.api.client.request.FriendsterPCPAppInfo;
 import com.friendster.api.client.special.AvatarScoreResponse;
 import com.friendster.api.client.special.MessageRequest;
 import com.friendster.api.client.special.NotificationRequest;
+import com.friendster.api.client.special.PaymentRequest;
 import com.friendster.api.client.throwable.FriendsterAPIException;
 import com.friendster.api.v1.ShoutoutResponse;
 import com.friendster.api.v1.UserResponse;
+import com.friendster.api.v1.WalletResponse;
 import com.friendster.api.v1.app.ApplicationFriendsResponse;
 import com.friendster.api.v1.friends.FriendsResponse;
 import com.friendster.api.v1.message.MessageResponse;
@@ -127,7 +129,24 @@ public class FriendsterAPIClient {
 		return (NotificationsResponse) requestContext.handleRequest();
 	}
 	
-	public String getConfigProperty(String propertyKey) {
+	public WalletResponse getWalletBalance() {
+		RequestContext requestContext = new RequestContext(RequestType.WALLET_BALANCE, this.appDetails);
+		return (WalletResponse) requestContext.handleRequest();
+	}
+	
+	public WalletResponse getPaymentRequest(PaymentRequest request) {
+		RequestContext requestContext = new RequestContext(RequestType.WALLET_GET, this.appDetails, request.getPaymentParams());
+		return (WalletResponse) requestContext.handleRequest();
+	}
+	
+	public WalletResponse commitPaymentRequest(String requestToken) {
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("request_token", requestToken);
+		RequestContext requestContext = new RequestContext(RequestType.WALLET_COMMIT, this.appDetails);
+		return (WalletResponse) requestContext.handleRequest();
+	}
+	
+	private String getConfigProperty(String propertyKey) {
 		return this.configProperties.getProperty(propertyKey);
 	}
 
