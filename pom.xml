@@ -3,32 +3,29 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.friendster.api</groupId>
-	<artifactId>client</artifactId>
+	<artifactId>friendster-api-client</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>client</name>
-	<url>http://maven.apache.org</url>
+	<name>friendster-api-client</name>
+	<url>https://github.com/Friendster/quark-java</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<github.maven.repository>file:///home/dev/java/maven-repository/</github.maven.repository>
 	</properties>
 	<scm>
 		<connection>scm:git:git@github.com:Friendster/quark-java.git</connection>
 		<developerConnection>scm:git:git@github.com:Friendster/quark-java.git</developerConnection>
 	</scm>
-	
+
 	<distributionManagement>
-    <repository>
-        <id>repo</id>
-        <url>https://github.com/Friendster/quark-java/raw/master/releases</url>
-    </repository>
-    <snapshotRepository>
-        <id>snapshot-repo</id>
-        <url>https://github.com/Friendster/quark-java/raw/master/snapshots</url>
-    </snapshotRepository>
-</distributionManagement>
-	
+		<repository>
+			<id>maven-repository</id>
+			<url>${github.maven.repository}</url>
+		</repository>
+	</distributionManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -94,4 +91,11 @@
 
 		</plugins>
 	</build>
+	<organization>
+		<name>Friendster Inc.</name>
+		<url>https://github.com/Friendster/quark-java</url>
+	</organization>
+	<description>Friendster API Client
+
+This project is intended to provide a Java-based interface for developers who would like to interface with the Friendster API.</description>
 </project>
