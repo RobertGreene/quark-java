@@ -3,3 +3,5 @@
 .settings
 bin/
 target/
+src/main/java/com/friendster/client/example/SampleClientImplementation.java
+

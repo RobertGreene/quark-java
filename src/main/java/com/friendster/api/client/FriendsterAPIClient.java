@@ -53,6 +53,14 @@ public class FriendsterAPIClient {
 		
 		this.appDetails = this.createAppDetails(sessionKey);
 	}
+	
+	public FriendsterAPIClient(String sessionKey, String apiKey, String apiSecret) {
+		this.appDetails = new FriendsterPCPAppInfo();
+		
+		this.appDetails.setApiKey(apiKey);
+		this.appDetails.setApiSecret(apiSecret);
+		this.appDetails.setSessionKey(sessionKey);
+	}
 
 	public UserResponse getUserInformation(Object... uids) {
 		RequestContext requestContext = new RequestContext(
