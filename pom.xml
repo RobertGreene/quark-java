@@ -16,6 +16,21 @@
 		<name>Friendster Inc.</name>
 		<url>https://github.com/Friendster/quark-java</url>
 	</organization>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<github.maven.repository>file:///home/dev/java/maven-repository/</github.maven.repository>
+	</properties>
+	<scm>
+		<connection>scm:git:git@github.com:Friendster/quark-java.git</connection>
+		<developerConnection>scm:git:git@github.com:Friendster/quark-java.git</developerConnection>
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>maven-repository</id>
+			<url>${github.maven.repository}</url>
+		</repository>
+	</distributionManagement>
 	<build>
 		<plugins>
 			<plugin>
