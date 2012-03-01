@@ -25,21 +25,24 @@ import com.friendster.api.v1.score.GameScoreResponse;
 import com.friendster.api.v1.shoutout_list.Shoutout;
 
 public class SampleClientImplementation {
-
+	
+	
+	
 	public static void main(String[] args) throws FileNotFoundException {
+		String sessionKey = "94e6592d-1cf0-dbbc-90ba-e391a36fc3d8";
 		FriendsterAPIClient client = new FriendsterAPIClient(
-				"0010a3bd-bee2-d838-2719-56115c37e907",
+				sessionKey,
 				"src/main/resources/FriendsterAPIConfig.xml");
 		for (Object responseObject : getRequestList(client)) {
 			displayResponse(responseObject);
 		}
 	}
-
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static List getRequestList(FriendsterAPIClient client) {
 		List requestList = new ArrayList();
 		try {
-			requestList.add(client.postShoutout("Hello Paulo!"));
+			requestList.add(client.postShoutout("Hello World!"));
 			requestList.add(client.getMessages());
 			requestList.add(client.getUserInformation(200000230, 200000233));
 			requestList.add(client.getFriends(200000230));
@@ -57,7 +60,6 @@ public class SampleClientImplementation {
 					"Test", 1, "")));
 			requestList.add(client
 					.commitPaymentRequest("ea9acc5cc6d607dab18dd92cf9d7c4"));
-
 		} catch (FriendsterAPIServiceException e) {
 			System.out.println("Error Code : " + e.getErrorCode());
 			System.out.println("Error Msg  : " + e.getErrorMessage());

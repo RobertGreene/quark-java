@@ -1,7 +1,9 @@
 package com.friendster.api.client.validators;
 
+import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.TreeMap;
@@ -78,6 +80,10 @@ public class RequestValidator<H, Q> implements RequestValidatorInterface {
 	}
 
 	private String createSerialNOnce() {
-		return String.valueOf(new GregorianCalendar().getTimeInMillis());
+		BigDecimal decimalNOnce = new BigDecimal(new GregorianCalendar().getTimeInMillis());
+		decimalNOnce = decimalNOnce.divide(new BigDecimal(1000));
+		DecimalFormat nOnceFormat = new DecimalFormat("#.000");
+		
+		return String.valueOf(nOnceFormat.format(decimalNOnce));
 	}
 }
