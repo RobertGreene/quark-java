@@ -42,7 +42,7 @@ public class SampleClientImplementation {
 	public static List getRequestList(FriendsterAPIClient client) {
 		List requestList = new ArrayList();
 		try {
-			requestList.add(client.postShoutout("Hello World!"));
+//			requestList.add(client.postShoutout("Hello World!"));
 //			requestList.add(client.getMessages());
 //			requestList.add(client.getUserInformation(200000230, 200000233));
 //			requestList.add(client.getFriends(200000230));
@@ -54,7 +54,7 @@ public class SampleClientImplementation {
 //			requestList.add(client.postNotification(new NotificationRequest(
 //					"Hello", "Hello", "Hello", "Hello"), 200000233, 200000230));
 //			requestList.add(client.getAppFriends());
-//			requestList.add(client.getShoutout(200000230));
+			requestList.add(client.getShoutout(200000230));
 //			requestList.add(client.getWalletBalance());
 //			requestList.add(client.getPaymentRequest(new PaymentRequest("Test",
 //					"Test", 1, "")));

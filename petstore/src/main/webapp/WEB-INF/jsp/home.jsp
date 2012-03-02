@@ -7,38 +7,59 @@
 
 	<h1>Friendster Test Application</h1>
 	<hr>
-	
-	<div align="right">
-	<pre>
+
+	<div id="sessionDetails" class="sessionDetails">
 		<table width="75%">
 			<tr>
 				<td><b>Session Key:</b></td>
-				<td>${appDetails.sessionKey }</td>
-			</tr>
-			<tr>
-				<td><b>API Key</b></td>
-				<td>${appDetails.apiKey }</td>
-			</tr>
-			<tr>
-				<td><b>API Secret</b></td>
-				<td>${appDetails.apiSecret }</td>
-			</tr>
-			<tr>
-				<td><b>Session Expiry</b></td>
-				<td>${appDetails.expiryDate}</td>
+				<td>${sessionDetails.sessionKey }</td>
 			</tr>
 		</table>
-	</pre>
+
 	</div>
 
-	<form method="GET" action="./shoutout">
-		<input type="hidden" name="api_key" value="${appDetails.apiKey}" />
-		<input type="hidden" name="api_secret" value="${appDetails.apiSecret}" />
-		<input type="hidden" name="session_key" value="${appDetails.sessionKey}" />
-		<input type="submit" value="Post Shoutout">
+	<!-- Shoutouts -->
+	<div id="shoutout" class="formInput">
+	<h3>Post Shoutout</h3>
+	<form method="POST" action="./shoutout">
+		<input type="hidden" name="session_key" value="${sessionDetails.sessionKey}" /> 
+
+		<!-- Shoutout Text Field -->
+		<table>
+			<tr>
+				<td><b>Shoutout:</b></td>
+				<td><textarea rows="3" cols="50" name="shoutout_text"></textarea></td>
+			<tr>
+			<tr>
+				<td/>
+				<td><input type="submit" value="Post Shoutout"></td>
+			</tr>
+		</table>
 	</form>
-	<a href="postShoutoutForm?api_key=">Post Shoutout</a>
-	<br>
+	</div>
+	
+	<!-- Shoutouts -->
+	<div id="user_info" class="formInput">
+	<h3>User Information</h3>
+	<form method="POST" action="./user">
+		<input type="hidden" name="session_key" value="${sessionDetails.sessionKey}" /> 
+
+		<!-- Shoutout Text Field -->
+		<table>
+			<tr>
+				<td><b>User ID:</b></td>
+				<td><input type="text" name="user_id"/></td>
+			<tr>
+			<tr>
+				<td/>
+				<td><input type="submit" value="Get User Information"></td>
+			</tr>
+		</table>
+	</form>
+	</div>
+	
+	
+
 	<a href="getMessages.html">Get Messages</a>
 	<br>
 	<a href="getUserInfoForm.html">Get User Information</a>
@@ -65,7 +86,6 @@
 	<br>
 	<a href="hello.html">Commit Payment Reqest</a>
 	<br>
-
 </body>
 
 
