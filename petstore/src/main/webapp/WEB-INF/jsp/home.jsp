@@ -38,13 +38,12 @@
 	</form>
 	</div>
 	
-	<!-- Shoutouts -->
+	<!-- User Information -->
 	<div id="user_info" class="formInput">
 	<h3>User Information</h3>
 	<form method="POST" action="./user">
 		<input type="hidden" name="session_key" value="${sessionDetails.sessionKey}" /> 
 
-		<!-- Shoutout Text Field -->
 		<table>
 			<tr>
 				<td><b>User ID:</b></td>
@@ -58,34 +57,25 @@
 	</form>
 	</div>
 	
-	
+	<!-- Wallet Balance -->
+	<div id="user_info" class="formInput">
+	<h3>Wallet Balance</h3>
+	<form method="POST" action="./wallet">
+		<input type="hidden" name="session_key" value="${sessionDetails.sessionKey}" /> 
 
-	<a href="getMessages.html">Get Messages</a>
-	<br>
-	<a href="getUserInfoForm.html">Get User Information</a>
-	<br>
-	<a href="hello.html">Get Friends</a>
-	<br>
-	<a href="score.html">Get Topscores</a>
-	<br>
-	<a href="hello.html">Post Topscore</a>
-	<br>
-	<a href="hello.html">Get Message</a>
-	<br>
-	<a href="hello.html">Post Message</a>
-	<br>
-	<a href="hello.html">Post Notification</a>
-	<br>
-	<a href="hello.html">Get Application Friends</a>
-	<br>
-	<a href="hello.html">Get Shoutout</a>
-	<br>
-	<a href="wallet.html">Get Wallet Balance</a>
-	<br>
-	<a href="hello.html">Get Payment Reqest</a>
-	<br>
-	<a href="hello.html">Commit Payment Reqest</a>
-	<br>
+		<table>
+			<tr>
+				<td><b>User ID:</b></td>
+				<td><input type="text" name="user_id"/></td>
+			<tr>
+			<tr>
+				<td/>
+				<td><input type="submit" value="Get Wallet Balance"></td>
+			</tr>
+		</table>
+	</form>
+	</div>
+	
 </body>
 
 

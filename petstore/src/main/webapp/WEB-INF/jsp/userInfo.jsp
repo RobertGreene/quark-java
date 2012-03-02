@@ -11,14 +11,9 @@
 <!-- Common Header -->
 <div id="header" class="header">
 	<a href="./?session_key=${sessionDetails.sessionKey }">Return to Home Page</a>
-	<h1>Post Shoutout</h1>
+	<h1>User Information</h1>
 	<hr>
 </div>
-
-<!-- User Information -->
-<div id="userInfo" class="statusDisplay">
-<h1>User Information</h1>
-
 <div align="center">
 	<table>
 		<tr>
@@ -114,7 +109,6 @@
 		<td>${userInfo.admin }</td>
 		</tr>
 	</table>
-</div>
 </div>
 
 </body>
