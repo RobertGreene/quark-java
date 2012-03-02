@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.friendster.api.client.special.AvatarScore;
 
-public class UserInfo {
+public class UserRequest {
 	private List<AvatarScore> scores;
 	private String coins;
 
@@ -15,7 +15,9 @@ public class UserInfo {
 
 	private String level;
 	
-	public UserInfo() {
+	private String shoutout;
+	
+	public UserRequest() {
 		this.scores = new ArrayList<AvatarScore>();
 	}
 	
@@ -58,5 +60,14 @@ public class UserInfo {
 	public String getLevel() {
 		return this.level;
 	}
+
+	public String getShoutoutMsg() {
+		return shoutout;
+	}
+
+	public void setShoutoutMsg(String shoutoutMsg) {
+		this.shoutout = shoutoutMsg;
+	}
+	
 
 }

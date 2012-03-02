@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.friendster.api.client.FriendsterAPIClient;
-import com.friendster.api.form.UserInfo;
+import com.friendster.api.form.UserRequest;
 
 
 @Controller
@@ -17,7 +17,7 @@ public class WalletBalanceController {
 				"94e6592d-1cf0-dbbc-90ba-e391a36fc3d8",
 				"62a37917567ef9f8d1765ab6c6dcea04",
 				"b953de900014764557f3d37b43564958");
-		UserInfo u = new UserInfo();
+		UserRequest u = new UserRequest();
         
         u.setUserId(client.getUserInformation(200000230).getUser().get(0).getUid());
         u.setCoins(client.getWalletBalance().getCoins());

@@ -4,24 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Wallet Balance</title>
+<title>Shoutout</title>
 </head>
-<a href="index.jsp">>>Back</a>
-
-<body bgcolor="gray">
+<body>
+<a href="./">>>Back</a>
 <pre>
-<div id="title">
-<h1>Wallet Balance</h1>
-</div>
-<hr/>
-
-<div id="content">
-	Wallet Balance for User ID <b>${userInfo.userId}</b> :
-</div>
-
-<div id="balance">
-	Friendster Coins: <b>${userInfo.coins}</b>
-</div>
+<h1>Shoutout</h1>
+<hr>
+<div align="left">Shoutout status: <b>${userInfo.shoutoutMsg}</b></div>
 </pre>
 </body>
 </html>

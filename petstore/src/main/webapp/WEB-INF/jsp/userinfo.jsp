@@ -7,6 +7,7 @@
 <title>User Information</title>
 </head>
 <body>
+<a href="index.jsp">>>Back</a>
 <pre>
 <h1>User Information</h1>
 <hr>

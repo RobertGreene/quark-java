@@ -43,23 +43,23 @@ public class SampleClientImplementation {
 		List requestList = new ArrayList();
 		try {
 			requestList.add(client.postShoutout("Hello World!"));
-			requestList.add(client.getMessages());
-			requestList.add(client.getUserInformation(200000230, 200000233));
-			requestList.add(client.getFriends(200000230));
-			requestList.add(client.getTopScores());
-			requestList.add(client.postScore(200000233, 1000000));
-			requestList.add(client.getMessage(1));
-			requestList.add(client.postMessage(200000233, new MessageRequest(
-					20, 20)));
-			requestList.add(client.postNotification(new NotificationRequest(
-					"Hello", "Hello", "Hello", "Hello"), 200000233, 200000230));
-			requestList.add(client.getAppFriends());
-			requestList.add(client.getShoutout(200000230));
-			requestList.add(client.getWalletBalance());
-			requestList.add(client.getPaymentRequest(new PaymentRequest("Test",
-					"Test", 1, "")));
-			requestList.add(client
-					.commitPaymentRequest("ea9acc5cc6d607dab18dd92cf9d7c4"));
+//			requestList.add(client.getMessages());
+//			requestList.add(client.getUserInformation(200000230, 200000233));
+//			requestList.add(client.getFriends(200000230));
+//			requestList.add(client.getTopScores());
+//			requestList.add(client.postScore(200000233, 1000000));
+//			requestList.add(client.getMessage(1));
+//			requestList.add(client.postMessage(200000233, new MessageRequest(
+//					20, 20)));
+//			requestList.add(client.postNotification(new NotificationRequest(
+//					"Hello", "Hello", "Hello", "Hello"), 200000233, 200000230));
+//			requestList.add(client.getAppFriends());
+//			requestList.add(client.getShoutout(200000230));
+//			requestList.add(client.getWalletBalance());
+//			requestList.add(client.getPaymentRequest(new PaymentRequest("Test",
+//					"Test", 1, "")));
+//			requestList.add(client
+//					.commitPaymentRequest("ea9acc5cc6d607dab18dd92cf9d7c4"));
 		} catch (FriendsterAPIServiceException e) {
 			System.out.println("Error Code : " + e.getErrorCode());
 			System.out.println("Error Msg  : " + e.getErrorMessage());
