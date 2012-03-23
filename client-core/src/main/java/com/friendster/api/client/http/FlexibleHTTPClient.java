@@ -47,7 +47,7 @@ public class FlexibleHTTPClient {
 		default:
 			break;
 		}
-		
+		logger.debug("Request URI: " + httpRequest.getURI());
 		try {
 			HttpResponse response = httpClient.execute(httpRequest);
 			logger.info("Received Response : \n\t" + response.toString());
