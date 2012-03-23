@@ -76,6 +76,25 @@
 	</form>
 	</div>
 	
+	<!-- Wallet Balance -->
+	<div id="user_info" class="formInput">
+	<h3>Wallet Payment</h3>
+	<form method="POST" action="./wallet/payment">
+		<input type="hidden" name="session_key" value="${sessionDetails.sessionKey}" /> 
+
+		<table>
+			<tr>
+				<td><b>Make Payment Request</b></td>
+				<td><input type="text" name="amount"/></td>
+			<tr>
+			<tr>
+				<td/>
+				<td><input type="submit" value="Make Payment Request"></td>
+			</tr>
+		</table>
+	</form>
+	</div>
+	
 </body>
 
 

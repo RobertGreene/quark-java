@@ -26,8 +26,8 @@
 
 	<!-- App Details such as API Key and API Secret are defined here -->
 	<bean id="appDetails" class="com.friendster.api.client.request.FriendsterPCPAppInfo">
-		<property name="apiKey" value="62a37917567ef9f8d1765ab6c6dcea04" />
-		<property name="apiSecret" value="b953de900014764557f3d37b43564958" />
+		<property name="apiKey" value="ff29a051ae61ab617f1d9f963082897b" />
+		<property name="apiSecret" value="8cb51514b1afd94b870b9e29aa0f1325" />
 	</bean>
 	
 </beans>
