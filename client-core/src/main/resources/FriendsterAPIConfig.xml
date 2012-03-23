@@ -8,6 +8,12 @@ In order to set the configuration, kindly enter the configuration in the followi
 <!--  <entry key="{config key}">{config value}</entry>  -->
 
 </comment>
+
+<!-- 
 <entry key="api_key">62a37917567ef9f8d1765ab6c6dcea04</entry>
-<entry key="api_secret">b953de900014764557f3d37b43564958</entry>
+<entry key="api_secret">62a37917567ef9f8d1765ab6c6dcea04</entry>
+ -->
+
+<entry key="api_key">ff29a051ae61ab617f1d9f963082897b</entry>
+<entry key="api_secret">8cb51514b1afd94b870b9e29aa0f1325</entry>
 </properties>
