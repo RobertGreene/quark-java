@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InvalidPropertiesFormatException;
@@ -173,6 +174,15 @@ public class FriendsterAPIClient {
 		RequestContext requestContext = new RequestContext(
 				RequestType.WALLET_COMMIT, this.appDetails);
 		return (WalletResponse) requestContext.handleRequest();
+	}
+	
+	public URI getCallBackUrl(WalletResponse response, String returnURL) {
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("request_token", response.getRequestToken());
+		paramsMap.put("return_url", returnURL);
+		paramsMap.put("callback_url", response.getRedirectUrl());
+		RequestContext requestContext = new RequestContext(RequestType.WALLET_CALLBACK, appDetails, paramsMap);
+		return (URI) requestContext.handleRequest();
 	}
 
 	private String getConfigProperty(String propertyKey) {

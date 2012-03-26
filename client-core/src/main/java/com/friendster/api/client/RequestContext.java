@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.HttpGet;
 
 import com.friendster.api.client.builders.RequestBuilder;
 import com.friendster.api.client.digest.ApacheMD5DigestWrapper;
@@ -28,8 +29,8 @@ public class RequestContext {
 	private Request request;
 	private List<RequestValidatorInterface> requestValidators;
 
-	public RequestContext(RequestType requestType, FriendsterPCPAppInfo appDetails,
-			Object... args) {
+	public RequestContext(RequestType requestType,
+			FriendsterPCPAppInfo appDetails, Object... args) {
 
 		this.handleRequestInternal(requestType, appDetails, args);
 	}
@@ -37,17 +38,25 @@ public class RequestContext {
 	public Object handleRequest() {
 		this.performValidations();
 		FlexibleHTTPClient httpClient = new FlexibleHTTPClient();
+
 		try {
-			Object response = this.createResponse(httpClient.performRequest(
-					this.request.getMethod(),
-					this.performRequestParsing(this.request.getMethod()),
-					this.request.getRequestParameters()));
-			return response;
+			switch (this.request.getRequestType()) {
+			case WALLET_CALLBACK:
+				HttpGet httpRequest = new HttpGet(
+						this.performRequestParsing(RequestMethod.GET));
+				return httpRequest.getURI();
+			default:
+				Object response = this.createResponse(httpClient
+						.performRequest(this.request.getMethod(),
+								this.performRequestParsing(this.request
+										.getMethod()), this.request
+										.getRequestParameters()));
+				return response;
+			}
 		} catch (FriendsterAPIException e) {
 			ErrorResponse errorResponse = this.performErrorParsing();
 			throw new FriendsterAPIServiceException(
-					errorResponse.getErrorCode(),
-					errorResponse.getErrorMsg());
+					errorResponse.getErrorCode(), errorResponse.getErrorMsg());
 		}
 	}
 
@@ -57,15 +66,6 @@ public class RequestContext {
 				httpEntity);
 	}
 	
-	private ErrorResponse performErrorParsing() {
-		FlexibleHTTPClient httpClient = new FlexibleHTTPClient();
-		FriendsterAPIXMLResponseParser responseParser = new FriendsterAPIXMLResponseParser();
-		return responseParser.parsePossibleError(httpClient.performRequest(
-				this.request.getMethod(),
-				this.performRequestParsing(this.request.getMethod()),
-				this.request.getRequestParameters()));
-	}
-
 	private void handleRequestInternal(RequestType requestType,
 			FriendsterPCPAppInfo appDetails, Object... args) {
 		this.request = RequestBuilder.buildRequest(requestType, appDetails,
@@ -78,13 +78,22 @@ public class RequestContext {
 				this.request);
 		return requestParser.parseRequest();
 	}
-
+	
+	private ErrorResponse performErrorParsing() {
+		FlexibleHTTPClient httpClient = new FlexibleHTTPClient();
+		FriendsterAPIXMLResponseParser responseParser = new FriendsterAPIXMLResponseParser();
+		return responseParser.parsePossibleError(httpClient.performRequest(
+				this.request.getMethod(),
+				this.performRequestParsing(this.request.getMethod()),
+				this.request.getRequestParameters()));
+	}
+	
 	private void performValidations() {
 		for (RequestValidatorInterface validator : requestValidators) {
 			validator.validateParams();
 		}
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	private List<RequestValidatorInterface> initializeValidators() {
 		requestValidators = new ArrayList<RequestValidatorInterface>();
@@ -109,6 +118,5 @@ public class RequestContext {
 
 		return requestValidators;
 	}
-
 
 }

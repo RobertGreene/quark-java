@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.friendster.api.client.enums.RequestType;
+import com.friendster.api.client.request.DynamicEndpointRequest;
 import com.friendster.api.client.request.FriendsterPCPAppInfo;
 import com.friendster.api.client.request.MultipleUIDRequest;
 import com.friendster.api.client.request.Request;
@@ -65,12 +66,19 @@ public class RequestBuilder {
 			break;
 		case NOTIFICATION_P:
 			request = new MultipleUIDRequest(requestType, appDetails, applUID);
+			break;
 		case WALLET_BALANCE:
 			request = new Request(requestType, appDetails);
+			break;
 		case WALLET_COMMIT:
 			request = new Request(requestType, appDetails);
+			break;
 		case WALLET_GET:
 			request = new Request(requestType, appDetails);
+			break;
+		case WALLET_CALLBACK:
+			request = new DynamicEndpointRequest(requestType, appDetails);
+			break;
 		default:
 			break;
 		}

@@ -52,6 +52,7 @@ public class EndpointIndexBuilder {
 		methodIndex.put(RequestType.WALLET_BALANCE, RequestMethod.GET);
 		methodIndex.put(RequestType.WALLET_COMMIT, RequestMethod.POST);
 		methodIndex.put(RequestType.WALLET_GET, RequestMethod.POST);
+		methodIndex.put(RequestType.WALLET_CALLBACK, RequestMethod.GET);
 	}
 
 	public static String getEndpoint(RequestType requestType) {
