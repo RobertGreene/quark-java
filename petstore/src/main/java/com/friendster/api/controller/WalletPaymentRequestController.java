@@ -1,5 +1,6 @@
 package com.friendster.api.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,9 @@ import com.friendster.api.v1.WalletResponse;
 public class WalletPaymentRequestController {
 	@Autowired
 	private FriendsterAPIClient client;
-		
+	
+	private static Logger logger = Logger.getLogger(WalletPaymentRequestController.class);
+	
 	@RequestMapping(value = "/wallet/payment", method = RequestMethod.POST)
     public ModelAndView getWalletBalance(@RequestParam("session_key") String sessionKey, @RequestParam("amount") String amount) {
 		SessionDetails sessionDetails = new SessionDetails();
@@ -33,6 +36,7 @@ public class WalletPaymentRequestController {
 			e.printStackTrace();
 		}
         
+		logger.debug(redirectURL);
         return new ModelAndView("redirect:" + redirectURL);
         
     }
