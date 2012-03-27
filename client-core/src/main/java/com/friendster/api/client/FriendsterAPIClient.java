@@ -172,7 +172,7 @@ public class FriendsterAPIClient {
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("request_token", requestToken);
 		RequestContext requestContext = new RequestContext(
-				RequestType.WALLET_COMMIT, this.appDetails);
+				RequestType.WALLET_COMMIT, this.appDetails, paramsMap);
 		return (WalletResponse) requestContext.handleRequest();
 	}
 	

@@ -1,10 +1,8 @@
 package com.friendster.api.controller;
 
-import java.util.Map;
-
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,29 +19,25 @@ public class WalletPaymentRequestController {
 	@Autowired
 	private FriendsterAPIClient client;
 	
+	private static Logger logger = Logger.getLogger(WalletPaymentRequestController.class);
+	
 	@RequestMapping(value = "/wallet/payment", method = RequestMethod.POST)
     public ModelAndView getWalletBalance(@RequestParam("session_key") String sessionKey, @RequestParam("amount") String amount) {
 		SessionDetails sessionDetails = new SessionDetails();
 		sessionDetails.setSessionKey(sessionKey);
 		client.setSessionKey(sessionKey);
+		String redirectURL = "http://smackaho.st:8080/petstore/wallet/commit";
+		WalletResponse walletResponse = null;
 		
-		String callbackUrl = null;
-		String requestToken = null;
 		try {
-			WalletResponse walletResponse = client.getPaymentRequest(new PaymentRequest("Hello", "Hello", Integer.parseInt(amount), ""));
-			amount = walletResponse.getAmt();
-			callbackUrl = walletResponse.getRedirectUrl();
-			requestToken = walletResponse.getRequestToken();
+			walletResponse = client.getPaymentRequest(new PaymentRequest("Quark Java (Test)", "Test Credits Purchase", Integer.parseInt(amount), ""));
+			redirectURL = client.getCallBackUrl(walletResponse, redirectURL).toString();
 		} catch (FriendsterAPIServiceException e) {
-			
+			e.printStackTrace();
 		}
         
-        Map<String, Object> modelMap = new ModelMap();
-        modelMap.put("amount", amount);
-        modelMap.put("callback_url", callbackUrl);
-        modelMap.put("request_token", requestToken);
-        modelMap.put("sessionDetails", sessionDetails);
+		logger.debug(redirectURL);
+        return new ModelAndView("redirect:" + redirectURL);
         
-        return new ModelAndView("walletPayment", modelMap);
     }
 }
