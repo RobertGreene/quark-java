@@ -1,6 +1,5 @@
 package com.friendster.api.controller;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,8 +17,6 @@ public class WalletPaymentCommitController {
 	@Autowired
 	private FriendsterAPIClient client;
 
-	private static Logger logger = Logger
-			.getLogger(WalletPaymentCommitController.class);
 
 	@RequestMapping(value = "/wallet/commit", method = RequestMethod.GET)
 	public ModelAndView commitPayment(
@@ -27,7 +24,6 @@ public class WalletPaymentCommitController {
 			@RequestParam("request_token") String requestToken,
 			@RequestParam("amt") String requestAmount) {
 
-		logger.debug("Wallet Commit");
 
 		WalletResponse response = null;
 		WalletResponse balance = null;
