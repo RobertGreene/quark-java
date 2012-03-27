@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.friendster.api</groupId>
 	<artifactId>quark</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.2</version>
 	<name>friendster-quark-java</name>
 	<description>Java Interface for Friendster API</description>
 	<packaging>pom</packaging>
