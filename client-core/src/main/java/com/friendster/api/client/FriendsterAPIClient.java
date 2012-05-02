@@ -19,6 +19,7 @@ import com.friendster.api.client.special.MessageRequest;
 import com.friendster.api.client.special.NotificationRequest;
 import com.friendster.api.client.special.PaymentRequest;
 import com.friendster.api.client.throwable.FriendsterAPIException;
+import com.friendster.api.v1.NewmessagesResponse;
 import com.friendster.api.v1.ShoutoutResponse;
 import com.friendster.api.v1.UserResponse;
 import com.friendster.api.v1.WalletResponse;
@@ -176,6 +177,11 @@ public class FriendsterAPIClient {
 		return (WalletResponse) requestContext.handleRequest();
 	}
 	
+	public NewmessagesResponse getNewMessages() {
+		RequestContext requestContext = new RequestContext(RequestType.NEW_MESSAGES, this.appDetails);
+		return (NewmessagesResponse)requestContext.handleRequest();
+	}
+	
 	public URI getCallBackUrl(WalletResponse response, String returnURL) {
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("request_token", response.getRequestToken());
@@ -197,4 +203,5 @@ public class FriendsterAPIClient {
 		this.appDetails.setSessionKey(sessionKey);
 		return appDetails;
 	}
+	
 }

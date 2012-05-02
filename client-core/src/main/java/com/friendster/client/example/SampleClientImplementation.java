@@ -9,10 +9,8 @@ import java.util.List;
 import com.friendster.api.client.FriendsterAPIClient;
 import com.friendster.api.client.special.AvatarScore;
 import com.friendster.api.client.special.AvatarScoreResponse;
-import com.friendster.api.client.special.MessageRequest;
-import com.friendster.api.client.special.NotificationRequest;
-import com.friendster.api.client.special.PaymentRequest;
 import com.friendster.api.client.throwable.FriendsterAPIServiceException;
+import com.friendster.api.v1.NewmessagesResponse;
 import com.friendster.api.v1.ShoutoutResponse;
 import com.friendster.api.v1.User;
 import com.friendster.api.v1.UserResponse;
@@ -30,7 +28,7 @@ public class SampleClientImplementation {
 
 	public static void main(String[] args) throws FileNotFoundException {
 
-		String sessionKey = "72360ec1-b84a-3551-76bb-15621f712671";
+		String sessionKey = "eac24c97-4212-bd30-6d21-fb682c00fc00";
 		FriendsterAPIClient client = new FriendsterAPIClient(sessionKey,
 				"src/main/resources/FriendsterAPIConfig.xml");
 		for (Object responseObject : getRequestList(client)) {
@@ -38,12 +36,16 @@ public class SampleClientImplementation {
 		}
 	}
 
+	/**
+	 * @param client
+	 * @return
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static List getRequestList(FriendsterAPIClient client) {
 		List requestList = new ArrayList();
 		try {
-			// requestList.add(client.postShoutout("Hello World!"));
-			// requestList.add(client.getMessages());
+//			 requestList.add(client.postShoutout("Hello World!"));
+//			requestList.add(client.getMessages());
 			// requestList.add(client.getUserInformation(200000230, 200000233));
 			// requestList.add(client.getFriends(200000230));
 			// requestList.add(client.getTopScores());
@@ -55,15 +57,19 @@ public class SampleClientImplementation {
 			// "Hello", "Hello", "Hello", "Hello"), 200000233, 200000230));
 			// requestList.add(client.getAppFriends());
 			// requestList.add(client.getShoutout(200000230));
-//			requestList.add(client.getWalletBalance());
+			// requestList.add(client.getWalletBalance());
 			// requestList.add(client.getPaymentRequest(new
 			// PaymentRequest("Test",
 			// "Test", 1, "")));
 			// requestList.add(client
 			// .commitPaymentRequest("ea9acc5cc6d607dab18dd92cf9d7c4"));
-			requestList.add(client.getCallBackUrl(
-					client.getPaymentRequest(new PaymentRequest("Test", "Test",
-							1, "")), "http://www.friendster.com"));
+				requestList.add(client.getNewMessages());
+//			 System.out.println(requestList.add(client.getNewMessages()));
+
+			// requestList.add(client.getCallBackUrl(
+			// client.getPaymentRequest(new PaymentRequest("Test", "Test",
+			// 1, "")), "http://www.friendster.com"));
+
 		} catch (FriendsterAPIServiceException e) {
 			System.out.println("Error Code : " + e.getErrorCode());
 			System.out.println("Error Msg  : " + e.getErrorMessage());
@@ -136,11 +142,17 @@ public class SampleClientImplementation {
 			System.out.println("Wallet Coins: " + response.getCoins());
 			System.out.println("Amount : " + response.getAmt());
 			System.out.println("Redirect URL : " + response.getRedirectUrl());
+		} else if (o instanceof NewmessagesResponse) {
+			System.out.println("SUCCESSFUL: NEW MESSAGES");
+			NewmessagesResponse response = (NewmessagesResponse) o;
+			System.out.println("New Messages : " + response.getNew());
+			System.out.println("Last Updates : " + response.getLastUpdate());
 		} else if (o instanceof URI) {
 			System.out.println("SUCCESSFUL : WALLET_CALLBACK");
 			URI response = (URI) o;
 			try {
-				System.out.println("Callback URL: " + response.toURL().toString());
+				System.out.println("Callback URL: "
+						+ response.toURL().toString());
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

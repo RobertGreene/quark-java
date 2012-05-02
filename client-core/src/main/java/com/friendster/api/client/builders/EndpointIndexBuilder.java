@@ -20,20 +20,31 @@ public class EndpointIndexBuilder {
 	private static void buildEndpointIndex() {
 		endpointIndex = new HashMap<RequestType, String>();
 		endpointIndex.put(RequestType.USER, BASE_URL + "user");
-		endpointIndex.put(RequestType.SHOUTOUT, BASE_URL + "shoutout");
 		endpointIndex.put(RequestType.APP_FRIENDS, BASE_URL
 				+ "application/friends");
 		endpointIndex.put(RequestType.FRIENDS, BASE_URL + "friends/");
-		endpointIndex.put(RequestType.SCORE, BASE_URL + "score/");
-		endpointIndex.put(RequestType.MESSAGE, BASE_URL + "message/");
-		endpointIndex.put(RequestType.TOP_SCORES, BASE_URL + "score");
-		endpointIndex.put(RequestType.SHOUTOUT_P, BASE_URL + "shoutout");
+		endpointIndex.put(RequestType.SHOUTOUT, BASE_URL + "shoutout");
 		endpointIndex.put(RequestType.MESSAGES, BASE_URL + "messages");
 		endpointIndex.put(RequestType.MESSAGE_P, BASE_URL + "messages");
-		endpointIndex.put(RequestType.NOTIFICATION_P, BASE_URL + "notification");
-		endpointIndex.put(RequestType.WALLET_BALANCE, BASE_URL + "wallet/balance");
-		endpointIndex.put(RequestType.WALLET_COMMIT, BASE_URL + "wallet/commit");
+		endpointIndex.put(RequestType.MESSAGE, BASE_URL + "message/");
+
+		// messages/destroy/:mid
+		endpointIndex.put(RequestType.SHOUTOUT_P, BASE_URL + "shoutout");
+		endpointIndex
+				.put(RequestType.NOTIFICATION_P, BASE_URL + "notification");
+		endpointIndex.put(RequestType.SCORE, BASE_URL + "score/");
+		endpointIndex.put(RequestType.TOP_SCORES, BASE_URL + "score");
+
+		// sessions/destroy
 		endpointIndex.put(RequestType.WALLET_GET, BASE_URL + "wallet/payment");
+		endpointIndex
+				.put(RequestType.WALLET_COMMIT, BASE_URL + "wallet/commit");
+		endpointIndex.put(RequestType.WALLET_BALANCE, BASE_URL + "wallet/balance");
+		
+		endpointIndex.put(RequestType.WALLET_COMMIT, BASE_URL + "wallet/commit");
+		
+		endpointIndex.put(RequestType.NEW_MESSAGES, BASE_URL + "newmessages");
+		
 	}
 
 	private static void buildMethodIndex() {
@@ -53,6 +64,8 @@ public class EndpointIndexBuilder {
 		methodIndex.put(RequestType.WALLET_COMMIT, RequestMethod.POST);
 		methodIndex.put(RequestType.WALLET_GET, RequestMethod.POST);
 		methodIndex.put(RequestType.WALLET_CALLBACK, RequestMethod.GET);
+		methodIndex.put(RequestType.NEW_MESSAGES, RequestMethod.GET);
+		
 	}
 
 	public static String getEndpoint(RequestType requestType) {

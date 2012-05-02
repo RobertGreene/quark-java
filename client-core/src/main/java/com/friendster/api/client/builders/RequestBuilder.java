@@ -79,6 +79,9 @@ public class RequestBuilder {
 		case WALLET_CALLBACK:
 			request = new DynamicEndpointRequest(requestType, appDetails);
 			break;
+		case NEW_MESSAGES:
+			request = new Request(requestType, appDetails);
+			break;
 		default:
 			break;
 		}
