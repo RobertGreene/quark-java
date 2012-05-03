@@ -19,6 +19,7 @@ import com.friendster.api.client.special.AvatarScoreBuilder;
 import com.friendster.api.client.special.AvatarScoreResponse;
 import com.friendster.api.client.throwable.FriendsterAPIException;
 import com.friendster.api.v1.GameScoreResponse;
+import com.friendster.api.v1.NewmessagesResponse;
 import com.friendster.api.v1.ShoutoutResponse;
 import com.friendster.api.v1.UserResponse;
 import com.friendster.api.v1.WalletResponse;
@@ -31,6 +32,7 @@ import com.friendster.api.v1.notification.NotificationsResponse;
 @SuppressWarnings("restriction")
 public class FriendsterAPIXMLResponseParser implements
 		FriendsterAPIResponseParserInterface {
+
 	public Object parseResponse(RequestType requestType,
 			HttpEntity httpInput) {
 		Object tempObject = null;
@@ -82,6 +84,8 @@ public class FriendsterAPIXMLResponseParser implements
 		case WALLET_COMMIT:
 		case WALLET_GET:
 			return (WalletResponse) tempObject;
+		case NEW_MESSAGES:
+			return (NewmessagesResponse) tempObject;
 		default:
 			throw new FriendsterAPIException();
 		}
@@ -138,6 +142,8 @@ public class FriendsterAPIXMLResponseParser implements
 		case NOTIFICATION_P:
 			return JAXBContext
 					.newInstance("com.friendster.api.v1.notification");
+		case NEW_MESSAGES:
+			return JAXBContext.newInstance("com.friendster.api.v1");
 		default:
 			throw new FriendsterAPIException();
 		}
@@ -172,6 +178,9 @@ public class FriendsterAPIXMLResponseParser implements
 		case NOTIFICATION_P:
 			return new NamespaceFilter(
 					"http://api.friendster.com/v1/notification", true);
+		case NEW_MESSAGES:
+			return new NamespaceFilter(
+					"http://api.friendster.com/v1/", true);
 		default:
 			throw new FriendsterAPIException();
 		}
