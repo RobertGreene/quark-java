@@ -136,14 +136,13 @@ public class FriendsterAPIXMLResponseParser implements
 		case WALLET_BALANCE:
 		case WALLET_COMMIT:
 		case WALLET_GET:
+		case NEW_MESSAGES:
 			return JAXBContext.newInstance("com.friendster.api.v1");
 		case SHOUTOUT:
 			return JAXBContext.newInstance("com.friendster.api.v1.shoutout_list");
 		case NOTIFICATION_P:
 			return JAXBContext
 					.newInstance("com.friendster.api.v1.notification");
-		case NEW_MESSAGES:
-			return JAXBContext.newInstance("com.friendster.api.v1");
 		default:
 			throw new FriendsterAPIException();
 		}
@@ -172,15 +171,13 @@ public class FriendsterAPIXMLResponseParser implements
 		case WALLET_BALANCE:
 		case WALLET_COMMIT:
 		case WALLET_GET:
+		case NEW_MESSAGES:
 			return new NamespaceFilter("http://api.friendster.com/v1/", true);
 		case SHOUTOUT:
 			return new NamespaceFilter("http://api.friendster.com/v1/shoutout_list", true);
 		case NOTIFICATION_P:
 			return new NamespaceFilter(
 					"http://api.friendster.com/v1/notification", true);
-		case NEW_MESSAGES:
-			return new NamespaceFilter(
-					"http://api.friendster.com/v1/", true);
 		default:
 			throw new FriendsterAPIException();
 		}
