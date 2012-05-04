@@ -4,5 +4,5 @@
 bin/
 target/
 client-core/src/main/java/com/friendster/client/example/SampleClientImplementation.java
-
+*example*.xml
 

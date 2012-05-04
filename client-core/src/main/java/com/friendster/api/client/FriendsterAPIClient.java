@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.friendster.api.beans.NotificationsResponse;
 import com.friendster.api.client.enums.RequestType;
 import com.friendster.api.client.request.FriendsterPCPAppInfo;
 import com.friendster.api.client.special.AvatarScoreResponse;
@@ -20,13 +21,11 @@ import com.friendster.api.client.special.NotificationRequest;
 import com.friendster.api.client.special.PaymentRequest;
 import com.friendster.api.client.throwable.FriendsterAPIException;
 import com.friendster.api.v1.NewmessagesResponse;
-import com.friendster.api.v1.ShoutoutResponse;
 import com.friendster.api.v1.UserResponse;
 import com.friendster.api.v1.WalletResponse;
 import com.friendster.api.v1.app.ApplicationFriendsResponse;
 import com.friendster.api.v1.friends.FriendsResponse;
 import com.friendster.api.v1.message.MessageResponse;
-import com.friendster.api.v1.notification.NotificationsResponse;
 import com.friendster.api.v1.score.GameScoreResponse;
 
 /* Facade for Friendster API Client
@@ -75,6 +74,7 @@ public class FriendsterAPIClient {
 	}
 
 	public UserResponse getUserInformation(Object... uids) {
+
 		RequestContext requestContext = new RequestContext(RequestType.USER,
 				this.appDetails, uids);
 		return (UserResponse) requestContext.handleRequest();
@@ -134,12 +134,12 @@ public class FriendsterAPIClient {
 		return (GameScoreResponse) requestContext.handleRequest();
 	}
 
-	public ShoutoutResponse postShoutout(String shoutOut) {
+	public com.friendster.api.beans.ShoutoutResponse postShoutout(String shoutOut) {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("content", shoutOut);
 		RequestContext requestContext = new RequestContext(
 				RequestType.SHOUTOUT_P, this.appDetails, paramMap);
-		return (ShoutoutResponse) requestContext.handleRequest();
+		return (com.friendster.api.beans.ShoutoutResponse) requestContext.handleRequest();
 	}
 
 	public NotificationsResponse postNotification(NotificationRequest request,

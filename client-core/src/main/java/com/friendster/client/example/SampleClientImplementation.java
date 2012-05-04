@@ -6,12 +6,14 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.friendster.api.beans.NotificationsResponse;
+import com.friendster.api.beans.ShoutoutResponse;
 import com.friendster.api.client.FriendsterAPIClient;
 import com.friendster.api.client.special.AvatarScore;
 import com.friendster.api.client.special.AvatarScoreResponse;
+import com.friendster.api.client.special.NotificationRequest;
 import com.friendster.api.client.throwable.FriendsterAPIServiceException;
 import com.friendster.api.v1.NewmessagesResponse;
-import com.friendster.api.v1.ShoutoutResponse;
 import com.friendster.api.v1.User;
 import com.friendster.api.v1.UserResponse;
 import com.friendster.api.v1.WalletResponse;
@@ -20,7 +22,6 @@ import com.friendster.api.v1.friends.FriendsResponse;
 import com.friendster.api.v1.message.Message;
 import com.friendster.api.v1.message.MessageResponse;
 import com.friendster.api.v1.message.Messages;
-import com.friendster.api.v1.notification.NotificationsResponse;
 import com.friendster.api.v1.score.GameScoreResponse;
 import com.friendster.api.v1.shoutout_list.Shoutout;
 
@@ -28,7 +29,7 @@ public class SampleClientImplementation {
 
 	public static void main(String[] args) throws FileNotFoundException {
 
-		String sessionKey = "eac24c97-4212-bd30-6d21-fb682c00fc00";
+		String sessionKey = "4e0f6230-30ef-a469-5bf8-4857b1ca63f6";
 		FriendsterAPIClient client = new FriendsterAPIClient(sessionKey,
 				"src/main/resources/FriendsterAPIConfig.xml");
 		for (Object responseObject : getRequestList(client)) {
@@ -44,8 +45,16 @@ public class SampleClientImplementation {
 	public static List getRequestList(FriendsterAPIClient client) {
 		List requestList = new ArrayList();
 		try {
-//			 requestList.add(client.postShoutout("Hello World!"));
-//			requestList.add(client.getMessages());
+			// DONE
+			// requestList.add(client.postShoutout("Hello World!"));
+
+			// IN PROGRESS
+			requestList.add(client.postNotification(new NotificationRequest(
+					"Hello", "Hello", "Hello", "Hello"), 200000233, 200000230));
+
+			// IGNORED
+
+			// requestList.add(client.getMessages());
 			// requestList.add(client.getUserInformation(200000230, 200000233));
 			// requestList.add(client.getFriends(200000230));
 			// requestList.add(client.getTopScores());
@@ -53,8 +62,7 @@ public class SampleClientImplementation {
 			// requestList.add(client.getMessage(1));
 			// requestList.add(client.postMessage(200000233, new MessageRequest(
 			// 20, 20)));
-			// requestList.add(client.postNotification(new NotificationRequest(
-			// "Hello", "Hello", "Hello", "Hello"), 200000233, 200000230));
+
 			// requestList.add(client.getAppFriends());
 			// requestList.add(client.getShoutout(200000230));
 			// requestList.add(client.getWalletBalance());
@@ -63,8 +71,8 @@ public class SampleClientImplementation {
 			// "Test", 1, "")));
 			// requestList.add(client
 			// .commitPaymentRequest("ea9acc5cc6d607dab18dd92cf9d7c4"));
-				requestList.add(client.getNewMessages());
-//			 System.out.println(requestList.add(client.getNewMessages()));
+			// requestList.add(client.getNewMessages());
+			// System.out.println(requestList.add(client.getNewMessages()));
 
 			// requestList.add(client.getCallBackUrl(
 			// client.getPaymentRequest(new PaymentRequest("Test", "Test",
@@ -77,6 +85,7 @@ public class SampleClientImplementation {
 		return requestList;
 	}
 
+	@SuppressWarnings("unchecked")
 	public static void displayResponse(Object o) {
 		if (o instanceof UserResponse) {
 			System.out.println("Successful");
@@ -120,7 +129,7 @@ public class SampleClientImplementation {
 		} else if (o instanceof NotificationsResponse) {
 			System.out.println("SUCCESSFUL : NOTIFICATIONS");
 			NotificationsResponse response = (NotificationsResponse) o;
-			for (String uid : response.getUid()) {
+			for (String uid : (ArrayList<String>) response.getUids()) {
 				System.out.println("UID : " + uid);
 			}
 		} else if (o instanceof com.friendster.api.v1.messages_get.MessageResponse) {

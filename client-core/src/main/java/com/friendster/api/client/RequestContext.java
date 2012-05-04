@@ -54,9 +54,8 @@ public class RequestContext {
 				return response;
 			}
 		} catch (FriendsterAPIException e) {
-			ErrorResponse errorResponse = this.performErrorParsing();
-			throw new FriendsterAPIServiceException(
-					errorResponse.getErrorCode(), errorResponse.getErrorMsg());
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -65,29 +64,20 @@ public class RequestContext {
 		return responseParser.parseResponse(this.request.getRequestType(),
 				httpEntity);
 	}
-	
+
 	private void handleRequestInternal(RequestType requestType,
 			FriendsterPCPAppInfo appDetails, Object... args) {
 		this.request = RequestBuilder.buildRequest(requestType, appDetails,
 				args);
 		this.requestValidators = this.initializeValidators();
 	}
-	
+
 	private URI performRequestParsing(RequestMethod requestMethod) {
 		FriendsterAPIRequestParserInterface requestParser = new FriendsterAPIRequestParser(
 				this.request);
 		return requestParser.parseRequest();
 	}
-	
-	private ErrorResponse performErrorParsing() {
-		FlexibleHTTPClient httpClient = new FlexibleHTTPClient();
-		FriendsterAPIXMLResponseParser responseParser = new FriendsterAPIXMLResponseParser();
-		return responseParser.parsePossibleError(httpClient.performRequest(
-				this.request.getMethod(),
-				this.performRequestParsing(this.request.getMethod()),
-				this.request.getRequestParameters()));
-	}
-	
+
 	private void performValidations() {
 		for (RequestValidatorInterface validator : requestValidators) {
 			validator.validateParams();
