@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.friendster.api.beans.FriendsResponse;
+import com.friendster.api.beans.GameScoreResponse;
+import com.friendster.api.beans.MessageResponse;
 import com.friendster.api.beans.NotificationsResponse;
 import com.friendster.api.client.enums.RequestType;
 import com.friendster.api.client.request.FriendsterPCPAppInfo;
@@ -24,9 +27,8 @@ import com.friendster.api.v1.NewmessagesResponse;
 import com.friendster.api.v1.UserResponse;
 import com.friendster.api.v1.WalletResponse;
 import com.friendster.api.v1.app.ApplicationFriendsResponse;
-import com.friendster.api.v1.friends.FriendsResponse;
-import com.friendster.api.v1.message.MessageResponse;
-import com.friendster.api.v1.score.GameScoreResponse;
+
+
 
 /* Facade for Friendster API Client
  * Friendster Inc.

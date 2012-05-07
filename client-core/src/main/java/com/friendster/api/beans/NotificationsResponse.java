@@ -10,7 +10,7 @@ import org.simpleframework.xml.Root;
 @Namespace(reference = "http://api.friendster.com/v1/")
 public class NotificationsResponse {
 
-	@ElementList(inline = true, entry = "uid")
+	@ElementList(inline = true, entry = "uid", name = "friends")
 	@Namespace(reference = "http://api.friendster.com/v1/")
 	private List<String> uids;
 

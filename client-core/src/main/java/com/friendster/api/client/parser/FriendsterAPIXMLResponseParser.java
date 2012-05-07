@@ -7,19 +7,16 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 import org.xml.sax.InputSource;
 
+import com.friendster.api.beans.FriendsResponse;
+import com.friendster.api.beans.GameScoreResponse;
+import com.friendster.api.beans.MessageResponse;
 import com.friendster.api.beans.NotificationsResponse;
 import com.friendster.api.beans.ShoutoutResponse;
 import com.friendster.api.client.enums.RequestType;
-import com.friendster.api.client.special.AvatarScoreBuilder;
-import com.friendster.api.client.special.AvatarScoreResponse;
 import com.friendster.api.client.throwable.FriendsterAPIException;
-import com.friendster.api.v1.GameScoreResponse;
 import com.friendster.api.v1.NewmessagesResponse;
 import com.friendster.api.v1.UserResponse;
 import com.friendster.api.v1.WalletResponse;
-import com.friendster.api.v1.app.ApplicationFriendsResponse;
-import com.friendster.api.v1.friends.FriendsResponse;
-import com.friendster.api.v1.message.MessageResponse;
 
 public class FriendsterAPIXMLResponseParser implements
 		FriendsterAPIResponseParserInterface {
@@ -63,16 +60,22 @@ public class FriendsterAPIXMLResponseParser implements
 			case SHOUTOUT:
 				return (com.friendster.api.v1.shoutout_list.ShoutoutResponse) tempObject;
 			case FRIENDS:
-				return (FriendsResponse) tempObject;
-			case TOP_SCORES:
-				return (AvatarScoreResponse) AvatarScoreBuilder
-						.buildAvatarScore((GameScoreResponse) tempObject);
+				FriendsResponse friendsResponse = serializer.read(
+						FriendsResponse.class, httpInput.getContent());
+				return friendsResponse;
+				// case TOP_SCORES:
+				// return (AvatarScoreResponse) AvatarScoreBuilder
+				// .buildAvatarScore((GameScoreResponse) tempObject);
 			case SCORE:
-				return (com.friendster.api.v1.score.GameScoreResponse) tempObject;
+				GameScoreResponse gameScoreResponse = serializer.read(
+						GameScoreResponse.class, httpInput.getContent());
+				return gameScoreResponse;
 			case MESSAGE:
 				return (MessageResponse) tempObject;
 			case MESSAGE_P:
-				return (MessageResponse) tempObject;
+				MessageResponse messageResponse = serializer.read(
+						MessageResponse.class, httpInput.getContent());
+				return messageResponse;
 			case MESSAGES:
 				return (com.friendster.api.v1.messages_get.MessageResponse) tempObject;
 			case NOTIFICATION_P:
@@ -80,7 +83,7 @@ public class FriendsterAPIXMLResponseParser implements
 						NotificationsResponse.class, httpInput.getContent());
 				return notificationsResponse;
 			case APP_FRIENDS:
-				return (ApplicationFriendsResponse) tempObject;
+				return (com.friendster.api.v1.app.ApplicationFriendsResponse) tempObject;
 			case WALLET_BALANCE:
 			case WALLET_COMMIT:
 			case WALLET_GET:
