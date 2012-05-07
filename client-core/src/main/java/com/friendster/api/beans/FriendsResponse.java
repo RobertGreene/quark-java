@@ -12,7 +12,7 @@ public class FriendsResponse {
 
 	@ElementList(name = "friends")
 	@Namespace(reference = "http://api.friendster.com/v1/")
-	//private List<UserFriends> friends;
+
 	private List<String> uid;
 
 	public List<String> getUid() {
