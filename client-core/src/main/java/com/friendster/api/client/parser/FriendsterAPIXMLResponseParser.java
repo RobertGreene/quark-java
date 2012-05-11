@@ -7,16 +7,15 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 import org.xml.sax.InputSource;
 
+import com.friendster.api.beans.ApplicationFriendsResponse;
 import com.friendster.api.beans.FriendsResponse;
 import com.friendster.api.beans.GameScoreResponse;
 import com.friendster.api.beans.MessageResponse;
 import com.friendster.api.beans.NotificationsResponse;
 import com.friendster.api.beans.ShoutoutResponse;
+import com.friendster.api.beans.UserResponse;
 import com.friendster.api.client.enums.RequestType;
 import com.friendster.api.client.throwable.FriendsterAPIException;
-import com.friendster.api.v1.NewmessagesResponse;
-import com.friendster.api.v1.UserResponse;
-import com.friendster.api.v1.WalletResponse;
 
 public class FriendsterAPIXMLResponseParser implements
 		FriendsterAPIResponseParserInterface {
@@ -44,7 +43,6 @@ public class FriendsterAPIXMLResponseParser implements
 		// }
 
 		try {
-			InputSource is = new InputSource(httpInput.getContent());
 			Serializer serializer = new Persister();
 
 			switch (requestType) {
@@ -58,38 +56,68 @@ public class FriendsterAPIXMLResponseParser implements
 						ShoutoutResponse.class, httpInput.getContent());
 				return shoutoutResp;
 			case SHOUTOUT:
-				return (com.friendster.api.v1.shoutout_list.ShoutoutResponse) tempObject;
+				com.friendster.api.beans.shoutout.ShoutoutResponse gShoutoutResp = serializer
+						.read(com.friendster.api.beans.shoutout.ShoutoutResponse.class,
+								httpInput.getContent());
+				return gShoutoutResp;
 			case FRIENDS:
 				FriendsResponse friendsResponse = serializer.read(
 						FriendsResponse.class, httpInput.getContent());
 				return friendsResponse;
-				// case TOP_SCORES:
-				// return (AvatarScoreResponse) AvatarScoreBuilder
-				// .buildAvatarScore((GameScoreResponse) tempObject);
+			case TOP_SCORES:
+				com.friendster.api.beans.topscores.GameScoreResponse topScoreResp = serializer
+						.read(com.friendster.api.beans.topscores.GameScoreResponse.class,
+								httpInput.getContent());
+				return topScoreResp;
 			case SCORE:
 				GameScoreResponse gameScoreResponse = serializer.read(
 						GameScoreResponse.class, httpInput.getContent());
 				return gameScoreResponse;
 			case MESSAGE:
-				return (MessageResponse) tempObject;
+				com.friendster.api.beans.message.MessageResponse msgResponse = serializer
+						.read(com.friendster.api.beans.message.MessageResponse.class,
+								httpInput.getContent());
+				return msgResponse;
 			case MESSAGE_P:
 				MessageResponse messageResponse = serializer.read(
 						MessageResponse.class, httpInput.getContent());
 				return messageResponse;
 			case MESSAGES:
-				return (com.friendster.api.v1.messages_get.MessageResponse) tempObject;
+				com.friendster.api.beans.messages.MessageResponse messagesResponse = serializer
+						.read(com.friendster.api.beans.messages.MessageResponse.class,
+								httpInput.getContent());
+				return messagesResponse;
 			case NOTIFICATION_P:
 				NotificationsResponse notificationsResponse = serializer.read(
 						NotificationsResponse.class, httpInput.getContent());
 				return notificationsResponse;
 			case APP_FRIENDS:
-				return (com.friendster.api.v1.app.ApplicationFriendsResponse) tempObject;
+				ApplicationFriendsResponse applicationFriendsResponse = serializer
+						.read(ApplicationFriendsResponse.class,
+								httpInput.getContent());
+				return applicationFriendsResponse;
 			case WALLET_BALANCE:
-			case WALLET_COMMIT:
+				com.friendster.api.beans.WalletResponse walletResponse = serializer
+						.read(com.friendster.api.beans.WalletResponse.class,
+								httpInput.getContent());
+				return walletResponse;
+
 			case WALLET_GET:
-				return (WalletResponse) tempObject;
+				com.friendster.api.beans.wallet.payment.WalletResponse paymentResp = serializer
+						.read(com.friendster.api.beans.wallet.payment.WalletResponse.class,
+								httpInput.getContent());
+				return paymentResp;
+
+			case WALLET_COMMIT:
+				com.friendster.api.beans.wallet.commit.WalletResponse commitResp = serializer
+						.read(com.friendster.api.beans.wallet.commit.WalletResponse.class,
+								httpInput.getContent());
+				return commitResp;
 			case NEW_MESSAGES:
-				return (NewmessagesResponse) tempObject;
+				com.friendster.api.beans.NewmessagesResponse newMsgsResponse = serializer
+						.read(com.friendster.api.beans.NewmessagesResponse.class,
+								httpInput.getContent());
+				return newMsgsResponse;
 			default:
 				throw new FriendsterAPIException();
 			}

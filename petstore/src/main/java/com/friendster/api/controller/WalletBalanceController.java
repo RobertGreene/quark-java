@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.friendster.api.beans.SessionDetails;
+import com.friendster.api.beans.WalletResponse;
 import com.friendster.api.client.FriendsterAPIClient;
 import com.friendster.api.client.throwable.FriendsterAPIServiceException;
-import com.friendster.api.v1.WalletResponse;
 
 @Controller
 public class WalletBalanceController {

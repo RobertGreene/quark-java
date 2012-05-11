@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.friendster.api.beans.SessionDetails;
+import com.friendster.api.beans.ShoutoutResponse;
 import com.friendster.api.client.FriendsterAPIClient;
 import com.friendster.api.client.throwable.FriendsterAPIServiceException;
-import com.friendster.api.v1.ShoutoutResponse;
 
 @Controller
 public class ShoutoutController {
@@ -31,8 +31,7 @@ public class ShoutoutController {
 		String shoutoutStatus = null;
 		
 		try {
-			ShoutoutResponse shoutoutResponse = client
-					.postShoutout(shoutoutText);
+			ShoutoutResponse shoutoutResponse = client.postShoutout(shoutoutText);
 			shoutoutStatus = shoutoutResponse.getStatus();
 		} catch (FriendsterAPIServiceException e) {
 			shoutoutStatus = e.getErrorCode() + " "

@@ -69,10 +69,6 @@
 		<td>${userInfo.occupation }</td>
 		</tr>
 		<tr>
-		<th>Companies</th>
-		<td>${userInfo.companies }</td>
-		</tr>
-		<tr>
 		<th>Hobbies and Interests</th>
 		<td>${userInfo.hobbiesAndInterests }</td>
 		</tr>

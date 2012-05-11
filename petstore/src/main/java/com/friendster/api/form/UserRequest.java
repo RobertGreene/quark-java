@@ -3,10 +3,11 @@ package com.friendster.api.form;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.friendster.api.beans.topscores.Score;
 import com.friendster.api.client.special.AvatarScore;
 
 public class UserRequest {
-	private List<AvatarScore> scores;
+	private List<Score> scores;
 	private String coins;
 
 	private String userId;
@@ -18,14 +19,14 @@ public class UserRequest {
 	private String shoutout;
 	
 	public UserRequest() {
-		this.scores = new ArrayList<AvatarScore>();
+		this.scores = new ArrayList<Score>();
 	}
 	
-	public void setScore(AvatarScore avatarScore) {
+	public void setScore(Score avatarScore) {
 		scores.add(avatarScore);
 	}
 	
-	public List<AvatarScore> getScores() {
+	public List<Score> getScores() {
 		return scores;
 	}
 

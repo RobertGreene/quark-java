@@ -1,7 +1,6 @@
-package com.friendster.api.beans;
+package com.friendster.api.beans.message;
 
 import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Namespace;
 import org.simpleframework.xml.Root;
 
@@ -9,16 +8,15 @@ import org.simpleframework.xml.Root;
 @Namespace(reference = "http://api.friendster.com/v1")
 public class MessageResponse {
 
-	@Element(name = "status")
+	@Element(name = "messages", required = false)
 	@Namespace(reference = "http://api.friendster.com/v1")
-	private String status;
+	private Messages messages;
 
-	public String getStatus() {
-		return status;
+	public Messages getMessages() {
+		return messages;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setMessages(Messages messages) {
+		this.messages = messages;
 	}
-
 }

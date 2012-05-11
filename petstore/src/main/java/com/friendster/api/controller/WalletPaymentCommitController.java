@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.friendster.api.beans.wallet.commit.WalletResponse;
 import com.friendster.api.client.FriendsterAPIClient;
 import com.friendster.api.client.throwable.FriendsterAPIServiceException;
-import com.friendster.api.v1.WalletResponse;
 
 @Controller
 public class WalletPaymentCommitController {
@@ -26,7 +26,7 @@ public class WalletPaymentCommitController {
 
 
 		WalletResponse response = null;
-		WalletResponse balance = null;
+		com.friendster.api.beans.WalletResponse balance = null;
 		try {
 			response = client.commitPaymentRequest(requestToken);
 			balance = client.getWalletBalance();

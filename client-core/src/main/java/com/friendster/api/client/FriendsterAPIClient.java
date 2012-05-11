@@ -12,22 +12,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.friendster.api.beans.ApplicationFriendsResponse;
 import com.friendster.api.beans.FriendsResponse;
 import com.friendster.api.beans.GameScoreResponse;
 import com.friendster.api.beans.MessageResponse;
 import com.friendster.api.beans.NotificationsResponse;
+import com.friendster.api.beans.UserResponse;
+import com.friendster.api.beans.wallet.payment.WalletResponse;
 import com.friendster.api.client.enums.RequestType;
 import com.friendster.api.client.request.FriendsterPCPAppInfo;
-import com.friendster.api.client.special.AvatarScoreResponse;
 import com.friendster.api.client.special.MessageRequest;
 import com.friendster.api.client.special.NotificationRequest;
 import com.friendster.api.client.special.PaymentRequest;
 import com.friendster.api.client.throwable.FriendsterAPIException;
-import com.friendster.api.v1.NewmessagesResponse;
-import com.friendster.api.v1.UserResponse;
-import com.friendster.api.v1.WalletResponse;
-import com.friendster.api.v1.app.ApplicationFriendsResponse;
-
 
 
 /* Facade for Friendster API Client
@@ -76,7 +73,6 @@ public class FriendsterAPIClient {
 	}
 
 	public UserResponse getUserInformation(Object... uids) {
-
 		RequestContext requestContext = new RequestContext(RequestType.USER,
 				this.appDetails, uids);
 		return (UserResponse) requestContext.handleRequest();
@@ -94,24 +90,30 @@ public class FriendsterAPIClient {
 		return (FriendsResponse) requestContext.handleRequest();
 	}
 
-	public com.friendster.api.v1.shoutout_list.ShoutoutResponse getShoutout(
+	public com.friendster.api.beans.shoutout.ShoutoutResponse getShoutout(
 			Object... uids) {
 		RequestContext requestContext = new RequestContext(
 				RequestType.SHOUTOUT, this.appDetails, uids);
-		return (com.friendster.api.v1.shoutout_list.ShoutoutResponse) requestContext
+		com.friendster.api.beans.shoutout.ShoutoutResponse response = (com.friendster.api.beans.shoutout.ShoutoutResponse) requestContext
 				.handleRequest();
+		return response;
 	}
 
-	public AvatarScoreResponse getTopScores() {
+	public com.friendster.api.beans.topscores.GameScoreResponse getTopScores() {
 		RequestContext requestContext = new RequestContext(
 				RequestType.TOP_SCORES, this.appDetails);
-		return (AvatarScoreResponse) requestContext.handleRequest();
+		return (com.friendster.api.beans.topscores.GameScoreResponse) requestContext.handleRequest();
 	}
+	
+//	public com.friendster.api.beans.topscores.GameScoreResponse getTopScores() {
+//		RequestContext requestContext = new RequestContext(RequestType.TOP_SCORES, this.appDetails);
+//		return (com.friendster.api.beans.topscores.GameScoreResponse) requestContext.handleRequest();
+//	}
 
-	public com.friendster.api.v1.messages_get.MessageResponse getMessages() {
+	public com.friendster.api.beans.messages.MessageResponse getMessages() {
 		RequestContext requestContext = new RequestContext(
 				RequestType.MESSAGES, this.appDetails);
-		return (com.friendster.api.v1.messages_get.MessageResponse) requestContext
+		return (com.friendster.api.beans.messages.MessageResponse) requestContext
 				.handleRequest();
 	}
 
@@ -122,10 +124,10 @@ public class FriendsterAPIClient {
 		return (MessageResponse) requestContext.handleRequest();
 	}
 
-	public MessageResponse getMessage(Integer cid) {
+	public com.friendster.api.beans.message.MessageResponse getMessage(Integer cid) {
 		RequestContext requestContext = new RequestContext(RequestType.MESSAGE,
 				this.appDetails, cid);
-		return (MessageResponse) requestContext.handleRequest();
+		return (com.friendster.api.beans.message.MessageResponse) requestContext.handleRequest();
 	}
 
 	public GameScoreResponse postScore(int avatarId, int score) {
@@ -158,30 +160,31 @@ public class FriendsterAPIClient {
 		return (NotificationsResponse) requestContext.handleRequest();
 	}
 
-	public WalletResponse getWalletBalance() {
+	public com.friendster.api.beans.WalletResponse getWalletBalance() {
 		RequestContext requestContext = new RequestContext(
 				RequestType.WALLET_BALANCE, this.appDetails);
-		return (WalletResponse) requestContext.handleRequest();
+		return (com.friendster.api.beans.WalletResponse) requestContext.handleRequest();
 	}
 
-	public WalletResponse getPaymentRequest(PaymentRequest request) {
+	public com.friendster.api.beans.wallet.payment.WalletResponse getPaymentRequest(PaymentRequest request) {
 		RequestContext requestContext = new RequestContext(
 				RequestType.WALLET_GET, this.appDetails,
 				request.getPaymentParams());
-		return (WalletResponse) requestContext.handleRequest();
+		return (com.friendster.api.beans.wallet.payment.WalletResponse) requestContext.handleRequest();
 	}
 
-	public WalletResponse commitPaymentRequest(String requestToken) {
+	public com.friendster.api.beans.wallet.commit.WalletResponse commitPaymentRequest(String requestToken) {
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("request_token", requestToken);
 		RequestContext requestContext = new RequestContext(
 				RequestType.WALLET_COMMIT, this.appDetails, paramsMap);
-		return (WalletResponse) requestContext.handleRequest();
+		return (com.friendster.api.beans.wallet.commit.WalletResponse) requestContext.handleRequest();
+		
 	}
 	
-	public NewmessagesResponse getNewMessages() {
+	public com.friendster.api.beans.NewmessagesResponse getNewMessages() {
 		RequestContext requestContext = new RequestContext(RequestType.NEW_MESSAGES, this.appDetails);
-		return (NewmessagesResponse)requestContext.handleRequest();
+		return (com.friendster.api.beans.NewmessagesResponse)requestContext.handleRequest();
 	}
 	
 	public URI getCallBackUrl(WalletResponse response, String returnURL) {

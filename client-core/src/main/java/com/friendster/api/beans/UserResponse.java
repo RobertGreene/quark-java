@@ -8,17 +8,18 @@ import org.simpleframework.xml.Root;
 
 @Root(strict = false)
 @Namespace(reference = "http://api.friendster.com/v1/")
-public class FriendsResponse {
-
-	@ElementList(name = "friends")
+public class UserResponse {
+	
+	@ElementList(inline = true, name = "user", required = false)
 	@Namespace(reference = "http://api.friendster.com/v1/")
-	private List<String> uid;
+	private List<User> user;
 
-	public List<String> getUid() {
-		return uid;
+	
+	public List<User> getUser() {
+		return user;
 	}
 
-	public void setUid(List<String> uid) {
-		this.uid = uid;
+	public void setUser(List<User> user) {
+		this.user = user;
 	}
 }

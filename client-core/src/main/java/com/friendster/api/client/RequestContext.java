@@ -21,9 +21,7 @@ import com.friendster.api.client.parser.FriendsterAPIXMLResponseParser;
 import com.friendster.api.client.request.FriendsterPCPAppInfo;
 import com.friendster.api.client.request.Request;
 import com.friendster.api.client.throwable.FriendsterAPIException;
-import com.friendster.api.client.throwable.FriendsterAPIServiceException;
 import com.friendster.api.client.validators.RequestValidatorInterface;
-import com.friendster.api.v1.error.ErrorResponse;
 
 public class RequestContext {
 	private Request request;
