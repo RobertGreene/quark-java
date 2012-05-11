@@ -4,8 +4,6 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Namespace;
 import org.simpleframework.xml.Root;
 
-import com.friendster.api.beans.topscores.HighScores;
-
 @Root(strict = false)
 @Namespace(reference = "http://api.friendster.com/v1/")
 public class GameScoreResponse {

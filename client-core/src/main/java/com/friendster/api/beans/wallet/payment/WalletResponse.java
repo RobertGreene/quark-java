@@ -1,7 +1,5 @@
 package com.friendster.api.beans.wallet.payment;
 
-import javax.xml.bind.annotation.XmlElement;
-
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Namespace;
 import org.simpleframework.xml.Root;

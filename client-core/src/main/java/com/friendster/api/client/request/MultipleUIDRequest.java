@@ -2,9 +2,6 @@ package com.friendster.api.client.request;
 
 import java.util.HashMap;
 import java.util.List;
-
-import org.apache.log4j.Logger;
-
 import com.friendster.api.client.enums.RequestType;
 
 public class MultipleUIDRequest extends Request {
@@ -12,18 +9,16 @@ public class MultipleUIDRequest extends Request {
 	 * 
 	 */
 	private static final long serialVersionUID = -7539689645174946732L;
-	private static Logger logger = Logger.getLogger(MultipleUIDRequest.class);
 	private String uids;
-	
+
 	public MultipleUIDRequest(RequestType requestType,
 			FriendsterPCPAppInfo appDetails, List<Integer> args) {
 		super(requestType, appDetails);
 		this.otherParams = new HashMap<String, String>();
 		this.uids = this.marshalUIDs(args);
 		this.otherParams.put("uids", this.uids);
-		logger.debug("Request UIDs : " + this.getUIDs());
 	}
-	
+
 	private String marshalUIDs(List<Integer> args) {
 		StringBuffer uids = new StringBuffer();
 		for (Integer i : args) {

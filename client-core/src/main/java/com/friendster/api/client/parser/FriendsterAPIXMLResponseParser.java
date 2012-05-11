@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.apache.http.HttpEntity;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
-import org.xml.sax.InputSource;
 
 import com.friendster.api.beans.ApplicationFriendsResponse;
 import com.friendster.api.beans.FriendsResponse;
@@ -21,33 +20,12 @@ public class FriendsterAPIXMLResponseParser implements
 		FriendsterAPIResponseParserInterface {
 
 	public Object parseResponse(RequestType requestType, HttpEntity httpInput) {
-		Object tempObject = null;
-
-		// try {
-		// JAXBContext jc = this.getJAXBContext(requestType);
-		// Unmarshaller u = jc.createUnmarshaller();
-		// XMLReader reader = XMLReaderFactory.createXMLReader();
-		// NamespaceFilter inFilter = this.getNamespaceFilter(requestType);
-		// inFilter.setParent(reader);
-		// InputSource is = new InputSource(httpInput.getContent());
-		// SAXSource source = new SAXSource(inFilter, is);
-		// tempObject = u.unmarshal(source);
-		// } catch (JAXBException e) {
-		// throw new FriendsterAPIException(e);
-		// } catch (SAXException e) {
-		// throw new FriendsterAPIException(e);
-		// } catch (IllegalStateException e) {
-		// throw new FriendsterAPIException(e);
-		// } catch (IOException e) {
-		// throw new FriendsterAPIException(e);
-		// }
 
 		try {
 			Serializer serializer = new Persister();
 
 			switch (requestType) {
 			case USER:
-				// return (UserResponse) tempObject;
 				UserResponse userResp = serializer.read(UserResponse.class,
 						httpInput.getContent());
 				return userResp;

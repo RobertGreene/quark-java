@@ -15,13 +15,11 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
-import org.apache.log4j.Logger;
 
 import com.friendster.api.client.enums.RequestMethod;
 import com.friendster.api.client.throwable.FriendsterAPIException;
 
 public class FlexibleHTTPClient {
-	private Logger logger = Logger.getLogger(FlexibleHTTPClient.class);
 
 	public HttpEntity performRequest(RequestMethod requestMethod,
 			URI requestURI, Object... args) {
@@ -47,10 +45,8 @@ public class FlexibleHTTPClient {
 		default:
 			break;
 		}
-		logger.debug("Request URI: " + httpRequest.getURI());
 		try {
 			HttpResponse response = httpClient.execute(httpRequest);
-			logger.info("Received Response : \n\t" + response.toString());
 			return response.getEntity();
 		} catch (ClientProtocolException e) {
 			throw new FriendsterAPIException(e);

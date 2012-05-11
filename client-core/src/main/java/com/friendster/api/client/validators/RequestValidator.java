@@ -8,8 +8,6 @@ import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.apache.log4j.Logger;
-
 import com.friendster.api.client.digest.FriendsterAPIDigestInterface;
 import com.friendster.api.client.request.Request;
 import com.friendster.api.client.throwable.FriendsterAPIException;
@@ -18,7 +16,6 @@ public class RequestValidator<H, Q> implements RequestValidatorInterface {
 
 	private FriendsterAPIDigestInterface hashCreator;
 	private Request request;
-	private static Logger logger = Logger.getLogger(RequestValidator.class);
 
 	public RequestValidator(H hashCreator, Q request) {
 		if (hashCreator instanceof FriendsterAPIDigestInterface) {
@@ -75,7 +72,6 @@ public class RequestValidator<H, Q> implements RequestValidatorInterface {
 	}
 
 	private String createSignature(String paramsDigest) {
-		logger.debug("Creating signature against: \n\t" + paramsDigest.replaceAll("\n", "\n\t"));
 		return this.hashCreator.getHexDigest(paramsDigest);
 	}
 
