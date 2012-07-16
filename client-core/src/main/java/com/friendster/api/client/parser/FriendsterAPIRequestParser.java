@@ -44,7 +44,7 @@ public class FriendsterAPIRequestParser implements
 			}
 
 			return URIUtils.createURI(requestURL.getProtocol(),
-					requestURL.getHost(), -1, requestURL.getPath(),
+					requestURL.getHost(), requestURL.getPort(), requestURL.getPath(),
 					URLEncodedUtils.format(requestParams, "UTF-8"), null);
 		} catch (MalformedURLException e) {
 			throw new FriendsterAPIException(e);
