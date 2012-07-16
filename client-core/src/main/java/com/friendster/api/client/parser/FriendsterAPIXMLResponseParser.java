@@ -11,6 +11,7 @@ import com.friendster.api.beans.FriendsResponse;
 import com.friendster.api.beans.GameScoreResponse;
 import com.friendster.api.beans.MessageResponse;
 import com.friendster.api.beans.NotificationsResponse;
+import com.friendster.api.beans.PointsResponse;
 import com.friendster.api.beans.ShoutoutResponse;
 import com.friendster.api.beans.UserResponse;
 import com.friendster.api.client.enums.RequestType;
@@ -96,6 +97,9 @@ public class FriendsterAPIXMLResponseParser implements
 						.read(com.friendster.api.beans.NewmessagesResponse.class,
 								httpInput.getContent());
 				return newMsgsResponse;
+			case REWARD_POINTS:
+				PointsResponse pointsResponse = serializer.read(PointsResponse.class, httpInput.getContent());
+				return pointsResponse;
 			default:
 				throw new FriendsterAPIException();
 			}

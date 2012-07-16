@@ -44,6 +44,7 @@ public class EndpointIndexBuilder {
 		endpointIndex.put(RequestType.WALLET_COMMIT, BASE_URL + "wallet/commit");
 		
 		endpointIndex.put(RequestType.NEW_MESSAGES, BASE_URL + "newmessages");
+		endpointIndex.put(RequestType.REWARD_POINTS, BASE_URL + "points/");
 		
 	}
 
@@ -65,6 +66,7 @@ public class EndpointIndexBuilder {
 		methodIndex.put(RequestType.WALLET_GET, RequestMethod.POST);
 		methodIndex.put(RequestType.WALLET_CALLBACK, RequestMethod.GET);
 		methodIndex.put(RequestType.NEW_MESSAGES, RequestMethod.GET);
+		methodIndex.put(RequestType.REWARD_POINTS, RequestMethod.GET);
 		
 	}
 

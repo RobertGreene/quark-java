@@ -17,6 +17,7 @@ import com.friendster.api.beans.FriendsResponse;
 import com.friendster.api.beans.GameScoreResponse;
 import com.friendster.api.beans.MessageResponse;
 import com.friendster.api.beans.NotificationsResponse;
+import com.friendster.api.beans.PointsResponse;
 import com.friendster.api.beans.UserResponse;
 import com.friendster.api.beans.wallet.payment.WalletResponse;
 import com.friendster.api.client.enums.RequestType;
@@ -26,7 +27,6 @@ import com.friendster.api.client.special.NotificationRequest;
 import com.friendster.api.client.special.PaymentRequest;
 import com.friendster.api.client.throwable.FriendsterAPIException;
 
-
 /* Facade for Friendster API Client
  * Friendster Inc.
  * @author Paulo Mendoza
@@ -35,6 +35,7 @@ import com.friendster.api.client.throwable.FriendsterAPIException;
  * This is the facade class for the Friendster API Client, it is meant to be instantiated with the session
  * scope. Multiple requests can be invoked.
  * */
+
 public class FriendsterAPIClient {
 	private FriendsterPCPAppInfo appDetails;
 	private Properties configProperties;
@@ -102,19 +103,23 @@ public class FriendsterAPIClient {
 	public com.friendster.api.beans.topscores.GameScoreResponse getTopScores() {
 		RequestContext requestContext = new RequestContext(
 				RequestType.TOP_SCORES, this.appDetails);
-		return (com.friendster.api.beans.topscores.GameScoreResponse) requestContext.handleRequest();
+		return (com.friendster.api.beans.topscores.GameScoreResponse) requestContext
+				.handleRequest();
 	}
-	
-//	public com.friendster.api.beans.topscores.GameScoreResponse getTopScores() {
-//		RequestContext requestContext = new RequestContext(RequestType.TOP_SCORES, this.appDetails);
-//		return (com.friendster.api.beans.topscores.GameScoreResponse) requestContext.handleRequest();
-//	}
 
 	public com.friendster.api.beans.messages.MessageResponse getMessages() {
 		RequestContext requestContext = new RequestContext(
 				RequestType.MESSAGES, this.appDetails);
 		return (com.friendster.api.beans.messages.MessageResponse) requestContext
 				.handleRequest();
+	}
+
+	public PointsResponse rewardPoints(Integer uid, Integer points) {
+		Map<String, Object> requestParameters = new HashMap<String, Object>();
+		requestParameters.put("points", String.valueOf(points));
+		RequestContext requestContext = new RequestContext(
+				RequestType.REWARD_POINTS, this.appDetails, uid, requestParameters);
+		return (PointsResponse) requestContext.handleRequest();
 	}
 
 	public MessageResponse postMessage(Integer uid, MessageRequest message) {
@@ -124,10 +129,12 @@ public class FriendsterAPIClient {
 		return (MessageResponse) requestContext.handleRequest();
 	}
 
-	public com.friendster.api.beans.message.MessageResponse getMessage(Integer cid) {
+	public com.friendster.api.beans.message.MessageResponse getMessage(
+			Integer cid) {
 		RequestContext requestContext = new RequestContext(RequestType.MESSAGE,
 				this.appDetails, cid);
-		return (com.friendster.api.beans.message.MessageResponse) requestContext.handleRequest();
+		return (com.friendster.api.beans.message.MessageResponse) requestContext
+				.handleRequest();
 	}
 
 	public GameScoreResponse postScore(int avatarId, int score) {
@@ -138,12 +145,14 @@ public class FriendsterAPIClient {
 		return (GameScoreResponse) requestContext.handleRequest();
 	}
 
-	public com.friendster.api.beans.ShoutoutResponse postShoutout(String shoutOut) {
+	public com.friendster.api.beans.ShoutoutResponse postShoutout(
+			String shoutOut) {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("content", shoutOut);
 		RequestContext requestContext = new RequestContext(
 				RequestType.SHOUTOUT_P, this.appDetails, paramMap);
-		return (com.friendster.api.beans.ShoutoutResponse) requestContext.handleRequest();
+		return (com.friendster.api.beans.ShoutoutResponse) requestContext
+				.handleRequest();
 	}
 
 	public NotificationsResponse postNotification(NotificationRequest request,
@@ -163,36 +172,44 @@ public class FriendsterAPIClient {
 	public com.friendster.api.beans.WalletResponse getWalletBalance() {
 		RequestContext requestContext = new RequestContext(
 				RequestType.WALLET_BALANCE, this.appDetails);
-		return (com.friendster.api.beans.WalletResponse) requestContext.handleRequest();
+		return (com.friendster.api.beans.WalletResponse) requestContext
+				.handleRequest();
 	}
 
-	public com.friendster.api.beans.wallet.payment.WalletResponse getPaymentRequest(PaymentRequest request) {
+	public com.friendster.api.beans.wallet.payment.WalletResponse getPaymentRequest(
+			PaymentRequest request) {
 		RequestContext requestContext = new RequestContext(
 				RequestType.WALLET_GET, this.appDetails,
 				request.getPaymentParams());
-		return (com.friendster.api.beans.wallet.payment.WalletResponse) requestContext.handleRequest();
+		return (com.friendster.api.beans.wallet.payment.WalletResponse) requestContext
+				.handleRequest();
 	}
 
-	public com.friendster.api.beans.wallet.commit.WalletResponse commitPaymentRequest(String requestToken) {
+	public com.friendster.api.beans.wallet.commit.WalletResponse commitPaymentRequest(
+			String requestToken) {
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("request_token", requestToken);
 		RequestContext requestContext = new RequestContext(
 				RequestType.WALLET_COMMIT, this.appDetails, paramsMap);
-		return (com.friendster.api.beans.wallet.commit.WalletResponse) requestContext.handleRequest();
-		
+		return (com.friendster.api.beans.wallet.commit.WalletResponse) requestContext
+				.handleRequest();
+
 	}
-	
+
 	public com.friendster.api.beans.NewmessagesResponse getNewMessages() {
-		RequestContext requestContext = new RequestContext(RequestType.NEW_MESSAGES, this.appDetails);
-		return (com.friendster.api.beans.NewmessagesResponse)requestContext.handleRequest();
+		RequestContext requestContext = new RequestContext(
+				RequestType.NEW_MESSAGES, this.appDetails);
+		return (com.friendster.api.beans.NewmessagesResponse) requestContext
+				.handleRequest();
 	}
-	
+
 	public URI getCallBackUrl(WalletResponse response, String returnURL) {
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("request_token", response.getRequestToken());
 		paramsMap.put("return_url", returnURL);
 		paramsMap.put("callback_url", response.getRedirectUrl());
-		RequestContext requestContext = new RequestContext(RequestType.WALLET_CALLBACK, appDetails, paramsMap);
+		RequestContext requestContext = new RequestContext(
+				RequestType.WALLET_CALLBACK, appDetails, paramsMap);
 		return (URI) requestContext.handleRequest();
 	}
 
@@ -208,5 +225,5 @@ public class FriendsterAPIClient {
 		this.appDetails.setSessionKey(sessionKey);
 		return appDetails;
 	}
-	
+
 }

@@ -90,6 +90,12 @@ public class User {
 
 	@Element(name = "guest", required = false)
 	private String guest;
+	
+	@Element(name = "guild_id", required = false)
+	private String guildId;
+	
+	@Element(name = "guild_name", required = false)
+	private String guildName;
 
 	public String getUid() {
 		return uid;
@@ -314,5 +320,21 @@ public class User {
 
 	public void setGuest(String guest) {
 		this.guest = guest;
+	}
+
+	public String getGuildId() {
+		return guildId;
+	}
+
+	public void setGuildId(String guildId) {
+		this.guildId = guildId;
+	}
+
+	public String getGuildName() {
+		return guildName;
+	}
+
+	public void setGuildName(String guildName) {
+		this.guildName = guildName;
 	}
 }

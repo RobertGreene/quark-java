@@ -4,7 +4,7 @@ import org.simpleframework.xml.Element;
 
 public class Location {
 
-	@Element(name = "name")
+	@Element(name = "name", required = false)
 	private String name;
 
 	public String getName() {

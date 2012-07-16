@@ -82,6 +82,8 @@ public class RequestBuilder {
 		case NEW_MESSAGES:
 			request = new Request(requestType, appDetails);
 			break;
+		case REWARD_POINTS:
+			request = new Request(requestType, appDetails);
 		default:
 			break;
 		}
