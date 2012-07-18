@@ -7,6 +7,7 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 import com.friendster.api.beans.ApplicationFriendsResponse;
+import com.friendster.api.beans.AssetResponse;
 import com.friendster.api.beans.FriendsResponse;
 import com.friendster.api.beans.GameScoreResponse;
 import com.friendster.api.beans.MessageResponse;
@@ -100,6 +101,10 @@ public class FriendsterAPIXMLResponseParser implements
 			case REWARD_POINTS:
 				PointsResponse pointsResponse = serializer.read(PointsResponse.class, httpInput.getContent());
 				return pointsResponse;
+			case ASSET_UPLOAD_INQ:
+			case ASSET_UPLOAD_PUT:
+				AssetResponse assetResponse = serializer.read(AssetResponse.class, httpInput.getContent());
+				return assetResponse;
 			default:
 				throw new FriendsterAPIException();
 			}

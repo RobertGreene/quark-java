@@ -1,7 +1,10 @@
 package com.friendster.api.client.http;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -13,6 +16,9 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 
@@ -30,16 +36,37 @@ public class FlexibleHTTPClient {
 			httpRequest = new HttpGet(requestURI);
 			break;
 		case POST:
-			httpRequest = new HttpPost(requestURI);
+			httpRequest = null;
+			HttpPost post = new HttpPost(requestURI);
 			if (args[0] instanceof Map) {
 				@SuppressWarnings({ "unchecked" })
 				Map<String, String> formData = new HashMap<String, String>(
 						(Map<String, String>) args[0]);
 				BasicHttpParams formParams = new BasicHttpParams();
-				for (Entry<String, String> entry : formData.entrySet()) {
-					formParams.setParameter(entry.getKey(), entry.getValue());
+				if (formData.containsKey("File")) {
+
+					// TODO Add MultiPartEntity
+					MultipartEntity entity = new MultipartEntity();
+					try {
+						for (Entry<String, String> entry : formData.entrySet()) {
+							entity.addPart(entry.getKey(),
+									new StringBody(entry.getValue()));
+						}
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+
+					entity.addPart("bin",
+							new FileBody(new File(formData.get("File"))));
+					post.setEntity(entity);
+				} else {
+					for (Entry<String, String> entry : formData.entrySet()) {
+						formParams.setParameter(entry.getKey(),
+								entry.getValue());
+					}
+					post.setParams(formParams);
 				}
-				httpRequest.setParams(formParams);
+				httpRequest = post;
 			}
 			break;
 		default:
@@ -47,6 +74,17 @@ public class FlexibleHTTPClient {
 		}
 		try {
 			HttpResponse response = httpClient.execute(httpRequest);
+//			byte[] b = new byte[1];
+//			InputStream is = response.getEntity().getContent();
+//			ArrayList<Byte> a = new ArrayList<Byte>();
+//			while (is.read(b) != -1) {
+//				a.add(b[0]);
+//			}
+//			byte[] bb = new byte[a.size()];
+//			for (int i = 0; i < a.size(); i++) {
+//				bb[i] = a.get(i);
+//			}
+//			System.out.println(new String(bb).toString());
 			return response.getEntity();
 		} catch (ClientProtocolException e) {
 			throw new FriendsterAPIException(e);

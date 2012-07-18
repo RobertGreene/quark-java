@@ -83,6 +83,10 @@ public class RequestBuilder {
 			request = new Request(requestType, appDetails);
 			break;
 		case REWARD_POINTS:
+			request = new SingleUIDRequest(requestType, appDetails, (Integer) args[0]);
+		case ASSET_UPLOAD_INQ:
+			request = new Request(requestType, appDetails);
+		case ASSET_UPLOAD_PUT:
 			request = new Request(requestType, appDetails);
 		default:
 			break;

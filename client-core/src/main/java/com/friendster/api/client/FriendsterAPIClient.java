@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InvalidPropertiesFormatException;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import com.friendster.api.beans.ApplicationFriendsResponse;
+import com.friendster.api.beans.AssetResponse;
 import com.friendster.api.beans.FriendsResponse;
 import com.friendster.api.beans.GameScoreResponse;
 import com.friendster.api.beans.MessageResponse;
@@ -26,6 +28,7 @@ import com.friendster.api.client.special.MessageRequest;
 import com.friendster.api.client.special.NotificationRequest;
 import com.friendster.api.client.special.PaymentRequest;
 import com.friendster.api.client.throwable.FriendsterAPIException;
+import com.friendster.client.example.ReadAsset;
 
 /* Facade for Friendster API Client
  * Friendster Inc.
@@ -211,6 +214,31 @@ public class FriendsterAPIClient {
 		RequestContext requestContext = new RequestContext(
 				RequestType.WALLET_CALLBACK, appDetails, paramsMap);
 		return (URI) requestContext.handleRequest();
+	}
+	
+	public AssetResponse uploadAsset(String fileName) {
+		System.out.println("Attempting To Check if File Exists");
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		try {
+			paramsMap.put("checksum", ReadAsset.getAssetChecksum(fileName));
+			paramsMap.put("File", fileName);
+		} catch (NoSuchAlgorithmException e) {
+			throw new FriendsterAPIException(e);
+		} catch (IOException e) {
+			throw new FriendsterAPIException(e);
+		}
+		RequestContext requestContext = new RequestContext(RequestType.ASSET_UPLOAD_INQ, appDetails, paramsMap);
+		AssetResponse response = (AssetResponse) requestContext.handleRequest();
+		
+		if (response.getAssetSerial().equalsIgnoreCase("missing")) {
+			System.out.println("File Not Existing... Uploading....");
+			requestContext = new RequestContext(RequestType.ASSET_UPLOAD_PUT, appDetails, paramsMap);
+			response = (AssetResponse) requestContext.handleRequest();
+		} else {
+			System.out.println("File Is Existing Already. No Need to Upload!!!");
+		}
+		System.out.println("Process Completed");
+		return response;
 	}
 
 	private String getConfigProperty(String propertyKey) {
