@@ -10,7 +10,7 @@ import com.friendster.api.client.throwable.FriendsterAPIException;
 public class EndpointIndexBuilder {
 	private static Map<RequestType, String> endpointIndex;
 	private static Map<RequestType, RequestMethod> methodIndex;
-	private static final String BASE_URL = "http://smackaho.st:8080/v1/";
+	private static final String BASE_URL = "http://api.friendster.com/v1/";
 
 	static {
 		buildEndpointIndex();
