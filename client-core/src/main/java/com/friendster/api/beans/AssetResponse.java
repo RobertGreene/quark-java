@@ -10,6 +10,8 @@ public class AssetResponse {
 	
 	@Element(name = "asset_serial", required = false)
 	private String assetSerial;
+	@Element(name = "asset_status", required = false)
+	private String assetStatus;
 
 	public String getAssetSerial() {
 		return assetSerial;
@@ -17,6 +19,14 @@ public class AssetResponse {
 
 	public void setAssetSerial(String assetSerial) {
 		this.assetSerial = assetSerial;
+	}
+
+	public String getAssetStatus() {
+		return assetStatus;
+	}
+
+	public void setAssetStatus(String assetStatus) {
+		this.assetStatus = assetStatus;
 	}
 
 }

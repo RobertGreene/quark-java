@@ -49,8 +49,9 @@ public class FlexibleHTTPClient {
 					MultipartEntity entity = new MultipartEntity();
 					try {
 						for (Entry<String, String> entry : formData.entrySet()) {
-							entity.addPart(entry.getKey(),
-									new StringBody(entry.getValue()));
+//							entity.addPart(entry.getKey(),
+//									new StringBody(entry.getValue()));
+							formParams.setParameter(entry.getKey(), entry.getValue());
 						}
 					} catch (Exception e) {
 						// TODO: handle exception
@@ -59,6 +60,7 @@ public class FlexibleHTTPClient {
 					entity.addPart("bin",
 							new FileBody(new File(formData.get("File"))));
 					post.setEntity(entity);
+					post.setParams(formParams);
 				} else {
 					for (Entry<String, String> entry : formData.entrySet()) {
 						formParams.setParameter(entry.getKey(),

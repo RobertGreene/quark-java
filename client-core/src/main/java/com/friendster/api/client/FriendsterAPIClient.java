@@ -230,7 +230,7 @@ public class FriendsterAPIClient {
 		RequestContext requestContext = new RequestContext(RequestType.ASSET_UPLOAD_INQ, appDetails, paramsMap);
 		AssetResponse response = (AssetResponse) requestContext.handleRequest();
 		
-		if (response.getAssetSerial().equalsIgnoreCase("missing")) {
+		if (response.getAssetStatus().equalsIgnoreCase("MISS")) {
 			System.out.println("File Not Existing... Uploading....");
 			requestContext = new RequestContext(RequestType.ASSET_UPLOAD_PUT, appDetails, paramsMap);
 			response = (AssetResponse) requestContext.handleRequest();
