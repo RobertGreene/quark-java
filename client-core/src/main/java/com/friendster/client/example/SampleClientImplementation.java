@@ -7,24 +7,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.friendster.api.beans.ApplicationFriendsResponse;
+import com.friendster.api.beans.AssetResponse;
 import com.friendster.api.beans.FriendsResponse;
 import com.friendster.api.beans.GameScoreResponse;
 import com.friendster.api.beans.MessageResponse;
 import com.friendster.api.beans.NotificationsResponse;
+import com.friendster.api.beans.PointsResponse;
 import com.friendster.api.beans.ShoutoutResponse;
 import com.friendster.api.beans.UserResponse;
 import com.friendster.api.beans.topscores.HighScores;
 import com.friendster.api.beans.topscores.Score;
 import com.friendster.api.client.FriendsterAPIClient;
-import com.friendster.api.client.special.MessageRequest;
-import com.friendster.api.client.special.NotificationRequest;
-import com.friendster.api.client.special.PaymentRequest;
+import com.friendster.api.client.throwable.FriendsterAPIException;
 import com.friendster.api.client.throwable.FriendsterAPIServiceException;
 
 public class SampleClientImplementation {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		String sessionKey = "ff4dc5e6-8c7b-7beb-b7a1-6f20e303d443";
+		String sessionKey = "f45b25f0-06e0-3383-b5f4-746e04a8ef16";
 		// ff4dc5e6-8c7b-7beb-b7a1-6f20e303d443
 		FriendsterAPIClient client = new FriendsterAPIClient(sessionKey,
 				"src/main/resources/FriendsterAPIConfig.xml");
@@ -57,13 +57,16 @@ public class SampleClientImplementation {
 			// requestList.add(client.getNewMessages());
 			// requestList.add(client.getMessage(1));
 			// requestList.add(client.getMessages());
-			requestList.add(client.getUserInformation(200000230, 200000233));
+			// requestList.add(client.getUserInformation(200000073));
 			//
 			// requestList.add(client.getTopScores());
 			// requestList.add(client.getPaymentRequest(new
 			// PaymentRequest("Test",
 			// "Test", 1, "")));
-
+			// requestList.add(client.rewardPoints(200000073, 1));
+			requestList
+					.add(client
+							.uploadAsset("/home/dev/tomcat_server"));
 			// IN PROGRESS
 			// requestList.add(client.commitPaymentRequest("d1013626ad56f30657c8cc687e1485"));
 
@@ -76,6 +79,9 @@ public class SampleClientImplementation {
 		} catch (FriendsterAPIServiceException e) {
 			System.out.println("Error Code : " + e.getErrorCode());
 			System.out.println("Error Msg  : " + e.getErrorMessage());
+		} catch (FriendsterAPIException e) {
+			e.printStackTrace();
+			e.getOriginalException().printStackTrace();
 		}
 		return requestList;
 	}
@@ -84,7 +90,6 @@ public class SampleClientImplementation {
 		if (o instanceof UserResponse) {
 			System.out.println("Successful: USER");
 			UserResponse response = (UserResponse) o;
-
 			System.out.println("Last name: "
 					+ response.getUser().get(0).getFirstName().trim());
 		}
@@ -199,6 +204,15 @@ public class SampleClientImplementation {
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			}
+		} else if (o instanceof PointsResponse) {
+			System.out.println("SUCCESSFUL: REWARD_POINTS");
+			PointsResponse response = (PointsResponse) o;
+			System.out.println("UID   :" + response.getUid());
+			System.out.println("Points: " + response.getPoints());
+		} else if (o instanceof AssetResponse) {
+			System.out.println("SUCCESSFUL : ASSET_RESPONSE_INQ");
+			AssetResponse response = (AssetResponse) o;
+			System.out.println("Asset Serial : " + response.getAssetSerial());
 		}
 	}
 }
