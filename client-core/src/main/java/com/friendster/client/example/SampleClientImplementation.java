@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.friendster.api.beans.ApplicationFriendsResponse;
+import com.friendster.api.beans.ApplicationGuildsResponse;
 import com.friendster.api.beans.AssetResponse;
 import com.friendster.api.beans.FriendsResponse;
 import com.friendster.api.beans.GameScoreResponse;
@@ -24,7 +25,7 @@ import com.friendster.api.client.throwable.FriendsterAPIServiceException;
 public class SampleClientImplementation {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		String sessionKey = "f45b25f0-06e0-3383-b5f4-746e04a8ef16";
+		String sessionKey = "0e1eafc0-447c-c03d-677e-3fe8d4d65965";
 		// ff4dc5e6-8c7b-7beb-b7a1-6f20e303d443
 		FriendsterAPIClient client = new FriendsterAPIClient(sessionKey,
 				"src/main/resources/FriendsterAPIConfig.xml");
@@ -63,10 +64,11 @@ public class SampleClientImplementation {
 			// requestList.add(client.getPaymentRequest(new
 			// PaymentRequest("Test",
 			// "Test", 1, "")));
-			// requestList.add(client.rewardPoints(200000073, 1));
-			requestList
-					.add(client
-							.uploadAsset("/home/dev/tomcat_server"));
+//			 requestList.add(client.rewardPoints(200000004, 1));
+			 requestList.add(client.getApplicationGuilds());
+//			requestList
+//					.add(client
+//							.uploadAsset("/home/dev/tomcat_server"));
 			// IN PROGRESS
 			// requestList.add(client.commitPaymentRequest("d1013626ad56f30657c8cc687e1485"));
 
@@ -213,6 +215,12 @@ public class SampleClientImplementation {
 			System.out.println("SUCCESSFUL : ASSET_RESPONSE_INQ");
 			AssetResponse response = (AssetResponse) o;
 			System.out.println("Asset Serial : " + response.getAssetSerial());
+		} else if (o instanceof ApplicationGuildsResponse) {
+			System.out.println("SUCCESSFUL : APPLICATION_GUILDS ");
+			ApplicationGuildsResponse response = (ApplicationGuildsResponse) o;
+			for (String guild : response.getGuilds()) {
+				System.out.println("Guild " + guild);
+			}
 		}
 	}
 }

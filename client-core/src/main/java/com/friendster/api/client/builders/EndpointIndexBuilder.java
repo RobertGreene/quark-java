@@ -10,7 +10,7 @@ import com.friendster.api.client.throwable.FriendsterAPIException;
 public class EndpointIndexBuilder {
 	private static Map<RequestType, String> endpointIndex;
 	private static Map<RequestType, RequestMethod> methodIndex;
-	private static final String BASE_URL = "http://api.friendster.com/v1/";
+	private static final String BASE_URL = "http://smackaho.st:8080/v1/";
 
 	static {
 		buildEndpointIndex();
@@ -47,6 +47,7 @@ public class EndpointIndexBuilder {
 		endpointIndex.put(RequestType.REWARD_POINTS, BASE_URL + "points/");
 		endpointIndex.put(RequestType.ASSET_UPLOAD_INQ, BASE_URL + "assets/");
 		endpointIndex.put(RequestType.ASSET_UPLOAD_PUT, BASE_URL + "assets/");
+		endpointIndex.put(RequestType.APPLICATION_GUILDS, BASE_URL + "application_guilds");
 		
 	}
 
@@ -68,10 +69,10 @@ public class EndpointIndexBuilder {
 		methodIndex.put(RequestType.WALLET_GET, RequestMethod.POST);
 		methodIndex.put(RequestType.WALLET_CALLBACK, RequestMethod.GET);
 		methodIndex.put(RequestType.NEW_MESSAGES, RequestMethod.GET);
-		methodIndex.put(RequestType.REWARD_POINTS, RequestMethod.GET);
+		methodIndex.put(RequestType.REWARD_POINTS, RequestMethod.POST);
 		methodIndex.put(RequestType.ASSET_UPLOAD_INQ, RequestMethod.GET);
 		methodIndex.put(RequestType.ASSET_UPLOAD_PUT, RequestMethod.POST);
-		
+		methodIndex.put(RequestType.APPLICATION_GUILDS, RequestMethod.GET);
 	}
 
 	public static String getEndpoint(RequestType requestType) {

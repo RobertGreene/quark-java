@@ -88,6 +88,8 @@ public class RequestBuilder {
 			request = new Request(requestType, appDetails);
 		case ASSET_UPLOAD_PUT:
 			request = new Request(requestType, appDetails);
+		case APPLICATION_GUILDS:
+			request = new Request(requestType, appDetails);
 		default:
 			break;
 		}

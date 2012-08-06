@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import com.friendster.api.beans.ApplicationFriendsResponse;
+import com.friendster.api.beans.ApplicationGuildsResponse;
 import com.friendster.api.beans.AssetResponse;
 import com.friendster.api.beans.FriendsResponse;
 import com.friendster.api.beans.GameScoreResponse;
@@ -239,6 +240,13 @@ public class FriendsterAPIClient {
 		}
 		System.out.println("Process Completed");
 		return response;
+	}
+	
+	public ApplicationGuildsResponse getApplicationGuilds() {
+		RequestContext requestContext = new RequestContext(
+				RequestType.APPLICATION_GUILDS, this.appDetails);
+		return (ApplicationGuildsResponse) requestContext
+				.handleRequest();
 	}
 
 	private String getConfigProperty(String propertyKey) {
