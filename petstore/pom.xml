@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>quark</artifactId>
 		<groupId>com.friendster.api</groupId>
-		<version>1.0.5</version>
+		<version>1.0.6-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
 	<artifactId>petstore</artifactId>
@@ -11,7 +11,7 @@
 	<description>Sample Implementation of the Quark Java Project for the Friendster API</description>
 	<packaging>war</packaging>
 	<groupId>com.friendster.api.quark</groupId>
-	<version>1.0.5-BUILD</version>
+	<version>1.0.6-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>1.6</java-version>
 		<org.springframework-version>3.0.6.RELEASE</org.springframework-version>
@@ -121,7 +121,7 @@
 		<dependency>
 			<groupId>com.friendster.api.quark</groupId>
 			<artifactId>client-core</artifactId>
-			<version>1.0.5</version>
+			<version>1.0.6-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	<build>
