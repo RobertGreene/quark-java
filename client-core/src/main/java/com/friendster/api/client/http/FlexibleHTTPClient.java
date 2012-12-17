@@ -44,17 +44,13 @@ public class FlexibleHTTPClient {
 						(Map<String, String>) args[0]);
 				BasicHttpParams formParams = new BasicHttpParams();
 				if (formData.containsKey("File")) {
-
-					// TODO Add MultiPartEntity
 					MultipartEntity entity = new MultipartEntity();
 					try {
 						for (Entry<String, String> entry : formData.entrySet()) {
-//							entity.addPart(entry.getKey(),
-//									new StringBody(entry.getValue()));
-							formParams.setParameter(entry.getKey(), entry.getValue());
+							formParams.setParameter(entry.getKey(),
+									entry.getValue());
 						}
 					} catch (Exception e) {
-						// TODO: handle exception
 					}
 
 					entity.addPart("bin",
@@ -76,17 +72,17 @@ public class FlexibleHTTPClient {
 		}
 		try {
 			HttpResponse response = httpClient.execute(httpRequest);
-//			byte[] b = new byte[1];
-//			InputStream is = response.getEntity().getContent();
-//			ArrayList<Byte> a = new ArrayList<Byte>();
-//			while (is.read(b) != -1) {
-//				a.add(b[0]);
-//			}
-//			byte[] bb = new byte[a.size()];
-//			for (int i = 0; i < a.size(); i++) {
-//				bb[i] = a.get(i);
-//			}
-//			System.out.println(new String(bb).toString());
+			// byte[] b = new byte[1];
+			// InputStream is = response.getEntity().getContent();
+			// ArrayList<Byte> a = new ArrayList<Byte>();
+			// while (is.read(b) != -1) {
+			// a.add(b[0]);
+			// }
+			// byte[] bb = new byte[a.size()];
+			// for (int i = 0; i < a.size(); i++) {
+			// bb[i] = a.get(i);
+			// }
+			// System.out.println(new String(bb).toString());
 			return response.getEntity();
 		} catch (ClientProtocolException e) {
 			throw new FriendsterAPIException(e);

@@ -1,21 +1,23 @@
 package com.friendster.api.beans.messages;
 
+import java.util.List;
+
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Namespace;
 
 
 public class Messages {
 
-	@Element(name = "conversation", required = false)
+	@ElementList(inline = true, entry = "conversation", required = false)
 	@Namespace(reference = "http://api.friendster.com/v1/")
-	private Conversation conversation;
-
-
-	@Element(name = "page")
+	private List<Conversation> conversation;
+	
+	@Element(name = "page", required = false)
 	@Namespace(reference = "http://api.friendster.com/v1/")
 	private String page;
 
-	@Element(name = "nextPage")
+	@Element(name = "next_page", required = false)
 	@Namespace(reference = "http://api.friendster.com/v1/")
 	private String nextPage;
 
@@ -35,11 +37,11 @@ public class Messages {
 		this.nextPage = nextPage;
 	}
 
-	public Conversation getConversation() {
+	public List<Conversation> getConversation() {
 		return conversation;
 	}
 
-	public void setConversation(Conversation conversation) {
+	public void setConversation(List<Conversation> conversation) {
 		this.conversation = conversation;
 	}
 	

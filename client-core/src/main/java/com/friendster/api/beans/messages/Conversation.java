@@ -1,27 +1,32 @@
 package com.friendster.api.beans.messages;
 
+import java.util.Date;
+
 import org.simpleframework.xml.Element;
 
 
 public class Conversation {
 	
-	@Element(name = "cid")
+	@Element(name = "cid", required = false)
 	private String cid;
 		
-	@Element(name = "latestMessageBody")
+	@Element(name = "latest_message_body", required = false)
 	private String latestMessageBody;
 	
-	@Element(name = "senderId")
+	@Element(name = "sender_id", required = false)
 	private String senderId;
 	
-	@Element(name = "senderName")
+	@Element(name = "sender_name", required = false)
 	private String senderName;
 	
-	@Element(name = "recipientId")
+	@Element(name = "recipient_id", required = false)
 	private String recipientId;
 	
-	@Element(name = "recipientName")
+	@Element(name = "recipient_name", required = false)
 	private String recipientName;
+	
+	@Element(name = "time", required = false)
+	private String time;
 
 	public String getCid() {
 		return cid;
@@ -69,5 +74,16 @@ public class Conversation {
 
 	public void setRecipientName(String recipientName) {
 		this.recipientName = recipientName;
+	}
+
+	public Date getTime() {
+		String time = this.time;
+		Date returnDate = new Date();
+		returnDate.setTime(Long.parseLong(time));
+		return returnDate;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 }

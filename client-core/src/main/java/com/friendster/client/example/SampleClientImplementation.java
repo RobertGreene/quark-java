@@ -16,17 +16,20 @@ import com.friendster.api.beans.NotificationsResponse;
 import com.friendster.api.beans.PointsResponse;
 import com.friendster.api.beans.ShoutoutResponse;
 import com.friendster.api.beans.UserResponse;
+import com.friendster.api.beans.messages.Conversation;
 import com.friendster.api.beans.topscores.HighScores;
 import com.friendster.api.beans.topscores.Score;
 import com.friendster.api.client.FriendsterAPIClient;
+import com.friendster.api.client.special.MessageRequest;
+import com.friendster.api.client.special.NotificationRequest;
+import com.friendster.api.client.special.PaymentRequest;
 import com.friendster.api.client.throwable.FriendsterAPIException;
 import com.friendster.api.client.throwable.FriendsterAPIServiceException;
 
 public class SampleClientImplementation {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		String sessionKey = "0e1eafc0-447c-c03d-677e-3fe8d4d65965";
-		// ff4dc5e6-8c7b-7beb-b7a1-6f20e303d443
+		String sessionKey = args[0];
 		FriendsterAPIClient client = new FriendsterAPIClient(sessionKey,
 				"src/main/resources/FriendsterAPIConfig.xml");
 		for (Object responseObject : getRequestList(client)) {
@@ -43,40 +46,33 @@ public class SampleClientImplementation {
 	public static List getRequestList(FriendsterAPIClient client) {
 		List requestList = new ArrayList();
 		try {
-
-			// // DONE
-			// requestList.add(client.postShoutout("Hello World!"));
-			// requestList.add(client.postNotification(new NotificationRequest(
-			// "Hello", "Hello", "Hello", "Hello"), 200000233, 200000230));
-			// requestList.add(client.postMessage(200000233, new MessageRequest(
-			// 20, 20)));
-			// requestList.add(client.postScore(200000233, 1000000));
-			// requestList.add(client.getFriends(200000230));
-			// requestList.add(client.getAppFriends());
-			// requestList.add(client.getShoutout(200000230));
-			// requestList.add(client.getWalletBalance());
-			// requestList.add(client.getNewMessages());
-			// requestList.add(client.getMessage(1));
-			// requestList.add(client.getMessages());
-			// requestList.add(client.getUserInformation(200000073));
+//			requestList.add(client.postShoutout("Hello World!"));
+//			requestList.add(client.postNotification(new NotificationRequest(
+//					"Hello", "Hello", "Hello", "Hello"), 200000233, 200000230));
+//			requestList.add(client.postMessage(200000233, new MessageRequest(
+//					20, 20)));
+			requestList.add(client.postScore(200000233, 1000000));
+//			requestList.add(client.getFriends(200000230));
+//			requestList.add(client.getAppFriends());
+//			requestList.add(client.getShoutout(200000230));
+//			requestList.add(client.getWalletBalance());
+//			requestList.add(client.getNewMessages());
+//			requestList.add(client.getMessage(1));
+//			requestList.add(client.getMessages());
+//			requestList.add(client.getUserInformation(200000230));
+//
+			requestList.add(client.getTopScores());
+//			requestList.add(client.getPaymentRequest(new PaymentRequest("Test",
+//					"Test", 1, "")));
+//			requestList.add(client.rewardPoints(200000004, 1));
+//			requestList.add(client.getApplicationGuilds());
+			// requestList.add(client.uploadAsset("/home/dev/tomcat_server"));
+			// requestList.add(client
+			// .commitPaymentRequest("d1013626ad56f30657c8cc687e1485"));
 			//
-			// requestList.add(client.getTopScores());
-			// requestList.add(client.getPaymentRequest(new
-			// PaymentRequest("Test",
-			// "Test", 1, "")));
-//			 requestList.add(client.rewardPoints(200000004, 1));
-			 requestList.add(client.getApplicationGuilds());
-//			requestList
-//					.add(client
-//							.uploadAsset("/home/dev/tomcat_server"));
-			// IN PROGRESS
-			// requestList.add(client.commitPaymentRequest("d1013626ad56f30657c8cc687e1485"));
-
-			// requestList.add(client.getCallBackUrl(client.getPaymentRequest(new
-			// PaymentRequest("Test", "Test",
+			// requestList.add(client.getCallBackUrl(
+			// client.getPaymentRequest(new PaymentRequest("Test", "Test",
 			// 1, "")), "http://www.friendster.com"));
-
-			// IGNORED
 
 		} catch (FriendsterAPIServiceException e) {
 			System.out.println("Error Code : " + e.getErrorCode());
@@ -129,10 +125,11 @@ public class SampleClientImplementation {
 			com.friendster.api.beans.messages.Messages messages = response
 					.getMessages();
 			if (messages != null) {
-				com.friendster.api.beans.messages.Conversation conversation = messages
-						.getConversation();
-				System.out.println("Conversation --"
-						+ conversation.getLatestMessageBody());
+				List<Conversation> conversation = messages.getConversation();
+				for (Conversation c : conversation) {
+					System.out.println("Conversation --"
+							+ c.getLatestMessageBody());
+				}
 			}
 		}
 		// Get Message (with param)

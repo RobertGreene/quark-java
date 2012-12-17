@@ -20,23 +20,5 @@ public class GameScoreResponse {
 	public void setHighScores(HighScores highScores) {
 		this.highScores = highScores;
 	}
-	
-	
-	
-	
-	
-	
-// Old	
-//	@Element(name = "status")
-//	@Namespace(reference = "http://api.friendster.com/v1/")
-//	private String status;
-//
-//	public String getStatus() {
-//		return status;
-//	}
-//
-//	public void setStatus(String status) {
-//		this.status = status;
-//	}
 
 }
