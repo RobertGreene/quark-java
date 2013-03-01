@@ -25,6 +25,7 @@ import com.friendster.api.client.special.NotificationRequest;
 import com.friendster.api.client.special.PaymentRequest;
 import com.friendster.api.client.throwable.FriendsterAPIException;
 import com.friendster.api.client.throwable.FriendsterAPIServiceException;
+import com.friendster.api.beans.WallResponse;
 
 public class SampleClientImplementation {
 
@@ -60,7 +61,8 @@ public class SampleClientImplementation {
 //			requestList.add(client.getMessage(1));
 //			requestList.add(client.getMessages());
 //			requestList.add(client.getUserInformation(200000230));
-//
+			// you can leave blank the eveniconid if you do not use one
+//			requestList.add(WallPost("Subject", "Template", "Label", "FragUrl", "EventIconId");
 			requestList.add(client.getTopScores());
 //			requestList.add(client.getPaymentRequest(new PaymentRequest("Test",
 //					"Test", 1, "")));
@@ -107,7 +109,11 @@ public class SampleClientImplementation {
 			System.out.println("SUCCESSFUL : SCORE");
 			GameScoreResponse response = (GameScoreResponse) o;
 			System.out.println("Status : " + response.getStatus());
-
+		} else if (o instanceof WallResponse) {
+			System.out.println("SUCCESSFUL : RICH WALL POST");
+			WallResponse response =	(WallResponse) o;
+			System.out.println("Id: " + response.getId() );
+			System.out.println("Created At: " + response.getCreatedAt() );
 		} else if (o instanceof com.friendster.api.beans.topscores.GameScoreResponse) {
 			System.out.println("SUCCESSFUL : TOPSCORE");
 			com.friendster.api.beans.topscores.GameScoreResponse response = (com.friendster.api.beans.topscores.GameScoreResponse) o;
