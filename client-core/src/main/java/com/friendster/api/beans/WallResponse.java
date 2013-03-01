@@ -8,8 +8,8 @@ import org.simpleframework.xml.Root;
 @Namespace(reference = "http://api.friendster.com/v1/")
 public class WallResponse {
   
-//    @XmlElement(name = "id")
-//    @XmlElement(name = "created_at")
+//    @XmlElement(name = "id");
+//    @XmlElement(name = "created_at");
 	
 	@Element(name = "id", required = false)
 	private String Id;
