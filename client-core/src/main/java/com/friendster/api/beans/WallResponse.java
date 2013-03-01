@@ -29,7 +29,7 @@ public class WallResponse {
 		this.CreatedAt = CreatedAt;
 	}
 
-	public void setRedirectUrl(String Id) {
+	public void setId(String Id) {
 		this.Id = Id;
 	}	
 }
