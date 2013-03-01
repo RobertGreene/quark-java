@@ -31,6 +31,5 @@ public class WallResponse {
 
 	public void setRedirectUrl(String Id) {
 		this.Id = Id;
-	}
-	
+	}	
 }
