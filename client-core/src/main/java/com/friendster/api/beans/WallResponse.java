@@ -1,4 +1,4 @@
-package com.friendster.api.beans.wall;
+package com.friendster.api.beans;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Namespace;
