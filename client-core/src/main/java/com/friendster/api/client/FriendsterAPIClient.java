@@ -23,6 +23,7 @@ import com.friendster.api.beans.NotificationsResponse;
 import com.friendster.api.beans.PointsResponse;
 import com.friendster.api.beans.UserResponse;
 import com.friendster.api.beans.wallet.payment.WalletResponse;
+import com.friendster.api.beans.wall.WallResponse;
 import com.friendster.api.client.enums.RequestType;
 import com.friendster.api.client.request.FriendsterPCPAppInfo;
 import com.friendster.api.client.special.MessageRequest;
@@ -245,10 +246,23 @@ public class FriendsterAPIClient {
 	public ApplicationGuildsResponse getApplicationGuilds() {
 		RequestContext requestContext = new RequestContext(
 				RequestType.APPLICATION_GUILDS, this.appDetails);
-		return (ApplicationGuildsResponse) requestContext
-				.handleRequest();
+		return (ApplicationGuildsResponse) requestContext.handleRequest();
 	}
-
+	
+	public WallResponse WallPost(String Subject, String Template, String Label, String FragUrl, String EventIconId){
+		Map<String, String> paramMap = new HashMap<String, String>(); 
+		paramMap.put("subject", Subject);
+		if (Label!=null)
+			paramMap.put("label", Label);
+		paramMap.put("template", Template);
+		if (FragUrl!=null)
+			paramMap.put("url_fragment", FragUrl);
+		if (EventIconId!=null)
+			paramMap.put("event_icon_id", EventIconId);
+		RequestContext requestContext = new RequestContext(RequestType.WALL_RICHPOST, this.appDetails, paramMap);
+		return (WallResponse) requestContext.handleRequest();
+	}
+	
 	private String getConfigProperty(String propertyKey) {
 		return this.configProperties.getProperty(propertyKey);
 	}
