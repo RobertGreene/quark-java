@@ -73,6 +73,9 @@ public class RequestBuilder {
 		case WALLET_COMMIT:
 			request = new Request(requestType, appDetails);
 			break;
+		case WALL_RICHPOST:
+			request = new Request(requestType, appDetails);
+			break;
 		case WALLET_GET:
 			request = new Request(requestType, appDetails);
 			break;
